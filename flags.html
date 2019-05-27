@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js"lang="ES-es">
+<html class="main" lang="EN-gb">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible"content="IE=edge,chrome=1">
@@ -9,24 +9,23 @@
 		<link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 		<style type="text/css">
-			
-		.bg-gray{
-			background-color: gray;
-		}
-		.max-w{
-			max-width: 900px;
-		}
+			.bg-gray{
+				background-color: gray;
+			}
+			.max-w{
+				max-width: 900px;
+			}
 		</style>
 		<body>
 			<main class="container-fluid mt-3">
 				<h1 class="text-center mt-3">Handling flags and stuff (WIP)</h1>
 				<!--<button class="btn btn-primary" >STUFF</button>-->
-				<div class="text-center mt-5 mx-auto border border-info p-3 max-w">
+				<div class="text-center mt-5 mx-auto border border-info p-3 max-w" id="modelFlagsSection">
 					<div class="alert alert-secondary mx-5" role="alert">
-					<h3 class="text-center mt-3">Model Flags Generator</h3>
-					<p>This simple tool can help you set up the modelflags for your vehicle.<br><br>Just click on each item of the table to enable or disable a model flag.<br>Below the table, you'll get a number which contains all the flags you have enabled.</p>
+						<h3 class="text-center mt-3">Model Flags Generator</h3>
+						<p>Click on each item of the table to enable or disable a model flag.<br>Below the table, you'll get a number which contains all the flags you have enabled.</p>
 					</div>
-					<div id="table" class=" border border-gray bg-light container-fluid">
+					<div id="table" class="border border-gray bg-light container-fluid">
 						<div class="row">
 							<div class="col-md-3 py-1 align-middle">IS_VAN</div>
 							<div class="col-md-3 py-1 align-middle">IS_BUS</div>
@@ -40,16 +39,16 @@
 							<div class="col-md-3 py-1 align-middle">ABS_ALT_OPTION</div>
 						</div>
 						<div class="row">
-							<div class="col-md-3 py-1 align-middle">NO_EXHAUST</div>
-							<div class="col-md-3 py-1 align-middle">DOUBLE_EXHAUST</div>
-							<div class="col-md-3 py-1 align-middle">NO1FPS_LOOK_BEHIND</div>
-							<div class="col-md-3 py-1 align-middle">CAN_ENTER_IF_NO_DOOR</div>
-						</div>
-						<div class="row">
 							<div class="col-md-3  py-1 align-middle">NO_DOORS</div>
 							<div class="col-md-3 py-1 align-middle">TANDEM_SEATS</div>
 							<div class="col-md-3 py-1 align-middle">SIT_IN_BOAT</div>
 							<div class="col-md-3 py-1 align-middle">HAS_TRACKS</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3 py-1 align-middle">NO_EXHAUST</div>
+							<div class="col-md-3 py-1 align-middle">DOUBLE_EXHAUST</div>
+							<div class="col-md-3 py-1 align-middle">NO1FPS_LOOK_BEHIND</div>
+							<div class="col-md-3 py-1 align-middle">CAN_ENTER_IF_NO_DOOR</div>
 						</div>
 						<div class="row">
 							<div class="col-md-3  py-1 align-middle ">AXLE_F_TORSION</div>
@@ -77,73 +76,122 @@
 						</div>
 					</div>
 					<div class="border border-info bg-light mt-2">
-					<h3 class="">Result</h3>
-
-					<div class="mb-2 mt-2 mx-auto text-center text-truncate w-50 border border-dark bg-light ">&lt;strModelFlags&gt;<span class="text-muted"><strong id="flags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div>
-					<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">Remember that some flags are can override each other.<br>For example, <i>IS_BUS</i> and <i>IS_VAN</i> will not work together.</div>
+						<h3 class="">Result</h3>
+						<div class="mb-2 mt-2 mx-auto text-center w-50 border border-dark bg-light ">&lt;strModelFlags&gt;<span class="text-muted"><strong id="modelFlags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div>
+						<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">Remember that some flags are can override each other.<br>For example, <i>IS_BUS</i> and <i>IS_VAN</i> will not work together.</div>
+					</div>
 				</div>
+				<hr>
+				<div class="text-center mt-5 mx-auto border border-info p-3 max-w" id="handlingFlagsSection">
+					<div class="alert alert-secondary mx-5" role="alert">
+						<h3 class="text-center mt-3">Handling Flags Generator</h3>
+						<p>Click on each item of the table to enable or disable a handling flag.<br>Below the table, you'll get a number which contains all the flags you have enabled.</p>
+					</div>
+					<div id="table" class=" border border-gray bg-light container-fluid">
+						<div class="row">
+							<div class="col-md-3 py-1 align-middle">SMOOTH_COMPRESN</div>
+							<div class="col-md-3 py-1 align-middle">REDUCED_MOD_MASS</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+							<div class="col-md-3 py-1 align-middle"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-3 py-1 align-middle">NO_HANDBRAKE</div>
+							<div class="col-md-3 py-1 align-middle">STEER_REARWHEELS</div>
+							<div class="col-md-3 py-1 align-middle">HB_REARWHEEL_STEER</div>
+							<div class="col-md-3 py-1 align-middle">STEER_ALL_WHEELS</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3 py-1 align-middle">FREEWHEEL_NO_GAS</div>
+							<div class="col-md-3 py-1 align-middle">NO_REVERSE	</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+							<div class="col-md-3 py-1 align-middle"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-3  py-1 align-middle">CVT</div>
+							<div class="col-md-3 py-1 align-middle">ALT_EXT_WHEEL_BOUNDS_BEH</div>
+							<div class="col-md-3 py-1 align-middle">DONT_RAISE_BOUNDS_AT_SPEED</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-3 py-1 align-middle">LESS_SNOW_SINK</div>
+							<div class="col-md-3 py-1 align-middle">TYRES_CAN_CLI</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+							<div class="col-md-3 py-1 align-middle"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-3  py-1 align-middle ">OFFROAD_ABILITY</div>
+							<div class="col-md-3 py-1 align-middle">OFFROAD_ABILITY2</div>
+							<div class="col-md-3 py-1 align-middle">HF_TYRES_RAISE_SIDE_IMPACT_THRESHOLD</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+						</div>
+						<div class="row">
+							<div class="col-md-3  py-1 align-middle ">ENABLE_LEAN</div>
+							<div class="col-md-3 py-1 align-middle">HEAVYARMOUR</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+							<div class="col-md-3 py-1 align-middle">ARMOURED</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3  py-1 align-middle ">SELF_RIGHTING_IN_WATER</div>
+							<div class="col-md-3 py-1 align-middle">IMPROVED_RIGHTING_FORCE</div>
+							<div class="col-md-3 py-1 align-middle"></div>
+							<div class="col-md-3 py-1 align-middle"></div>
+						</div>
+					</div>
+					<div class="border border-info bg-light mt-2">
+						<h3 class="">Result</h3>
+						<div class="mb-2 mt-2 mx-auto text-center w-50 border border-dark bg-light ">&lt;strHandlingFlags&gt;<span class="text-muted"><strong id="handlingFlags">00000000</strong></span>&lt;&frasl;strHandlingFlags&gt;</div>
+						<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">Remember that some flags are can override each other.<br>For example, <i>STEER_REARWHEELS</i> and <i>STEER_ALL_WHEELS</i> will not work together.</div>
+					</div>
 				</div>
 			</main>
 		</body>
 		<script type="text/javascript">
-		////////
-		window.onload=autoborders;
-
-		function autoborders(){
-			var autoborder= document.querySelectorAll(".col-md-3");
-			for (var i = 0; i <= autoborder.length - 1; i++) {
-			autoborder[i].onclick=toggle;
-				$(autoborder[i]).toggleClass("border", true);
-				$(autoborder[i]).toggleClass("text-truncate", true);
-				//$(autoborder[i]).toggleClass("text-muted", true);
-				$(autoborder[i]).toggleClass("border-gray", true);
-		//		$(autoborder[i]).toggleClass("bg-light", true);
+			var modelFlags=document.querySelector("#modelFlagsSection").querySelectorAll(".row");
+			var handlingFlags=document.querySelector("#handlingFlagsSection").querySelectorAll(".row");
+			////////
+			window.onload=autoborders;
+			function autoborders(){
+				var autoborder= document.querySelectorAll(".col-md-3");
+				for (var i = 0; i <= autoborder.length - 1; i++) {
+					autoborder[i].onclick=toggle;
+					$(autoborder[i]).toggleClass("border", true);
+					$(autoborder[i]).toggleClass("text-truncate", true);
+					//$(autoborder[i]).toggleClass("text-muted", true);
+					$(autoborder[i]).toggleClass("border-gray", true);
+							//		$(autoborder[i]).toggleClass("bg-light", true);
 				}
-		}
-		////////
-			
-		//document.getElementsByTagName('main')[0].onclick=toggle;
-		function toggle(e){
-		$(e.target).toggleClass("bg-success");
-		//$(e.target).toggleClass("bg-light");
-		//$(e.target).toggleClass("text-muted");
-
-		var flagsfinal="";
-		var d= e.target.parentNode.querySelectorAll(".col-md-3");
-		var arrayRows=document.querySelectorAll(".row");
-		arrayRows= $(arrayRows).toArray().reverse();
-			var n=1;
-			var m=1;
-			var res=0;
-		for (var a = 0; a <= arrayRows.length - 1; a++) {
-			//$(arrayRows[a]).toggleClass("bg-light");
-			var columnas= arrayRows[a].querySelectorAll(".col-md-3");
-			n=1;
-			m=1;
-			res=0;
-			for (var i = 0; i <= columnas.length - 1; i++) {
-			
-				if($(columnas[i]).hasClass("bg-success")){
-						res += n*(m);
-					
-				}
-		m*=2;
-				
 			}
-			if(res==0)flagsfinal += "<span class='text-muted'>"+res.toString(16).toUpperCase()+"<span>";
-						else flagsfinal += "<span class='text-success'>"+res.toString(16).toUpperCase()+"<span>";
-								res=0;
-						}
+			////////
+			//document.getElementsByTagName('main')[0].onclick=toggle;
+			function toggle(e){
+				$(e.target).toggleClass("bg-success");
+				$(e.target).toggleClass("text-truncate");
+				calcModelFlags();
+			}
+			function calcModelFlags(){
+				var flagsfinal="";
+				var arrayRows=document.querySelector("#handlingFlagsSection").querySelectorAll(".row");
+				arrayRows= $(arrayRows).toArray().reverse();
+				var n=1;
+				var m=1;
+				var res=0;
+				for (var a = 0; a <= arrayRows.length - 1; a++) {
+				//$(arrayRows[a]).toggleClass("bg-light");
+				var columnas= arrayRows[a].querySelectorAll(".col-md-3");
+				n=1;
+				m=1;
+				res=0;
+				for (var i = 0; i <= columnas.length - 1; i++) {
+					if($(columnas[i]).hasClass("bg-success")){
+						res += n*(m);
 						
-						document.getElementById('flags').innerHTML=flagsfinal.toString();
-						}
-						/*
-						for (var i = 0; i <= d.length - 1; i++) {
-							
-							if($(d[i]).hasClass("bg-success")){
-								res+=n*(m);
-							}
-							m*=2;
-						}*/
-								
+					}
+					m*=2;
+				}
+				if(res==0)flagsfinal += "<span class='text-muted'>"+res.toString(16).toUpperCase()+"<span>";
+					else flagsfinal += "<span class='text-success'>"+res.toString(16).toUpperCase()+"<span>";
+						res=0;
+					}
+					document.getElementById('handlingFlags').innerHTML=flagsfinal.toString();
+				}
 				</script>
