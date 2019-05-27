@@ -22,11 +22,13 @@
 				<h1 class="text-center mt-3">Handling flags and stuff (WIP)</h1>
 				<!--<button class="btn btn-primary" >STUFF</button>-->
 				<div class="text-center mt-5 mx-auto border border-info p-3 max-w">
+					<div class="alert alert-secondary mx-5" role="alert">
 					<h3 class="text-center mt-3">Model Flags Generator</h3>
-					<p>Click on the table to enable or disable a model flag.</p>
+					<p>This simple tool can help you set up the modelflags for your vehicle.<br><br>Just click on each item of the table to enable or disable a model flag.<br>Below the table, you'll get a number which contains all the flags you have enabled.</p>
+					</div>
 					<div id="table" class=" border border-gray bg-light container-fluid">
 						<div class="row">
-							<div class="col-md-3 py-1  align-middle">IS_VAN</div>
+							<div class="col-md-3 py-1 align-middle">IS_VAN</div>
 							<div class="col-md-3 py-1 align-middle">IS_BUS</div>
 							<div class="col-md-3 py-1 align-middle">IS_LOW</div>
 							<div class="col-md-3 py-1 align-middle">IS_BIG</div>
@@ -78,6 +80,7 @@
 					<h3 class="">Result</h3>
 
 					<div class="mb-2 mt-2 mx-auto text-center text-truncate w-50 border border-dark bg-light ">&lt;strModelFlags&gt;<span class="text-muted"><strong id="flags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div>
+					<div class="alert alert-warning mx-5 mt-3 d-inline-block" role="alert">Remember that some flags are can override each other.<br>For example, <i>IS_BUS</i> and <i>IS_VAN</i> will not work together.</div>
 				</div>
 				</div>
 			</main>
