@@ -13,14 +13,17 @@
 		.bg-gray{
 			background-color: gray;
 		}
-
+		.max-w{
+			max-width: 900px;
+		}
 		</style>
 		<body>
 			<main class="container-fluid mt-3">
-				<h1 class="text-center mt-3">Handling flags (WIP)</h1>
+				<h1 class="text-center mt-3">Handling flags and stuff (WIP)</h1>
 				<!--<button class="btn btn-primary" >STUFF</button>-->
-				<div class="text-center mt-5 mx-auto w-50  border border-info p-3">
-					<h3 class="text-center mt-3">Handling Flags Generator</h3>
+				<div class="text-center mt-5 mx-auto border border-info p-3 max-w">
+					<h3 class="text-center mt-3">Model Flags Generator</h3>
+					<p>Click on the table to enable or disable a model flag.</p>
 					<div id="table" class=" border border-gray bg-light container-fluid">
 						<div class="row">
 							<div class="col-md-3 py-1  align-middle">IS_VAN</div>
@@ -73,7 +76,8 @@
 					</div>
 					<div class="border border-info bg-light mt-2">
 					<h3 class="">Result</h3>
-					<div class=" mt-2 mx-auto text-center text-truncate w-50 border border-dark bg-light ">&lt;strModelFlags&gt;<span class="text-muted"><strong id="flags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div>
+
+					<div class="mb-2 mt-2 mx-auto text-center text-truncate w-50 border border-dark bg-light ">&lt;strModelFlags&gt;<span class="text-muted"><strong id="flags">00000000</strong></span>&lt;&frasl;strModelFlags&gt;</div>
 				</div>
 				</div>
 			</main>
