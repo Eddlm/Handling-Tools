@@ -2,13 +2,17 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+
+
+    <script src="notify.js"></script>
     <title>Handling</title>
 </head>
 
@@ -16,12 +20,10 @@
 <body>
 
     <div class="text-center mb-3">
-        <span class="display-4">Handling Editor</span>
-        <p class="mt-2">Description of the tool. Very largue much wow.<br />
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.</p>
+        <span class="display-4">Handling Editor</span><small class="text-muted">0.0.1</small>
+        <p class="mt-2">All values except fDownforceModifier work, descriptions are placeholder or copypastes as of now.
+        </p>
     </div>
-
     <div>
         <div class="py-5 w-25 mx-auto">
             <div class="d-flex align-content-center">
@@ -29,8 +31,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Alert in case the user does not load a handling file but tries to edit the values -->
+    <div class="alert alert-warning alert w-25 mx-auto text-center d-none" role="alert" id="wEmptyFile">Load a handling
+        file first.</div>
+
     <div class="container-fluid border py-2 px-5" style="max-width:1500px">
-        <!-- Master div, separates the sections from the result -->
+        <!-- Tab links -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active show" data-toggle="tab" id="chassis-tab" href="#chassis">Chassis</a>
@@ -63,92 +70,96 @@
                 <a class="nav-link" data-toggle="tab" id="raw-tab" href="#raw">Raw data</a>
             </li>
         </ul>
+        <!-- Tabs Holder -->
         <div class="container-fluid tab-content " id="myTabContent">
-            <!-- Section Collection -->
+            <!-- Tab items -->
             <div class="pb-5  tab-pane fade   active show" id="chassis" role="tabpanel" aria-labelledby="chassis-tab">
-
-                <!-- Section -->
-
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Chassis</h3>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
-                            <div class="bg-light border border-rounded p-4"> 
+                            <div class="bg-light border border-rounded p-4">
 
-                            <h3 class="text-center">Mass </h3>
-                            <p class="text-muted text-center">fMass</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input type="range" min="0" max="15000" value="1000"
-                                    class="form-control-range w-100 mx-2" id="massSlider" oninput="handleMass(this)"
-                                    name="fMass">
-                                <span>15000</span>
+                                <h3 class="text-center">Mass </h3>
+                                <p class="text-muted text-center">fMass</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input type="range" min="0" max="15000" value="1000"
+                                        class="form-control-range w-100 mx-2" id="fMassSlider"
+                                        oninput="applyValueChange(this)" name="fMass">
+                                    <span>15000</span>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="text-center" style="min-height:50px">
+                                        <input type="number" oninput="applyValueChange(this)" name="fMass"
+                                            id="fMassInput" class="form-control text-center my-2">
+                                        <small class="d-none">Your car will weight <span
+                                                class="text-danger">1000</span>kg.</small>
+                                    </div>
+                                </div>
+                                <p>In GTA V, mass is only responsible for the interaction between entities, let's say
+                                    its
+                                    the
+                                    vehicle's pushing force. Mass is not at all related to physical agility and does not
+                                    affech
+                                    the car's physics at all. Only affects how well the car fares when colliding with
+                                    other
+                                    entities. Vehicles, Lamp posts, rocks, etc.</p>
                             </div>
-                            <div class="mb-4">
-                                <div class="text-center" style="min-height:50px">
-                                    <input type="number" oninput="handleMass(this)" name="fMass"  id="massInput"
-                                        class="form-control text-center my-2">
-                                    <small class="d-none">Your car will weight <span
-                                            class="text-danger">1000</span>kg.</small>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
+
+                                <h3 class="text-center">Downforce </h3>
+                                <p class="text-muted text-center">fDownforceModifier</p>
+                                <canvas id="downforceChart" width="100" height="100"></canvas>
+
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input type="range" min="0" max="5" value="1" step="0.01"
+                                        class="form-control-range w-100 mx-2" id="fDownforceModifierSlider"
+                                        oninput="applyValueChange(this)" name="fDownforceModifier">
+                                    <span>5</span>
+                                </div>
+                                <input type="number" oninput="applyValueChange(this)" name="fDownforceModifier"
+                                    class="form-control text-center my-2" step="0.001" id="fDownforceModifierInput">
+                                <div class="text-center">
+                                    <small class="d-none">Your car's downforce is x<span id="downforceDisplay"
+                                            class="text-danger">2.25</span>.</small>
+                                </div>
+                                <p>Downforce is a physical force applied down on your car. This force increases with
+                                    speed.
+                                </p>
+                                <p>This increases grip at high speeds. The grip increase scales with this multiplier.
+                                </p>
+                                <div class="pl-5 font-italic">
+                                    <li>Tip</li>
+                                    <li>Another tip</li>
                                 </div>
                             </div>
-                            <p>In GTA V, mass is only responsible for the interaction between entities, let's say its
-                                the
-                                vehicle's pushing force. Mass is not at all related to physical agility and does not
-                                affech
-                                the car's physics at all. Only affects how well the car fares when colliding with other
-                                entities. Vehicles, Lamp posts, rocks, etc.</p>
-                        </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="bg-light border border-rounded p-4"> 
-
-                            <h3 class="text-center">Downforce </h3>
-                            <p class="text-muted text-center">fDownforceModifier</p>
-                            <canvas id="downforceChart" width="100" height="100"></canvas>
-
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input type="range" min="0" max="5" value="1" step="0.01"
-                                    class="form-control-range w-100 mx-2" id="downforceSlider"
-                                    oninput="handleDownforce(this)" name="fDownforceModifier">
-                                <span>5</span>
-                            </div>
-                            <input type="number" oninput="handleDownforce(this)" name="fDownforceModifier"
-                                class="form-control text-center my-2" step="0.001" id="downforceInput">
-                            <div class="text-center">
-                                <small class="d-none">Your car's downforce is x<span id="downforceDisplay"
-                                        class="text-danger">2.25</span>.</small>
-                            </div>
-                            <p>Downforce is a physical force applied down on your car. This force increases with speed.
-                            </p>
-                            <p>This increases grip at high speeds. The grip increase scales with this multiplier.</p>
-                            <div class="pl-5 font-italic">
-                                <li>Tip</li>
-                                <li>Another tip</li>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-md-4">
-                            
-                            <div class="bg-light border border-rounded p-4"> 
+                            <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Air Drag </h3>
                                 <p class="text-muted text-center">fInitialDragCoeff</p>
                                 <canvas id="airdragChart" width="100" height="100"></canvas>
-    
+
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input type="range" min="1" max="20" value="7" step="0.01" id="airdragSlide"
-                                        oninput="handleAirDrag(this)" class="form-control-range w-100 mx-2"
-                                        name="fInitialDragCoeff">
+                                    <input type="range" min="1" max="20" value="7" step="0.01"
+                                        id="fInitialDragCoeffSlider" oninput="applyValueChange(this)"
+                                        class="form-control-range w-100 mx-2" name="fInitialDragCoeff">
                                     <span>20</span>
-    
                                 </div>
-                                <small class="d-none">Your car's air drag is x<span id="airdragDisplay" class="text-danger">2.25</span>.</small>
-                                <p>Downforce is a physical force applied down on your car. This force increases with speed.
-                                </p>
-                                <p>This increases grip at high speeds. The grip increase scales with this multiplier.</p>
+                                <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
+                                    class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
+                                <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
+                                        class="text-danger">2.25</span>.</small>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                <p>Nam facilis tempore delectus aspernatur obcaecati saepe omnis, ipsum itaque
+                                    recusandae distinctio impedit quia, repudiandae similique, hic perferendis
+                                    praesentium necessitatibus corrupti laboriosam.</p>
                                 <div class="pl-5 font-italic">
                                     <li>Tip</li>
                                     <li>Another tip</li>
@@ -162,117 +173,139 @@
 
             </div>
             <div class="pb-5  tab-pane fade" id="engine" role="tabpanel" aria-labelledby="engine-tab">
-                <!-- Section -->
-
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Engine</h3>
                     <hr>
-                    <div class="row pb-4">
-                        <div class="col-md-3 bg-light border border-rounded mx-5 px-5 py-3">
-                            <h3 class="text-center">Power </h3>
-                            <p class="text-muted text-center">fInitialDriveForce</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input class="w-100 mx-2" name="fInitialDriveForce" type="range" value="0.3"
-                                    step="0.005" min="0" max="5" oninput="handleEnginePower(this)"
-                                    id="enginePowerSlider">
-                                <span>5</span>
+                    <div class="row pb-4 px-3">
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
+                                <h3 class="text-center">Power </h3>
+                                <p class="text-muted text-center">fInitialDriveForce</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input class="w-100 mx-2" name="fInitialDriveForce" type="range" value="0.3"
+                                        step="0.005" min="0" max="5" oninput="applyValueChange(this)"
+                                        id="fInitialDriveForceSlider">
+                                    <span>5</span>
+                                </div>
+                                <input class="form-control text-center my-2" type="number" value="0.3" step="0.001"
+                                    oninput="applyValueChange(this) " id="fInitialDriveForceInput"
+                                    name="fInitialDriveForce">
+                                <p>Engine power affects how strongly the engine will be able to rotate the wheels.
+                                    Gearing uses this value as reference and scales it up and down as needed.</p>
                             </div>
-                            <input class="form-control text-center my-2" type="number" value="0.3" step="0.001"
-                                oninput="handleEnginePower(this) " id="enginePowerInput" name="fInitialDriveForce">
-
-
-                            <p>Engine power affects how strongly the engine will be able to rotate the wheels.
-                                Gearing
-                                uses this value as reference and scales it up and down as needed.</p>
                         </div>
-                        <div class="col-md-3 bg-light border border-rounded mx-5 px-5 py-3">
-                            <h3 class="text-center">Drive inertia</h3>
-                            <p class="text-muted text-center">fDriveInertia</p>
 
-                            <p>How much time the engine takes to redline, when not in gear.</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0" max="3"
-                                    oninput="handleDriveInertia(this)" id="driveInertiaSlider" name="fDriveInertia">
-                                <span>3</span>
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
+                                <h3 class="text-center">Drive inertia</h3>
+                                <p class="text-muted text-center">fDriveInertia</p>
+
+                                <p>How much time the engine takes to redline, when not in gear.</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0" max="3"
+                                        oninput="applyValueChange(this)" id="fDriveInertiaSlider" name="fDriveInertia">
+                                    <span>3</span>
+                                </div>
+                                <input class="form-control text-center my-2" type="number"
+                                    oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
+                                    name="fDriveInertia">
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                             </div>
-                            <input class="form-control text-center my-2" type="number"
-                                oninput="handleDriveInertia(this)" step="0.001" id="driveInertiaInput"
-                                name="fDriveInertia">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                         </div>
-                        <div class="col-md-3 bg-light border border-rounded mx-5 px-5 py-3">
-                            <h3 class="text-center">Top Speed</h3>
-                            <p class="text-muted text-center">fInitialDriveMaxFlatVel</p>
 
-                            <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input class="w-100 mx-2 " type="range" value="100" step="1" min="0" max="200"
-                                    oninput="handleTopSpeed(this)" id="topSpeedSlider" name="fInitialDriveMaxFlatVel">
-                                <span>200</span>
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
+
+                                <h3 class="text-center">Top Speed</h3>
+                                <p class="text-muted text-center">fInitialDriveMaxFlatVel</p>
+
+                                <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input class="w-100 mx-2 " type="range" value="100" step="1" min="0" max="200"
+                                        oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelSlider"
+                                        name="fInitialDriveMaxFlatVel">
+                                    <span>200</span>
+                                </div>
+                                <input class="form-control text-center my-2" step="0.01" type="number"
+                                    oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
+                                    name="fInitialDriveMaxFlatVel">
+
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                             </div>
-                            <input class="form-control text-center my-2" step="0.01" type="number"
-                                oninput="handleTopSpeed(this)" id="topSpeedInput" name="fInitialDriveMaxFlatVel">
-
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                         </div>
+
                     </div>
                 </div>
             </div>
             <div class="pb-5 tab-pane fade" id="transmission" role="tabpanel" aria-labelledby="transmission-tab">
-
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Transmission</h3>
                     <hr>
-                    <div class="row pb-4">
-                        <div class="col-md-3 bg-light border border-rounded mx-5 px-5 py-3">
-                            <h3 class="text-center">Nº of Gears</h3>
-                            <p class="text-muted text-center">nInitialDriveGears</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input class="w-100 mx-2  " type="range" value="6" step="1" min="0" max="10"
-                                    oninput="handlenGears(this)" id="nGearsSlider" name="nInitialDriveGears">
-                                <span>10</span>
-                            </div>
-                            <input class="form-control text-center my-2" type="number" value="6" step="1"
-                                oninput="handlenGears(this) " id="nGearsInput" name="nInitialDriveGears">
-                            <p>Engine power affects how strongly the engine will be able to rotate the wheels.
-                                Gearing
-                                uses this value as reference and scales it up and down as needed.</p>
-                        </div>
-                        <div class="col-md-3 bg-light border border-rounded mx-5 px-5 py-3">
-                            <h3 class="text-center">Shifting</h3>
-                            <p class="text-muted text-center">fClutchChangeRateScaleUpShift fClutchChangeRateScaleDownShift</p>
+                    <div class="row pb-4 px-3">
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
 
-                            <p>Shift times.</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0.5" max="3"
-                                    oninput="handleShiftTime(this)" id="shiftTimeSlider"
-                                    name="fClutchChangeRateScaleUpShift">
-                                <span>3</span>
+                                <h3 class="text-center">Nº of Gears</h3>
+                                <p class="text-muted text-center">nInitialDriveGears</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input class="w-100 mx-2  " type="range" value="6" step="1" min="0" max="10"
+                                        oninput="applyValueChange(this)" id="nInitialDriveGearsSlider"
+                                        name="nInitialDriveGears">
+                                    <span>10</span>
+                                </div>
+                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                    oninput="applyValueChange(this) " id="nInitialDriveGearsInput"
+                                    name="nInitialDriveGears">
+                                <p>Engine power affects how strongly the engine will be able to rotate the wheels.
+                                    Gearing
+                                    uses this value as reference and scales it up and down as needed.</p>
                             </div>
-                            <input class="form-control text-center my-2" type="number" oninput="handleShiftTime(this)"
-                                step="0.001" id="shiftTimeInput" name="fClutchChangeRateScaleUpShift">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                         </div>
-                        <div class="col-md-3 bg-light border border-rounded mx-5 px-5 py-3">
-                            <h3 class="text-center">Drive Bias</h3>
-                            <p class="text-muted text-center">fDriveBiasFront</p>
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
+                                <h3 class="text-center">Shifting</h3>
+                                <p class="text-muted text-center">fClutchChangeRateScaleUpShift
+                                    <br>fClutchChangeRateScaleDownShift</p>
 
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
-                            <div class="d-flex align-content-center">
-                                <span>0</span>
-                                <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
-                                    oninput="handleDriveBias(this)" id="driveBiasSlider" name="fDriveBiasFront">
-                                <span>1</span>
+                                <p>Shift times.</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0.01" max="10"
+                                        oninput="applyValueChange(this)" id="fClutchChangeRateScaleUpShiftSlider"
+                                        name="fClutchChangeRateScaleUpShift">
+                                    <span>3</span>
+                                </div>
+                                <input class="form-control text-center my-2" type="number"
+                                    oninput="applyValueChange(this)" step="0.001"
+                                    id="fClutchChangeRateScaleUpShiftInput" name="fClutchChangeRateScaleUpShift">
+                                <p class=" mx-auto text-center">The vehicle will take <span class="text-danger"
+                                        id="fClutchChangeRateScaleUpShiftExpl"></span>s to shift.</p>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                             </div>
-                            <input class="form-control text-center my-2" step="0.01" type="number"
-                                oninput="handleDriveBias(this)" id="driveBiasInput" name="fDriveBiasFront">
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                         </div>
+                        <div class="col-md-4">
+                            <div class="bg-light border border-rounded p-4">
+                                <h3 class="text-center">Drive Bias</h3>
+                                <p class="text-muted text-center">fDriveBiasFront</p>
+
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                <div class="d-flex align-content-center">
+                                    <span>0</span>
+                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                        oninput="applyValueChange(this)" id="fDriveBiasFrontSlider"
+                                        name="fDriveBiasFront">
+                                    <span>1</span>
+                                </div>
+                                <input class="form-control text-center my-2" step="0.01" type="number"
+                                    oninput="applyValueChange(this)" id="fDriveBiasFrontInput" name="fDriveBiasFront">
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -310,7 +343,7 @@
                 </div>
 
             </div>
-
+            <pre id="handlingArray" class="bg-info border d-none"></pre>
         </div>
     </div>
 
@@ -324,7 +357,9 @@
 
 
 
-    <div id="handlingArray" class="bg-info"></div>
+
+
+
 
     <!--
         
@@ -362,16 +397,22 @@
     var handlingFile = null;
     var rawInput = document.getElementById("handlingFileDisplay");
 
+    var handlingArray = {
+        handling: {
+
+        }
+    }
     //File load
     function UpdateFileObject() {
         var a = document.getElementById("savefile");
-        var text = handlingFile;
+        var text = rawInput.value; //handlingFile.getElementsByTagName("CHandlingDataMgr")[0];
         var file = new Blob([text], { type: "text/xml" });
 
         a.href = URL.createObjectURL(file);
         a.download = "handling.meta";
     }
 
+    //File load
     var input = document.getElementById("handlingFileLoader");
     input.addEventListener("change", function () {
         if (this.files && this.files[0]) {
@@ -380,10 +421,36 @@
 
             reader.addEventListener('load', function (e) {
 
-                handlingFile = e.target.result;
-                rawInput.value = handlingFile;
+
+                //Parse the document. Copy all values in the document on to the sliders/inputs in the page
+                parser = new DOMParser();
+                xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+                xmlDoc.getElementsByTagName("Item")[0].childNodes.forEach(element => {
+                    if (element.attributes) {
+                        var d = element.attributes[0];
+
+                        if (d != null) {
+                            var sld = document.getElementById(element.nodeName + "Slider");
+                            if (sld != null) sld.value = d.value;
+                            var input = document.getElementById(element.nodeName + "Input");
+                            if (input != null) {
+                                input.value = d.value;
+                                UpdateExplanations(input);
+                            }
+                            handlingArray.handling[element.nodeName] = d.value;
+                            updateArrayPre();
+                            UpdateCharts();
+                            $("#wEmptyFile").toggleClass("d-none", true);
+
+                        }
+                    }
+                });
+                //Copy the file's raw content to the raw input. We will do all our edits there.
+                rawInput.value = e.target.result;
+
             });
             reader.readAsText(myFile);
+            $.notify("File loaded.", "success");
         }
     });
 
@@ -392,217 +459,74 @@
     //Other
 
 
-    var handlingArray = {
-        handling: {
-            mass: 2,
-            downforce: 1,
-            power: 0.5,
-            ngears: 7,
-            driveInertia: 0,
-            airdrag: 0,
-        }
-    }
 
 
+    //Replace the values in the rawInput textarea.
+    //This textarea holds the data we will provide when saving the file.
     function replaceHandlingAttr(attr, attrName, newValue) {
         var reg = new RegExp('(' + attr + ' ' + attrName + '=")+[a-z.0-9-]*(")', "g");
-        handlingFile = handlingFile.replace(reg, attr + ' value="' + newValue + '"')
+        if (rawInput.value != null) rawInput.value = rawInput.value.replace(reg, attr + ' value="' + newValue + '"')
     }
 
-    //var pre = document.getElementById("handlingArray")
-    //pre.innerHTML = JSON.stringify(handlingArray, null, '\t');
+    //Applies the change to the array, and looks for its html counterpart (Slider/Input). 
+    //Also applies a the change to them, to keep parity.
+    function applyValueChange(e) {
 
-    function handleMass(e) {
-
-        handlingArray.handling.mass = e.value;
-
-
-
-
-        if (e.id == "massInput") {
-            var input = document.getElementById("massSlider");
-            input.value = e.value;
-
+        if (rawInput.value.length < 1000) {
+            $("#wEmptyFile").toggleClass("d-none", false);
+            return;
         }
         else {
-
-            var input = document.getElementById("massInput");
-            input.value = e.value;
-        }
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-    }
-    function handleDownforce(e) {
-        
-        handlingArray.handling.downforce = e.value;
-
-
-
-        if (e.id == "downforceInput") {
-            var input = document.getElementById("downforceSlider");
-            input.value = e.value;
-
-        }
-        else {
-
-            var input = document.getElementById("downforceInput");
-            input.value = e.value;
-        }
-
-        chartDownforce.data.datasets[0].data = [0, e.value, (e.value) * 2];
-        chartDownforce.update();
-
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-
-
-    }
-    function handleAirDrag(e) {
-        var airdragDisplay = document.getElementById("airdragDisplay");
-        airdragDisplay.innerHTML = e.value;
-        handlingArray.handling.airdrag = e.value;
-
-
-        chartAirDrag.data.datasets[0].data = [0, e.value, (e.value) * 2];
-        chartAirDrag.update();
-
-        
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-    }
-
-    function handleEnginePower(e) {
-
-        if (e.id == "enginePowerInput") {
-            var input = document.getElementById("enginePowerSlider");
-            input.value = e.value;
-
-        }
-        else {
-
-            var input = document.getElementById("enginePowerInput");
-            input.value = e.value;
-        }
-        handlingArray.handling.power = e.value;
-        
-
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-
-        UpdateEngineChart();
-
-    }
-    function handleDriveInertia(e) {
-        handlingArray.handling.driveInertia = e.value;
-
-
-
-        if (e.id == "driveInertiaInput") {
-            var input = document.getElementById("driveInertiaSlider");
-            input.value = e.value;
-
-        }
-        else {
-
-            var input = document.getElementById("driveInertiaInput");
-            input.value = e.value;
+            $("#wEmptyFile").toggleClass("d-none", true);
         }
 
         replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-        UpdateEngineChart();
-    }
+        handlingArray.handling["" + e.name] = e.value;
+        if (e.id == e.name + "Input") {
 
-    function handleTopSpeed(e) {
-        handlingArray.handling.topspeed = e.value;
-
-
-        if (e.id == "topSpeedInput") {
-            var input = document.getElementById("topSpeedSlider");
-            input.value = e.value;
-
-        }
-        else {
-
-            var input = document.getElementById("topSpeedInput");
-            input.value = e.value;
-        }
-        
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-
-        UpdateEngineChart();
-    }
-
-    function handlenGears(e) {
-        handlingArray.handling.ngears = e.value;
-
-        if (e.id == "nGearsInput") {
-            var input = document.getElementById("nGearsSlider");
+            var input = document.getElementById(e.name + "Slider");
             input.value = e.value;
         }
         else {
-            var input = document.getElementById("nGearsInput");
+            var input = document.getElementById(e.name + "Input");
             input.value = e.value;
         }
-        
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-
-        UpdateEngineChart();
+        updateArrayPre();
+        UpdateCharts();
+        UpdateExplanations(e);
     }
-    function handleShiftTime(e) {
-
-        handlingArray.handling.shifttime = e.value;
-
-
-
-        if (e.id == "shiftTimeInput") {
-            var input = document.getElementById("shiftTimeSlider");
-            input.value = e.value;
+    function UpdateExplanations(e) {
+        //Shifting
+        var expl = document.getElementById(e.name + "Expl");
+        if (expl != null) {
+            if (e.name == "fClutchChangeRateScaleUpShift") {
+                expl.innerHTML = Math.round((1 / e.value) * 1000) / 1000;
+            }
         }
-        else {
-            var input = document.getElementById("shiftTimeInput");
-            input.value = e.value;
-        }
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-        UpdateEngineChart();
+
+
     }
 
-
-
-    function handleDriveBias(e) {
-
-        handlingArray.handling.driveBias = e.value;
-
-
-        if (e.id == "driveBiasInput") {
-            var input = document.getElementById("driveBiasSlider");
-            input.value = e.value;
-        }
-        else {
-            var input = document.getElementById("driveBiasInput");
-            input.value = e.value;
-        }
-        replaceHandlingAttr(e.name, "value", e.value);
-        rawInput.value = handlingFile;
-
-        UpdateEngineChart();
+    function updateArrayPre() {
+        document.getElementById("handlingArray").innerHTML = JSON.stringify(handlingArray, undefined, 2);
     }
-    function UpdateEngineChart() {
+    function UpdateCharts() {
 
-        var power = handlingArray.handling.power;
-        var gears = handlingArray.handling.ngears;
+        //Torque Chart
+        var power = handlingArray.handling.fInitialDriveForce;
+        var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
-
         for (var i = 0; i < gears; i++) {
             chartPower.data.datasets[0].data[i] = power * gearRatios[i + 1];
             chartPower.update();
         }
+
+        //Drag Chart
+        chartAirDrag.data.datasets[0].data[0] = 0;
+        chartAirDrag.data.datasets[0].data[1] = handlingArray.handling.fInitialDragCoeff;
+        chartAirDrag.data.datasets[0].data[2] = handlingArray.handling.fInitialDragCoeff * 2;
+        chartAirDrag.update();
     }
-
-
 
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
     var chartDownforce = new Chart(ctxDownforce, {
@@ -798,18 +722,12 @@
 
 
     /*
-        var slider = document.getElementById("shiftTimesSlider");
-        var displayValue = document.getElementById("shiftTimes");
-        var realValue = document.getElementById("shiftTimesValue");
-
         slider.oninput = function() {
             var shiftTime = this.value / 100;
             displayValue.innerHTML = shiftTime;
 
             realValue.innerHTML = Math.round((1 / shiftTime) * 10000) / 10000;
         }
-
-
         function map(x, in_min, in_max, out_min, out_max) {
             return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }
