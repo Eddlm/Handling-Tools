@@ -21,8 +21,7 @@
 
     <div class="text-center mb-3">
         <span class="display-4">Handling Editor</span><small class="text-muted">0.1</small>
-        <p class="mt-2">All values except fDownforceModifier work, descriptions are placeholder or copypastes as of now.
-        </p>
+        <p class="mt-2">For most of your handling needs.</p>
     </div>
     <div>
         <div class="py-5 w-25 mx-auto">
@@ -36,7 +35,7 @@
     <div class="alert alert-warning alert w-25 mx-auto text-center d-none" role="alert" id="wEmptyFile">Load a handling
         file first.</div>
 
-    <div class="container-fluid border py-2 px-5" style="max-width:1500px">
+    <div class="container-fluid border py-2 px-5 mb-5" style="max-width:1500px">
         <!-- Tab links -->
         <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -306,7 +305,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="pb-5 tab-pane fade" id="brakes" role="tabpanel" aria-labelledby="brakes-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Brakes</h3>
@@ -314,7 +312,6 @@
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-
                                 <h3 class="text-center">Strength</h3>
                                 <p class="text-muted text-center">fBrakeForce</p>
                                 <div class="d-flex align-content-center">
@@ -332,8 +329,7 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Brake Bias</h3>
                                 <p class="text-muted text-center">fBrakeBiasFront</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -350,7 +346,6 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Handbrake Strength</h3>
                                 <p class="text-muted text-center">fHandBrakeForce</p>
-
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -375,7 +370,7 @@
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Tire Grip</h3>
-                                <p class="text-muted text-center">fTractionCurveX</p>
+                                <p class="text-muted text-center">fTractionCurveMax</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
@@ -385,9 +380,9 @@
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fTractionCurveMaxInput"
-                                    name="fTractionCurveMax">
-                                <p>Lorem.</p>
+                                    name="fTractionCurveMax">                                
                                 <hr>
+                                <p class="text-muted text-center">fTractionCurveMin</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
@@ -398,15 +393,13 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fTractionCurveMinInput"
                                     name="fTractionCurveMin">
-                                <p>Lorem.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Traction Curve (Lateral)</h3>
                                 <p class="text-muted text-center">fTractionCurveLateral</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                <p>Lorem ipsum dolor sit amet.</p>
                                 <div class="d-flex align-content-center">
                                     <span>10</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="10" max="30"
@@ -424,8 +417,7 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Tire Grip Bias</h3>
                                 <p class="text-muted text-center">fTractionBiasFront</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                <p>Lorem ipsum dolor.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -436,7 +428,6 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fTractionBiasFrontInput"
                                     name="fTractionBiasFront">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                             </div>
                         </div>
                     </div>
@@ -462,8 +453,6 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Low Speed Burnout Mult</h3>
                                 <p class="text-muted text-center">fLowSpeedTractionLossMult</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="2"
@@ -481,7 +470,6 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Max Steer Angle</h3>
                                 <p class="text-muted text-center">fSteeringLock</p>
-
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -533,8 +521,8 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionCompDampInput"
                                     name="fSuspensionCompDamp">
-                                <p>Lorem.</p>
                                 <hr>
+                                <p class="text-muted text-center">fSuspensionReboundDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
@@ -561,9 +549,9 @@
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionUpperLimitInput"
-                                    name="fSuspensionUpperLimit">
-                                <p>Lorem.</p>
+                                    name="fSuspensionUpperLimit">                                
                                 <hr>
+                                <p class="text-muted text-center">fSuspensionLowerLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="10"
@@ -600,8 +588,7 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Strength Bias</h3>
                                 <p class="text-muted text-center">fSuspensionBiasFront</p>
-
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                <p>Lorem ipsum</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -616,7 +603,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="pb-5 tab-pane fade" id="antiroll" role="tabpanel" aria-labelledby="antiroll-tab">
@@ -736,57 +722,13 @@
 
             </div>
             <pre id="handlingArray" class="bg-info border d-none"></pre>
+            <footer class="my-5">
+                <p class="text-center bg-light border">Danks and stuff, to be filled later.</p>
+            </footer>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--
-        
-    <div class="p-5">
-        <div class="p-5 bg-light">
-            <h1 class=" text-center mb-5">Shifting times</h1>
-          
-          <p class="px-5">
-            <small class="m-5">Description about what shifting changes are.</small>
-            <input type="range" min="10" max="200" value="0" class="form-control-range" id="shiftTimesSlider">
-
-          </p>
-
-            <span>Time:</span>
-          <strong>
-            <span id="shiftTimes"></span>s
-            </strong>
-            <br>
-            
-         <span class="text-success">
-           &lt;fClutchChangeRateScaleUpShift value="<span id="shiftTimesValue" class="text-danger"></span>"/&gt;
-          </span>
-          <hr/>
-          <p>
-            <small class="m-5">Longer description. Tips and tricks and stuff.</small>
-          </p>    
-        </div>
-      
-    </div>-->
-
-
 </body>
-
 <script>
-
 
 
     var baseHandlingV = `<?xml version="1.0" encoding="UTF-8"?>
@@ -815,7 +757,7 @@
       <fTractionCurveMin value="2.000" />
       <fTractionCurveLateral value="22.500000" />
       <fTractionSpringDeltaMax value="0.150000" />
-      <fLowSpeedTractionLossMult value="1.000000" />
+      <fLowSpeedTractionLossMult value="0.500000" />
       <fCamberStiffnesss value="0.000000" />
       <fTractionBiasFront value="0.5000" />
       <fTractionLossMult value="1.000000" />
@@ -1037,8 +979,12 @@
         chartAirDrag.data.datasets[1].data[2] = comparisonHandlingArray.handling.fInitialDragCoeff * 2;
 
 
+        chartDownforce.data.datasets[0].data[1] = handlingArray.handling.fDownforceModifier;
+        chartDownforce.data.datasets[1].data[1] = comparisonHandlingArray.handling.fDownforceModifier;
+
         chartPower.update();
         chartAirDrag.update();
+        chartDownforce.update();
     }
 
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
