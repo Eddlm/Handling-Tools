@@ -177,6 +177,7 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Power </h3>
                                 <p class="text-muted text-center">fInitialDriveForce</p>
+                                
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2" name="fInitialDriveForce" type="range" value="0.3"
@@ -187,6 +188,7 @@
                                 <input class="form-control text-center my-2" type="number" value="0.3" step="0.001"
                                     oninput="applyValueChange(this) " id="fInitialDriveForceInput"
                                     name="fInitialDriveForce">
+                                    
                                 <p>Engine power affects how strongly the engine will be able to rotate the wheels.
                                     Gearing uses this value as reference and scales it up and down as needed.</p>
                             </div>
@@ -197,7 +199,7 @@
                                 <h3 class="text-center">Drive inertia</h3>
                                 <p class="text-muted text-center">fDriveInertia</p>
 
-                                <p>How much time the engine takes to redline, when not in gear.</p>
+
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0" max="3"
@@ -207,8 +209,9 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-                            </div>
+                                    <p>How much time the engine takes to redline, when not in gear.</p>
+                                </div>
+
                         </div>
 
                         <div class="col-md-4">
@@ -216,8 +219,7 @@
 
                                 <h3 class="text-center">Top Speed</h3>
                                 <p class="text-muted text-center">fInitialDriveMaxFlatVel</p>
-
-                                <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
+                                
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="100" step="1" min="0" max="200"
@@ -228,11 +230,10 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
+                                    <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
+                                </div>
 
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -256,18 +257,14 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="nInitialDriveGearsInput"
                                     name="nInitialDriveGears">
-                                <p>Engine power affects how strongly the engine will be able to rotate the wheels.
-                                    Gearing
-                                    uses this value as reference and scales it up and down as needed.</p>
+                                <p>Number of gears at stock. Remember Transmission upgrades add one gear total.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Shit times</h3>
+                                <h3 class="text-center">Shift times</h3>
                                 <p class="text-muted text-center">fClutchChangeRateScaleUpShift
                                     <br>fClutchChangeRateScaleDownShift</p>
-
-                                <p>Shift times.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0.01" max="10"
@@ -280,7 +277,6 @@
                                     id="fClutchChangeRateScaleUpShiftInput" name="fClutchChangeRateScaleUpShift">
                                 <p class=" mx-auto text-center">The vehicle will take <span class="text-danger"
                                         id="fClutchChangeRateScaleUpShiftExpl"></span>s to shift.</p>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -288,7 +284,7 @@
                                 <h3 class="text-center">Power Bias</h3>
                                 <p class="text-muted text-center">fDriveBiasFront</p>
 
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                <p>Power distribution between the axles.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -298,7 +294,7 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fDriveBiasFrontInput" name="fDriveBiasFront">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>This is what defines wether a vehicle is RWD, AWD or FWD.</p>
                             </div>
                         </div>
 
@@ -329,7 +325,6 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Brake Bias</h3>
                                 <p class="text-muted text-center">fBrakeBiasFront</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -339,14 +334,14 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fBrakeBiasFrontInput" name="fBrakeBiasFront">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>Distribution of the brake strength between the axles.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Handbrake Strength</h3>
                                 <p class="text-muted text-center">fHandBrakeForce</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
+                                
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -356,7 +351,7 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fHandBrakeForceInput" name="fHandBrakeForce">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                    <p>As with Brake Strength, it defines how much force is applied to the wheels to make them stop, when using the handbrake.</p>
                             </div>
                         </div>
                     </div>
@@ -393,13 +388,13 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fTractionCurveMinInput"
                                     name="fTractionCurveMin">
+                                    <p>Maximum and minimum G's the vehicle's wheels are able to pull.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Traction Curve (Lateral)</h3>
                                 <p class="text-muted text-center">fTractionCurveLateral</p>
-                                <p>Lorem ipsum dolor sit amet.</p>
                                 <div class="d-flex align-content-center">
                                     <span>10</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="10" max="30"
@@ -410,14 +405,13 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fTractionCurveLateralInput"
                                     name="fTractionCurveLateral">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>Relative direction/aim angle at which the car has the best grip when turning.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Tire Grip Bias</h3>
                                 <p class="text-muted text-center">fTractionBiasFront</p>
-                                <p>Lorem ipsum dolor.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -428,6 +422,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fTractionBiasFrontInput"
                                     name="fTractionBiasFront">
+                                    <p>Grip distribution between the axles.</p>
                             </div>
                         </div>
                     </div>
@@ -446,7 +441,7 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fTractionLossMultInput"
                                     name="fTractionLossMult">
-                                <p>Lorem.</p>
+                                <p>How exaggerated the traction loss is for this vehicle.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -463,14 +458,13 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fLowSpeedTractionLossMultInput"
                                     name="fLowSpeedTractionLossMult">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>How exaggerated the fake burnout griploss is for this vehicle.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Max Steer Angle</h3>
                                 <p class="text-muted text-center">fSteeringLock</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="50"
@@ -479,7 +473,7 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fSteeringLockInput" name="fSteeringLock">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>Maximum steering angle for the vehicle.</p>
                             </div>
                         </div>
                     </div>
@@ -504,7 +498,7 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionForceInput"
                                     name="fSuspensionForce">
-                                <p>Lorem.</p>
+                                <p>Spring strength.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -533,7 +527,7 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionReboundDampInput"
                                     name="fSuspensionReboundDamp">
-                                <p>Lorem.</p>
+                                <p>How strongly the spring strength is dampened when compressing or decompressing.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -562,7 +556,7 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionLowerLimitInput"
                                     name="fSuspensionLowerLimit">
-                                <p>Lorem.</p>
+                                <p>Compression upper and lower limits, in meters. Yeah, use centimeters.</p>
                             </div>
                         </div>
                     </div>
@@ -573,7 +567,7 @@
                                 <p class="text-muted text-center">fSuspensionRaise</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="1"
+                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="-1" max="1"
                                         oninput="applyValueChange(this)" id="fSuspensionRaiseSlider"
                                         name="fSuspensionRaise">
                                     <span>1</span>
@@ -581,14 +575,13 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fSuspensionRaiseInput"
                                     name="fSuspensionRaise">
-                                <p>Lorem.</p>
+                                <p>In centimeters, this raises or lowers the natural stance of the vehicle.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Strength Bias</h3>
                                 <p class="text-muted text-center">fSuspensionBiasFront</p>
-                                <p>Lorem ipsum</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -599,7 +592,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fSuspensionBiasFrontInput"
                                     name="fSuspensionBiasFront">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>Spring strength distribution between the axles of the vehicle.</p>
                             </div>
                         </div>
                     </div>
@@ -624,14 +617,13 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fAntiRollBarForceInput"
                                     name="fAntiRollBarForce">
-                                <p>It defines how much force is applied to the wheels to make them stop.</p>
+                                <p>How strongly the antiroll bars try to keep the vehicle from leaning.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Strength Bias</h3>
                                 <p class="text-muted text-center">fAntiRollBarBiasFront</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
@@ -642,7 +634,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fAntiRollBarBiasFrontInput"
                                     name="fAntiRollBarBiasFront">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>Distribution of the antiroll bar strength between the car axles.</p>
                             </div>
                         </div>
                     </div>
@@ -662,7 +654,7 @@
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="fRollCentreHeightFrontInput"
                                     name="fRollCentreHeightFront">
-                                <p>It defines how much force is applied to the wheels to make them stop.</p>
+                                <p>Relative to the model bottom, defines where the pivot point is. This is used for leaning.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -680,7 +672,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fRollCentreHeightRearInput"
                                     name="fRollCentreHeightRear">
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                                <p>Relative to the model bottom, defines where the pivot point is. This is used for leaning.</p>
                             </div>
                         </div>
                     </div>
