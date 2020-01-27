@@ -878,13 +878,7 @@
                     if (element.attributes) {
                         var d = element.attributes[0];
                         if (d != null) {
-                            var sld = document.getElementById(element.nodeName + "Slider");
-                            if (sld != null) sld.value = d.value;
-                            var input = document.getElementById(element.nodeName + "Input");
-                            if (input != null) {
-                                input.value = d.value;
-                                UpdateExplanations(input);
-                            }
+
                             comparisonHandlingArray.handling[element.nodeName] = d.value;
 
                             UpdateCharts();
