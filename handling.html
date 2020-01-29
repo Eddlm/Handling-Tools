@@ -18,37 +18,43 @@
 
 
 <body>
+    <div>
+        <small class="float-right px-1  text-muted">0.2.5 - Working on descriptions and intuitivity</small><br>
+        <div class="text-center">
 
-    <div class="text-center">
-        <span class="display-4">Handling Editor</span><small class="text-muted">0.1</small><br>
-        <span class="mt-2">For most of your handling needs.</span>
+            <span class="display-4">Handling Editor</span><br>
+            <span class="mt-2">For most of your handling needs.</span>
+
+        </div>
     </div>
+
     <div class="container px-5" style="max-width:1500px">
         <div class="py-5 w-50 mx-auto">
             <p>This tool aims to help beginners visualise and understand handling files,
                 by establishing itself as an intuitive interface between the user and the file.
             </p>
             <p>
-                You can start from scratch, and move sliders around right away. Just press the Save button at the bottom to download the an edited file. Do remember to open it and edit the handling id.
+                You can start from scratch, and move sliders around right away. Just press the Save button at the bottom
+                to download the an edited file. Do remember to open it and edit the handling id.
             </p>
             <p class="text-center mt-5">
                 Also, you can load a custom handling file below.
             </p>
             <div class="d-flex justify-content-around">
-                
+
                 <div class="">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input " id="handlingFileLoader">
                         <label class="custom-file-label" for="handlingFileLoader">handling.meta</label>
-                      </div>       
+                    </div>
                 </div>
 
             </div>
-            
+
             <div class="text-center mt-2">
                 <a name="" onfocus="UpdateFileObject()" id="savefile" class="btn btn-primary btn " href="#"
-                role="button">Save Current File</a>   
-            </div> 
+                    role="button">Save Current File</a>
+            </div>
             <div class="d-flex align-content-center mt-2">
             </div>
         </div>
@@ -140,13 +146,13 @@
                                     <div class="d-flex align-content-center">
                                         <span>-2</span>
                                         <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2" id="vecCentreOfMassOffsetSlider"
+                                            class="form-control-range w-100 mx-2" id="d_vecCentreOfMassOffsetSlider"
                                             oninput="applyValueChange(this)" name="vecCentreOfMassOffset" disabled>
                                         <span>2</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
                                         class="form-control text-center my-2" step="0.001"
-                                        id="vecCentreOfMassOffsetInput" disabled>
+                                        id="d_vecCentreOfMassOffsetInput" disabled>
                                     <p>This editor is not able to edit the Center Of Mass offsets yet.</p>
                                 </div>
                             </div>
@@ -158,75 +164,76 @@
                                     <div class="d-flex align-content-center">
                                         <span>-2</span>
                                         <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2" id="vecInertiaMultiplierSlider"
+                                            class="form-control-range w-100 mx-2" id="d_vecInertiaMultiplierSlider"
                                             oninput="applyValueChange(this)" name="vecInertiaMultiplier" disabled>
                                         <span>2</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
                                         class="form-control text-center my-2" step="0.001"
-                                        id="vecInertiaMultiplierInput" disabled>
+                                        id="d_vecInertiaMultiplierInput" disabled>
                                     <p>This editor is not able to edit the Rotational Inertia offsets yet.</p>
                                 </div>
                             </div>
-                        </div>                        
-                    <div class="d-flex justify-content-around px-3">
-                        <div class="w-50 p-5">
-                            <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Downforce</h3>
-                                <p class="text-muted text-center">fDownforceModifier</p>
-                                <canvas id="downforceChart" width="100" height="100"></canvas>
-                                <div class="d-flex align-content-center">
-                                    <span>0</span>
-                                    <input type="range" min="0" max="5" value="1" step="0.01"
-                                        class="form-control-range w-100 mx-2" id="fDownforceModifierSlider"
-                                        oninput="applyValueChange(this)" name="fDownforceModifier">
-                                    <span>5</span>
-                                </div>
-                                <input type="number" oninput="applyValueChange(this)" name="fDownforceModifier"
-                                    class="form-control text-center my-2" step="0.001" id="fDownforceModifierInput">
-                                <div class="text-center">
-                                    <small class="d-none">Your car's downforce is x<span id="downforceDisplay"
-                                            class="text-danger">2.25</span>.</small>
-                                </div>
-                                <p>Downforce is a physical force applied down on your car. This force increases with
-                                    speed.
-                                </p>
-                                <p>This increases grip at high speeds. The grip increase scales with this multiplier.
-                                </p>
-                                <div class="pl-5 font-italic">
-                                    <li>Tip</li>
-                                    <li>Another tip</li>
+                        </div>
+                        <div class="d-flex align-content-around px-3">
+                            <div class="w-50 p-5">
+                                <div class="bg-light border border-rounded p-4">
+                                    <h3 class="text-center">Downforce</h3>
+                                    <p class="text-muted text-center">fDownforceModifier</p>
+                                    <canvas id="downforceChart" width="100" height="100"></canvas>
+                                    <div class="d-flex align-content-center">
+                                        <span>0</span>
+                                        <input type="range" min="0" max="5" value="1" step="0.01"
+                                            class="form-control-range w-100 mx-2" id="fDownforceModifierSlider"
+                                            oninput="applyValueChange(this)" name="fDownforceModifier">
+                                        <span>5</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this)" name="fDownforceModifier"
+                                        class="form-control text-center my-2" step="0.001" id="fDownforceModifierInput">
+                                    <div class="text-center">
+                                        <small class="d-none">Your car's downforce is x<span id="downforceDisplay"
+                                                class="text-danger">2.25</span>.</small>
+                                    </div>
+                                    <p>Downforce is a physical force applied down on your car. This force increases with
+                                        speed.
+                                    </p>
+                                    <p>This increases grip at high speeds. The grip increase scales with this
+                                        multiplier.
+                                    </p>
+                                    <div class="pl-5 font-italic">
+                                        <li>Tip</li>
+                                        <li>Another tip</li>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="w-50 p-5">
-                            <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Air Resistance</h3>
-                                <p class="text-muted text-center">fInitialDragCoeff</p>
-                                <canvas id="airdragChart" width="100" height="100"></canvas>
+                            <div class="w-50 p-5">
+                                <div class="bg-light border border-rounded p-4">
+                                    <h3 class="text-center">Air Resistance</h3>
+                                    <p class="text-muted text-center">fInitialDragCoeff</p>
+                                    <canvas id="airdragChart" width="100" height="100"></canvas>
 
-                                <div class="d-flex align-content-center">
-                                    <span>0</span>
-                                    <input type="range" min="1" max="20" value="7" step="0.01"
-                                        id="fInitialDragCoeffSlider" oninput="applyValueChange(this)"
-                                        class="form-control-range w-100 mx-2" name="fInitialDragCoeff">
-                                    <span>20</span>
-                                </div>
-                                <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
-                                    class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
-                                <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
-                                        class="text-danger">2.25</span>.</small>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                <p>Nam facilis tempore delectus aspernatur obcaecati saepe omnis, ipsum itaque
-                                    recusandae distinctio impedit quia, repudiandae similique, hic perferendis
-                                    praesentium necessitatibus corrupti laboriosam.</p>
-                                <div class="pl-5 font-italic">
-                                    <li>Tip</li>
-                                    <li>Another tip</li>
+                                    <div class="d-flex align-content-center">
+                                        <span>0</span>
+                                        <input type="range" min="1" max="20" value="7" step="0.01"
+                                            id="fInitialDragCoeffSlider" oninput="applyValueChange(this)"
+                                            class="form-control-range w-100 mx-2" name="fInitialDragCoeff">
+                                        <span>20</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
+                                        class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
+                                    <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
+                                            class="text-danger">2.25</span>.</small>
+
+                                    <p>Working as a multiplier, this value defines how much will air drag scale with
+                                        speed. The higher the multiplier, the more powerful air resistance will be at
+                                        high speeds.</p>
+                                    <div class="pl-5 font-italic">
+                                        <li>Tip</li>
+                                        <li>Another tip</li>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -331,7 +338,7 @@
                                     <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0.01" max="10"
                                         oninput="applyValueChange(this)" id="fClutchChangeRateScaleUpShiftSlider"
                                         name="fClutchChangeRateScaleUpShift">
-                                    <span>3</span>
+                                    <span>10</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001"
@@ -767,10 +774,11 @@
                 <div class="w-25 mx-auto mb-5">
                     <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
                     <div class="custom-file">
-                        
+
                         <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
-                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Choose handling.meta file</label>
-                      </div>              
+                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Choose handling.meta
+                            file</label>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -964,7 +972,7 @@
     //Replace the values in the rawInput textarea.
     //This textarea holds the data we will provide when saving the file.
     function replaceHandlingAttr(attr, attrName, newValue) {
-        var reg = new RegExp('(' + attr + ' ' + attrName + '=")+[a-z.0-9-]*(")', "g");
+        var reg = new RegExp('(' + attr + ' ' + attrName + '=")+[a-z.0-9-]*(")', "i");
         if (rawInput.value != null) rawInput.value = rawInput.value.replace(reg, attr + ' ' + attrName + '="' + newValue + '"')
     }
 
@@ -1255,10 +1263,10 @@
 
     UpdateCharts();
 
-    $(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
 
 </script>
 
