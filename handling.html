@@ -112,7 +112,7 @@
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
                                         <input type="range" min="0" max="15000" value="1000"
-                                            class="form-control-range w-100 mx-2" id="fMassSlider"
+                                            class="form-control-range w-100 mx-2 custom-range" id="fMassSlider"
                                             oninput="applyValueChange(this)" name="fMass">
                                         <span>15000</span>
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="d-flex align-content-center">
                                         <span>-2</span>
                                         <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2" id="d_vecCentreOfMassOffsetSlider"
+                                            class="form-control-range w-100 mx-2 custom-range" id="d_vecCentreOfMassOffsetSlider"
                                             oninput="applyValueChange(this)" name="vecCentreOfMassOffset" disabled>
                                         <span>2</span>
                                     </div>
@@ -164,7 +164,7 @@
                                     <div class="d-flex align-content-center">
                                         <span>-2</span>
                                         <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2" id="d_vecInertiaMultiplierSlider"
+                                            class="form-control-range w-100 mx-2 custom-range" id="d_vecInertiaMultiplierSlider"
                                             oninput="applyValueChange(this)" name="vecInertiaMultiplier" disabled>
                                         <span>2</span>
                                     </div>
@@ -184,7 +184,7 @@
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
                                         <input type="range" min="0" max="5" value="1" step="0.01"
-                                            class="form-control-range w-100 mx-2" id="fDownforceModifierSlider"
+                                            class="form-control-range w-100 mx-2 custom-range" id="fDownforceModifierSlider"
                                             oninput="applyValueChange(this)" name="fDownforceModifier">
                                         <span>5</span>
                                     </div>
@@ -216,7 +216,7 @@
                                         <span>0</span>
                                         <input type="range" min="1" max="20" value="7" step="0.01"
                                             id="fInitialDragCoeffSlider" oninput="applyValueChange(this)"
-                                            class="form-control-range w-100 mx-2" name="fInitialDragCoeff">
+                                            class="form-control-range w-100 mx-2 custom-range" name="fInitialDragCoeff">
                                         <span>20</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
@@ -249,7 +249,7 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" name="fInitialDriveForce" type="range" value="0.3"
+                                    <input class="w-100 mx-2 custom-range" name="fInitialDriveForce" type="range" value="0.3"
                                         step="0.005" min="0" max="5" oninput="applyValueChange(this)"
                                         id="fInitialDriveForceSlider">
                                     <span>5</span>
@@ -271,7 +271,7 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0" max="3"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
                                         oninput="applyValueChange(this)" id="fDriveInertiaSlider" name="fDriveInertia">
                                     <span>3</span>
                                 </div>
@@ -291,7 +291,7 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="100" step="1" min="0" max="200"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="100" step="1" min="0" max="200"
                                         oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelSlider"
                                         name="fInitialDriveMaxFlatVel">
                                     <span>200</span>
@@ -318,7 +318,7 @@
                                 <p class="text-muted text-center">nInitialDriveGears</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2  " type="range" value="6" step="1" min="0" max="7"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="6" step="1" min="0" max="7"
                                         oninput="applyValueChange(this)" id="nInitialDriveGearsSlider"
                                         name="nInitialDriveGears">
                                     <span>7</span>
@@ -335,7 +335,7 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleUpShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0.01" max="10"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.01" max="10"
                                         oninput="applyValueChange(this)" id="fClutchChangeRateScaleUpShiftSlider"
                                         name="fClutchChangeRateScaleUpShift">
                                     <span>10</span>
@@ -350,7 +350,7 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleDownShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="1" step="0.001" min="0.01" max="10"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.01" max="10"
                                         oninput="applyValueChange(this)" id="fClutchChangeRateScaleDownShiftSlider"
                                         name="fClutchChangeRateScaleDownShift">
                                     <span>3</span>
@@ -368,7 +368,7 @@
                                 <p>Power distribution between the axles.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fDriveBiasFrontSlider"
                                         name="fDriveBiasFront">
                                     <span>1</span>
@@ -393,7 +393,7 @@
                                 <p class="text-muted text-center">fBrakeForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0.1" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.1" max="1"
                                         oninput="applyValueChange(this)" id="fBrakeForceSlider" name="fBrakeForce">
                                     <span>1</span>
                                 </div>
@@ -408,7 +408,7 @@
                                 <p class="text-muted text-center">fBrakeBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fBrakeBiasFrontSlider"
                                         name="fBrakeBiasFront">
                                     <span>1</span>
@@ -425,7 +425,7 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fHandBrakeForceSlider"
                                         name="fHandBrakeForce">
                                     <span>1</span>
@@ -450,7 +450,7 @@
                                 <p class="text-muted text-center">fTractionCurveMax</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
                                         oninput="applyValueChange(this)" id="fTractionCurveMaxSlider"
                                         name="fTractionCurveMax">
                                     <span>3</span>
@@ -462,7 +462,7 @@
                                 <p class="text-muted text-center">fTractionCurveMin</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
                                         oninput="applyValueChange(this)" id="fTractionCurveMinSlider"
                                         name="fTractionCurveMin">
                                     <span>3</span>
@@ -479,7 +479,7 @@
                                 <p class="text-muted text-center">fTractionCurveLateral</p>
                                 <div class="d-flex align-content-center">
                                     <span>10</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="10" max="30"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="10" max="30"
                                         oninput="applyValueChange(this)" id="fTractionCurveLateralSlider"
                                         name="fTractionCurveLateral">
                                     <span>30</span>
@@ -496,7 +496,7 @@
                                 <p class="text-muted text-center">fTractionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fTractionBiasFrontSlider"
                                         name="fTractionBiasFront">
                                     <span>1</span>
@@ -515,7 +515,7 @@
                                 <p class="text-muted text-center">fTractionLossMult</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="1.5"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="1.5"
                                         oninput="applyValueChange(this)" id="fTractionLossMultSlider"
                                         name="fTractionLossMult">
                                     <span>1.5</span>
@@ -532,7 +532,7 @@
                                 <p class="text-muted text-center">fLowSpeedTractionLossMult</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="2"
+                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0" max="2"
                                         oninput="applyValueChange(this)" id="fLowSpeedTractionLossMultSlider"
                                         name="fLowSpeedTractionLossMult">
                                     <span>2</span>
@@ -549,7 +549,7 @@
                                 <p class="text-muted text-center">fSteeringLock</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="50"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="50"
                                         oninput="applyValueChange(this)" id="fSteeringLockSlider" name="fSteeringLock">
                                     <span>50</span>
                                 </div>
@@ -572,7 +572,7 @@
                                 <p class="text-muted text-center">fSuspensionForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="5"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="5"
                                         oninput="applyValueChange(this)" id="fSuspensionForceSlider"
                                         name="fSuspensionForce">
                                     <span>5</span>
@@ -589,7 +589,7 @@
                                 <p class="text-muted text-center">fSuspensionCompDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
                                         oninput="applyValueChange(this)" id="fSuspensionCompDampSlider"
                                         name="fSuspensionCompDamp">
                                     <span>3</span>
@@ -601,7 +601,7 @@
                                 <p class="text-muted text-center">fSuspensionReboundDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="3"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
                                         oninput="applyValueChange(this)" id="fSuspensionReboundDampSlider"
                                         name="fSuspensionReboundDamp">
                                     <span>3</span>
@@ -618,7 +618,7 @@
                                 <p class="text-muted text-center">fSuspensionUpperLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fSuspensionUpperLimitSlider"
                                         name="fSuspensionUpperLimit">
                                     <span>1</span>
@@ -630,7 +630,7 @@
                                 <p class="text-muted text-center">fSuspensionLowerLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>-1</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="-1" max="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1" max="0"
                                         oninput="applyValueChange(this)" id="fSuspensionLowerLimitSlider"
                                         name="fSuspensionLowerLimit">
                                     <span>0</span>
@@ -649,7 +649,7 @@
                                 <p class="text-muted text-center">fSuspensionRaise</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="-1" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1" max="1"
                                         oninput="applyValueChange(this)" id="fSuspensionRaiseSlider"
                                         name="fSuspensionRaise">
                                     <span>1</span>
@@ -666,7 +666,7 @@
                                 <p class="text-muted text-center">fSuspensionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fSuspensionBiasFrontSlider"
                                         name="fSuspensionBiasFront">
                                     <span>1</span>
@@ -691,7 +691,7 @@
                                 <p class="text-muted text-center">fAntiRollBarForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="2"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="2"
                                         oninput="applyValueChange(this)" id="fAntiRollBarForceSlider"
                                         name="fAntiRollBarForce">
                                     <span>2</span>
@@ -708,7 +708,7 @@
                                 <p class="text-muted text-center">fAntiRollBarBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fAntiRollBarBiasFrontSlider"
                                         name="fAntiRollBarBiasFront">
                                     <span>1</span>
@@ -728,7 +728,7 @@
                                 <p class="text-muted text-center">fRollCentreHeightFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2" type="range" value="1" step="0.001" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fRollCentreHeightFrontSlider"
                                         name="fRollCentreHeightFront">
                                     <span>1</span>
@@ -747,7 +747,7 @@
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 " type="range" value="0" step="0.05" min="0" max="1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
                                         oninput="applyValueChange(this)" id="fRollCentreHeightRearSlider"
                                         name="fRollCentreHeightRear">
                                     <span>1</span>
