@@ -23,13 +23,14 @@
         <div class="text-center">
 
             <span class="display-4">Handling Editor</span><br>
-            <span class="mt-2">For most of your handling needs.</span>
+            <span class="mt-2">Edit handling files easily, and quickly.</span>
 
         </div>
     </div>
 
     <div class="container px-5" style="max-width:1500px">
         <div class="py-5 w-50 mx-auto">
+            
             <p>This tool aims to help beginners visualise and understand handling files,
                 by establishing itself as an intuitive interface between the user and the file.
             </p>
@@ -45,7 +46,7 @@
                 <div class="">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input " id="handlingFileLoader">
-                        <label class="custom-file-label" for="handlingFileLoader">handling.meta</label>
+                        <label class="custom-file-label" for="handlingFileLoader">Select a handling.meta file...</label>
                     </div>
                 </div>
 
@@ -103,6 +104,7 @@
 
                     <div class="border mt-3">
                         <h3 class="text-center py-1">Chassis</h3>
+                        <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play a big role on how the vehicle behaves overall.</p>
                         <hr>
                         <div class="row px-3">
                             <div class="col-md-4">
@@ -223,6 +225,9 @@
                                         class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
                                     <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
                                             class="text-danger">2.25</span>.</small>
+                                    <p>Air Resistance, also called Air Drag, represents the resistive force that the air applies on the vehicle. Higher resistance means an eariler perceived loss of power at higher speed, 
+                                        resulting in a lower top speed, as the engine cannot overpower this force. Lower air resistance allows the vehicle to travel faster on the same power.
+                                    </p>
 
                                     <p>Working as a multiplier, this value defines how much will air drag scale with
                                         speed. The higher the multiplier, the more powerful air resistance will be at
@@ -240,6 +245,9 @@
             <div class="pb-5  tab-pane fade" id="engine" role="tabpanel" aria-labelledby="engine-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Engine</h3>
+                    <p class="px-5 text-center">The moving force of your vehicle, this set of values govern details about how different bits of the engine will behave.
+                        <br>Works in close relationswhip with Transmission.</p>
+
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -260,6 +268,11 @@
 
                                 <p>Engine power affects how strongly the engine will be able to rotate the wheels.
                                     Gearing uses this value as reference and scales it up and down as needed.</p>
+                                <hr>
+                                    <p>
+                                        Higher engine power will cause the vehicle to lose grip more easily and wheelspin more, unless you compensate by increasing grip/downforce. A value too low may make the vehicle struggle over steep inclines.    
+                                    </p>
+
                             </div>
                         </div>
 
@@ -278,7 +291,11 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                <p>How much time the engine takes to redline, when not in gear.</p>
+                                    <p>How responsive the engine revs will be to throttle control. Higher values will result in faster RPM acceleration and deceleration, while lower values will result in more sluggish RPMs. </p>
+                                    <hr>
+                                <p>
+                                    Works similar to how a flywheel acts in real-life vehicles, storing drive momentum from the engine. A lighter flywheel can react faster to engine RPM changes with it's lack of weight, while heavier flywheels have higher momentum force which takes more engine power to influence.
+                                </p>
                             </div>
 
                         </div>
@@ -299,7 +316,9 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
+                                    <p class="text-center">(MPH - m/s - KM/s)</p>
                                 <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
+                                <p>Keep in mind that gearing will stretch over this 'length'.</p>
                             </div>
 
                         </div>
@@ -309,6 +328,7 @@
             <div class="pb-5 tab-pane fade" id="transmission" role="tabpanel" aria-labelledby="transmission-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Transmission</h3>
+                    <p class="px-5 text-center">Together with the Engine, the transmission settings define the power output of your vehicle.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -385,6 +405,9 @@
             <div class="pb-5 tab-pane fade" id="brakes" role="tabpanel" aria-labelledby="brakes-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Brakes</h3>
+                    <p class="px-5 text-center">Brakes are one of the main defining factors of the performance of your vehicle. <br>This value should complement both the vehicle's power and traction, so as to keep a coherent balance.
+                    <br>Unless you have reasons for it not to.</p>
+
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -441,7 +464,9 @@
             </div>
             <div class="pb-5 tab-pane fade" id="traction" role="tabpanel" aria-labelledby="traction-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Traction</h3>
+                    <h3 class="text-center py-1">Traction</h3>                    
+                    <p class="px-5 text-center">Traction is the main limiter of power and braking ability, and has to be able to handle both; otherwise your vehicle may suffer wheelspin/wheel lock.
+                        <br>However, these can also be treated as features and not defects, being part of the vehicle's personality.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -564,6 +589,7 @@
             <div class="pb-5 tab-pane fade" id="suspension" role="tabpanel" aria-labelledby="suspension-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Suspension</h3>
+                    <p class="px-5 text-center">Stiffer, softer, loose, tight.<br> This section governs how your car floats above its wheels.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -683,6 +709,8 @@
             <div class="pb-5 tab-pane fade" id="antiroll" role="tabpanel" aria-labelledby="antiroll-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Anti-roll Bars</h3>
+                    <p class="px-5 text-center">The main goal of the Anti-roll Bars is to prevent the car from leaning too much when taking a corner.<br>
+                    Do keep in mind that the wheels the cars leans into, receive more grip from the pressure, while the wheels on the other side lose traction.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-6">
@@ -776,8 +804,7 @@
                     <div class="custom-file">
 
                         <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
-                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Choose handling.meta
-                            file</label>
+                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta file...</label>
                     </div>
                 </div>
 
@@ -800,7 +827,7 @@
             </div>
             <pre id="handlingArray" class="bg-info border d-none"></pre>
             <footer class="my-5">
-                <p class="text-center bg-light border">Danks and stuff, to be filled later.</p>
+                <p class="text-center bg-light border py-3">Stitched up together using from <strong>Bootstrap</strong>, <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
             </footer>
         </div>
     </div>
