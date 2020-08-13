@@ -200,13 +200,19 @@
                                         <small class="d-none">Your car's downforce is x<span id="downforceDisplay"
                                                 class="text-danger">2.25</span>.</small>
                                     </div>
-                                    <p>This car will generate <span id="fDownforceModifierExpl" class="text-danger">d</span>Gs of additional grip at 60mph.</p>
-                                    <p>Downforce is a physical force applied down on your car that increases effective grip.</p>
-                                    <p>This increases grip at high speeds. The grip increase scales with this multiplier.</p>
+                                    <p>This car will generate <span id="fDownforceModifierExpl"
+                                            class="text-danger">d</span>Gs of additional grip at 60mph.</p>
+                                    <p>Downforce is a physical force applied down on your car that increases effective
+                                        grip.</p>
+                                    <p>This increases grip at high speeds. The grip increase scales with this
+                                        multiplier.</p>
                                     <div class="pl-5 font-italic">
-                                        <li>Downforce is calculated as the (Speed<sup>2</sup> / 1000) * fDownforceModifier. Speed is measured in m/s.</li>
-                                        <li>Downforce is only applied as long as your vehicle is on the ground <b>and</b> pointing ahead.</li>
-                                        <li>Downforce is relative to your vehicle, so you can ride ceilings if your effective downforce exceeds 1G.</li>
+                                        <li>Downforce is calculated as the (Speed<sup>2</sup> / 1000) *
+                                            fDownforceModifier. Speed is measured in m/s.</li>
+                                        <li>Downforce is only applied as long as your vehicle is on the ground
+                                            <b>and</b> pointing ahead.</li>
+                                        <li>Downforce is relative to your vehicle, so you can ride ceilings if your
+                                            effective downforce exceeds 1G.</li>
                                     </div>
                                 </div>
                             </div>
@@ -227,12 +233,13 @@
                                         class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
                                     <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
                                             class="text-danger">2.25</span>.</small>
-                                            <p>This car will generate <span id="fInitialDragCoeffExpl" class="text-danger">d</span>Gs of drag at 120mph.</p>
-
+                                    <p>This car will generate <span id="fInitialDragCoeffExpl"
+                                            class="text-danger">d</span>Gs of drag at 120mph and will peak near <span  class="text-primary" id="TopSpeedExpl"></span> mph.</p>
+                                            
+    
                                     <p>Air Resistance, also called Air Drag, represents the resistive force that the air
                                         applies on the vehicle. Higher resistance means an eariler perceived loss of
-                                        power at higher speed,
-                                        resulting in a lower top speed, as the engine cannot overpower this force. Lower
+                                        power at higher speed, resulting in a lower top speed, as the engine cannot overpower this force. Lower
                                         air resistance allows the vehicle to travel faster on the same power.
                                     </p>
 
@@ -240,8 +247,8 @@
                                         speed. The higher the multiplier, the more powerful air resistance will be at
                                         high speeds.</p>
                                     <div class="pl-5 font-italic">
-                                        <li>Tip</li>
-                                        <li>Another tip</li>
+                                        <li>Drag works against Torque. Both are measured in G-Forces, the speed at which they even out is the vehicle's top speed.</li>
+                                        <li>Unlike Downforce, drag is omnidirectional.</li>
                                     </div>
                                 </div>
                             </div>
@@ -332,7 +339,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
-                                <p class="text-center">(MPH - m/s - KM/s)</p>
+                                <p class="text-center" >The vehicle's last gear will top at <span class="text-primary" id="fInitialDriveMaxFlatVelExpl">40</span> mph.</p>
                                 <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
                                 <p>Keep in mind that gearing will stretch over this 'length'.</p>
                             </div>
@@ -1073,10 +1080,64 @@
                 expl.innerHTML = Math.round((((Math.sqrt(27)) * e.value * 9.8) * 0.01) * 100) / 100;
             }
             if (e.name == "fInitialDragCoeff") {
-                expl.innerHTML = Math.round((((Math.sqrt(53/5))/100) * e.value) * 100) / 100;
+                expl.innerHTML = Math.round((((Math.sqrt(53 / 5)) / 100) * e.value) * 100) / 100;
+            }
+            if (e.name == "fInitialDriveMaxFlatVel") {
+                expl.innerHTML = Math.round( (e.value/0.75/3.6/0.44704) * 100) / 100;
+            }
+
+        }
+
+
+        if (1 == 1) {
+            if (handlingArray.handling.fInitialDriveForce) {
+                var power = handlingArray.handling.fInitialDriveForce;
+                var topspeed =  (handlingArray.handling.fInitialDriveMaxFlatVel/0.75)/3.6; //to m/s halved
+                var drag = handlingArray.handling.fInitialDragCoeff;
+                var gearings = gearShiftPoints[handlingArray.handling.nInitialDriveGears];
+                var spd = 0;
+
+
+                //console.log(topspeed +"m/s")
+                while (spd < topspeed * 10) {
+
+                    spd += 2;
+                    var percent = (spd * 100) / topspeed;
+
+
+                    var gear = 0;
+                    while (percent > gearings[gear]) gear++;
+
+                    
+
+
+                    var torque = Math.round((power * gearRatios[gear]) * 1000) / 1000;
+                    var dragNow = Math.round(((Math.sqrt(spd / 5) / 100) * drag) * 1000) / 1000;
+
+
+                    //console.log(spd + " m/s at x" + gear + "º  - torque: " + torque + " drag " + dragNow + "");
+                    if (torque < dragNow+0.05) {
+                        //var info = "This car peaks at " + spd + "m/s - " + gear + "/" + gearings.length;
+                        var info =  Math.round ((spd/0.44704));
+
+                        var dragExp = document.getElementById("TopSpeedExpl");
+                        dragExp.innerHTML = info;
+                        break;
+                    }
+
+
+                    //console.log(gearings.findIndex(percent)+"d");
+                }
+            
             }
         }
     }
+
+    function map( x,  in_min,  in_max,  out_min,  out_max)
+        {
+
+            return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
 
     function updateArrayPre() {
         document.getElementById("handlingArray").innerHTML = JSON.stringify(handlingArray, undefined, 2);
@@ -1221,19 +1282,22 @@
 
     var gearRatios =
     {
-        "-1": -3.33,
-        "1": 3.33,
-        "2": 1.848,
-        "3": 1.253,
-        "4": 0.934,
-        "5": 0.766,
-        "6": 0.691,
-        "7": 0.686,
-        "8": 0.749,
-        "9": 0.899,
-        "10": 0.9,
+        0: 0,
+        1: 3.33,
+        2: 1.848,
+        3: 1.253,
+        4: 0.934,
+        5: 0.766,
+        6: 0.691,
+        7: 0.686,
+        8: 0.749,
+        9: 0.899,
+        10: 0.9,
     }
-
+    var gearShiftPoints =
+    {
+        0: [0], 1: [100], 2: [100], 3: [100], 4: [0, 22, 47, 69], 5: [0, 22, 45, 62, 79], 6: [0, 22, 45, 60, 76, 88], 7: [0, 22, 45, 60, 78, 91, 96], 8: [0, 22, 45, 64, 83, 98, 105, 105]
+    }
     var ctxPower = document.getElementById('powerChart').getContext('2d');
     var chartPower = new Chart(ctxPower, {
         type: 'line',
