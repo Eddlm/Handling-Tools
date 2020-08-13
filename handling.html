@@ -30,7 +30,7 @@
 
     <div class="container px-5" style="max-width:1500px">
         <div class="py-5 w-50 mx-auto">
-            
+
             <p>This tool aims to help beginners visualise and understand handling files,
                 by establishing itself as an intuitive interface between the user and the file.
             </p>
@@ -104,7 +104,8 @@
 
                     <div class="border mt-3">
                         <h3 class="text-center py-1">Chassis</h3>
-                        <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play a big role on how the vehicle behaves overall.</p>
+                        <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play
+                            a big role on how the vehicle behaves overall.</p>
                         <hr>
                         <div class="row px-3">
                             <div class="col-md-4">
@@ -148,8 +149,9 @@
                                     <div class="d-flex align-content-center">
                                         <span>-2</span>
                                         <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range" id="d_vecCentreOfMassOffsetSlider"
-                                            oninput="applyValueChange(this)" name="vecCentreOfMassOffset" disabled>
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="d_vecCentreOfMassOffsetSlider" oninput="applyValueChange(this)"
+                                            name="vecCentreOfMassOffset" disabled>
                                         <span>2</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
@@ -166,8 +168,9 @@
                                     <div class="d-flex align-content-center">
                                         <span>-2</span>
                                         <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range" id="d_vecInertiaMultiplierSlider"
-                                            oninput="applyValueChange(this)" name="vecInertiaMultiplier" disabled>
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="d_vecInertiaMultiplierSlider" oninput="applyValueChange(this)"
+                                            name="vecInertiaMultiplier" disabled>
                                         <span>2</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
@@ -186,8 +189,9 @@
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
                                         <input type="range" min="0" max="5" value="1" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range" id="fDownforceModifierSlider"
-                                            oninput="applyValueChange(this)" name="fDownforceModifier">
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="fDownforceModifierSlider" oninput="applyValueChange(this)"
+                                            name="fDownforceModifier">
                                         <span>5</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fDownforceModifier"
@@ -196,15 +200,13 @@
                                         <small class="d-none">Your car's downforce is x<span id="downforceDisplay"
                                                 class="text-danger">2.25</span>.</small>
                                     </div>
-                                    <p>Downforce is a physical force applied down on your car. This force increases with
-                                        speed.
-                                    </p>
-                                    <p>This increases grip at high speeds. The grip increase scales with this
-                                        multiplier.
-                                    </p>
+                                    <p>This car will generate <span id="fDownforceModifierExpl" class="text-danger">d</span>Gs of additional grip at 60mph.</p>
+                                    <p>Downforce is a physical force applied down on your car that increases effective grip.</p>
+                                    <p>This increases grip at high speeds. The grip increase scales with this multiplier.</p>
                                     <div class="pl-5 font-italic">
-                                        <li>Tip</li>
-                                        <li>Another tip</li>
+                                        <li>Downforce is calculated as the (Speed<sup>2</sup> / 1000) * fDownforceModifier. Speed is measured in m/s.</li>
+                                        <li>Downforce is only applied as long as your vehicle is on the ground <b>and</b> pointing ahead.</li>
+                                        <li>Downforce is relative to your vehicle, so you can ride ceilings if your effective downforce exceeds 1G.</li>
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +227,13 @@
                                         class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
                                     <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
                                             class="text-danger">2.25</span>.</small>
-                                    <p>Air Resistance, also called Air Drag, represents the resistive force that the air applies on the vehicle. Higher resistance means an eariler perceived loss of power at higher speed, 
-                                        resulting in a lower top speed, as the engine cannot overpower this force. Lower air resistance allows the vehicle to travel faster on the same power.
+                                            <p>This car will generate <span id="fInitialDragCoeffExpl" class="text-danger">d</span>Gs of drag at 120mph.</p>
+
+                                    <p>Air Resistance, also called Air Drag, represents the resistive force that the air
+                                        applies on the vehicle. Higher resistance means an eariler perceived loss of
+                                        power at higher speed,
+                                        resulting in a lower top speed, as the engine cannot overpower this force. Lower
+                                        air resistance allows the vehicle to travel faster on the same power.
                                     </p>
 
                                     <p>Working as a multiplier, this value defines how much will air drag scale with
@@ -245,7 +252,8 @@
             <div class="pb-5  tab-pane fade" id="engine" role="tabpanel" aria-labelledby="engine-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Engine</h3>
-                    <p class="px-5 text-center">The moving force of your vehicle, this set of values govern details about how different bits of the engine will behave.
+                    <p class="px-5 text-center">The moving force of your vehicle, this set of values govern details
+                        about how different bits of the engine will behave.
                         <br>Works in close relationswhip with Transmission.</p>
 
                     <hr>
@@ -257,8 +265,8 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" name="fInitialDriveForce" type="range" value="0.3"
-                                        step="0.005" min="0" max="5" oninput="applyValueChange(this)"
+                                    <input class="w-100 mx-2 custom-range" name="fInitialDriveForce" type="range"
+                                        value="0.3" step="0.005" min="0" max="5" oninput="applyValueChange(this)"
                                         id="fInitialDriveForceSlider">
                                     <span>5</span>
                                 </div>
@@ -269,9 +277,11 @@
                                 <p>Engine power affects how strongly the engine will be able to rotate the wheels.
                                     Gearing uses this value as reference and scales it up and down as needed.</p>
                                 <hr>
-                                    <p>
-                                        Higher engine power will cause the vehicle to lose grip more easily and wheelspin more, unless you compensate by increasing grip/downforce. A value too low may make the vehicle struggle over steep inclines.    
-                                    </p>
+                                <p>
+                                    Higher engine power will cause the vehicle to lose grip more easily and wheelspin
+                                    more, unless you compensate by increasing grip/downforce. A value too low may make
+                                    the vehicle struggle over steep inclines.
+                                </p>
 
                             </div>
                         </div>
@@ -284,17 +294,23 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
-                                        oninput="applyValueChange(this)" id="fDriveInertiaSlider" name="fDriveInertia">
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="3" oninput="applyValueChange(this)" id="fDriveInertiaSlider"
+                                        name="fDriveInertia">
                                     <span>3</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                    <p>How responsive the engine revs will be to throttle control. Higher values will result in faster RPM acceleration and deceleration, while lower values will result in more sluggish RPMs. </p>
-                                    <hr>
+                                <p>How responsive the engine revs will be to throttle control. Higher values will result
+                                    in faster RPM acceleration and deceleration, while lower values will result in more
+                                    sluggish RPMs. </p>
+                                <hr>
                                 <p>
-                                    Works similar to how a flywheel acts in real-life vehicles, storing drive momentum from the engine. A lighter flywheel can react faster to engine RPM changes with it's lack of weight, while heavier flywheels have higher momentum force which takes more engine power to influence.
+                                    Works similar to how a flywheel acts in real-life vehicles, storing drive momentum
+                                    from the engine. A lighter flywheel can react faster to engine RPM changes with it's
+                                    lack of weight, while heavier flywheels have higher momentum force which takes more
+                                    engine power to influence.
                                 </p>
                             </div>
 
@@ -308,15 +324,15 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="100" step="1" min="0" max="200"
-                                        oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="100" step="1" min="0"
+                                        max="200" oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelSlider"
                                         name="fInitialDriveMaxFlatVel">
                                     <span>200</span>
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
-                                    <p class="text-center">(MPH - m/s - KM/s)</p>
+                                <p class="text-center">(MPH - m/s - KM/s)</p>
                                 <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
                                 <p>Keep in mind that gearing will stretch over this 'length'.</p>
                             </div>
@@ -328,7 +344,8 @@
             <div class="pb-5 tab-pane fade" id="transmission" role="tabpanel" aria-labelledby="transmission-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Transmission</h3>
-                    <p class="px-5 text-center">Together with the Engine, the transmission settings define the power output of your vehicle.</p>
+                    <p class="px-5 text-center">Together with the Engine, the transmission settings define the power
+                        output of your vehicle.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -338,8 +355,8 @@
                                 <p class="text-muted text-center">nInitialDriveGears</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="6" step="1" min="0" max="7"
-                                        oninput="applyValueChange(this)" id="nInitialDriveGearsSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="6" step="1" min="0"
+                                        max="7" oninput="applyValueChange(this)" id="nInitialDriveGearsSlider"
                                         name="nInitialDriveGears">
                                     <span>7</span>
                                 </div>
@@ -355,9 +372,9 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleUpShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.01" max="10"
-                                        oninput="applyValueChange(this)" id="fClutchChangeRateScaleUpShiftSlider"
-                                        name="fClutchChangeRateScaleUpShift">
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001"
+                                        min="0.01" max="10" oninput="applyValueChange(this)"
+                                        id="fClutchChangeRateScaleUpShiftSlider" name="fClutchChangeRateScaleUpShift">
                                     <span>10</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number"
@@ -370,8 +387,9 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleDownShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.01" max="10"
-                                        oninput="applyValueChange(this)" id="fClutchChangeRateScaleDownShiftSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001"
+                                        min="0.01" max="10" oninput="applyValueChange(this)"
+                                        id="fClutchChangeRateScaleDownShiftSlider"
                                         name="fClutchChangeRateScaleDownShift">
                                     <span>3</span>
                                 </div>
@@ -388,8 +406,8 @@
                                 <p>Power distribution between the axles.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fDriveBiasFrontSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fDriveBiasFrontSlider"
                                         name="fDriveBiasFront">
                                     <span>1</span>
                                 </div>
@@ -405,8 +423,10 @@
             <div class="pb-5 tab-pane fade" id="brakes" role="tabpanel" aria-labelledby="brakes-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Brakes</h3>
-                    <p class="px-5 text-center">Brakes are one of the main defining factors of the performance of your vehicle. <br>This value should complement both the vehicle's power and traction, so as to keep a coherent balance.
-                    <br>Unless you have reasons for it not to.</p>
+                    <p class="px-5 text-center">Brakes are one of the main defining factors of the performance of your
+                        vehicle. <br>This value should complement both the vehicle's power and traction, so as to keep a
+                        coherent balance.
+                        <br>Unless you have reasons for it not to.</p>
 
                     <hr>
                     <div class="row pb-4 px-3">
@@ -416,8 +436,9 @@
                                 <p class="text-muted text-center">fBrakeForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.1" max="1"
-                                        oninput="applyValueChange(this)" id="fBrakeForceSlider" name="fBrakeForce">
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0.1"
+                                        max="1" oninput="applyValueChange(this)" id="fBrakeForceSlider"
+                                        name="fBrakeForce">
                                     <span>1</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.01"
@@ -431,8 +452,8 @@
                                 <p class="text-muted text-center">fBrakeBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fBrakeBiasFrontSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fBrakeBiasFrontSlider"
                                         name="fBrakeBiasFront">
                                     <span>1</span>
                                 </div>
@@ -448,8 +469,8 @@
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fHandBrakeForceSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fHandBrakeForceSlider"
                                         name="fHandBrakeForce">
                                     <span>1</span>
                                 </div>
@@ -464,9 +485,11 @@
             </div>
             <div class="pb-5 tab-pane fade" id="traction" role="tabpanel" aria-labelledby="traction-tab">
                 <div class="border mt-3">
-                    <h3 class="text-center py-1">Traction</h3>                    
-                    <p class="px-5 text-center">Traction is the main limiter of power and braking ability, and has to be able to handle both; otherwise your vehicle may suffer wheelspin/wheel lock.
-                        <br>However, these can also be treated as features and not defects, being part of the vehicle's personality.</p>
+                    <h3 class="text-center py-1">Traction</h3>
+                    <p class="px-5 text-center">Traction is the main limiter of power and braking ability, and has to be
+                        able to handle both; otherwise your vehicle may suffer wheelspin/wheel lock.
+                        <br>However, these can also be treated as features and not defects, being part of the vehicle's
+                        personality.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -475,8 +498,8 @@
                                 <p class="text-muted text-center">fTractionCurveMax</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
-                                        oninput="applyValueChange(this)" id="fTractionCurveMaxSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="3" oninput="applyValueChange(this)" id="fTractionCurveMaxSlider"
                                         name="fTractionCurveMax">
                                     <span>3</span>
                                 </div>
@@ -487,8 +510,8 @@
                                 <p class="text-muted text-center">fTractionCurveMin</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
-                                        oninput="applyValueChange(this)" id="fTractionCurveMinSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="3" oninput="applyValueChange(this)" id="fTractionCurveMinSlider"
                                         name="fTractionCurveMin">
                                     <span>3</span>
                                 </div>
@@ -504,8 +527,8 @@
                                 <p class="text-muted text-center">fTractionCurveLateral</p>
                                 <div class="d-flex align-content-center">
                                     <span>10</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="10" max="30"
-                                        oninput="applyValueChange(this)" id="fTractionCurveLateralSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="10"
+                                        max="30" oninput="applyValueChange(this)" id="fTractionCurveLateralSlider"
                                         name="fTractionCurveLateral">
                                     <span>30</span>
                                 </div>
@@ -521,8 +544,8 @@
                                 <p class="text-muted text-center">fTractionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fTractionBiasFrontSlider"
+                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fTractionBiasFrontSlider"
                                         name="fTractionBiasFront">
                                     <span>1</span>
                                 </div>
@@ -540,8 +563,8 @@
                                 <p class="text-muted text-center">fTractionLossMult</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="1.5"
-                                        oninput="applyValueChange(this)" id="fTractionLossMultSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="1.5" oninput="applyValueChange(this)" id="fTractionLossMultSlider"
                                         name="fTractionLossMult">
                                     <span>1.5</span>
                                 </div>
@@ -557,8 +580,8 @@
                                 <p class="text-muted text-center">fLowSpeedTractionLossMult</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0" max="2"
-                                        oninput="applyValueChange(this)" id="fLowSpeedTractionLossMultSlider"
+                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0"
+                                        max="2" oninput="applyValueChange(this)" id="fLowSpeedTractionLossMultSlider"
                                         name="fLowSpeedTractionLossMult">
                                     <span>2</span>
                                 </div>
@@ -574,8 +597,9 @@
                                 <p class="text-muted text-center">fSteeringLock</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="50"
-                                        oninput="applyValueChange(this)" id="fSteeringLockSlider" name="fSteeringLock">
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="50" oninput="applyValueChange(this)" id="fSteeringLockSlider"
+                                        name="fSteeringLock">
                                     <span>50</span>
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
@@ -589,7 +613,8 @@
             <div class="pb-5 tab-pane fade" id="suspension" role="tabpanel" aria-labelledby="suspension-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Suspension</h3>
-                    <p class="px-5 text-center">Stiffer, softer, loose, tight.<br> This section governs how your car floats above its wheels.</p>
+                    <p class="px-5 text-center">Stiffer, softer, loose, tight.<br> This section governs how your car
+                        floats above its wheels.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -598,8 +623,8 @@
                                 <p class="text-muted text-center">fSuspensionForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="5"
-                                        oninput="applyValueChange(this)" id="fSuspensionForceSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="5" oninput="applyValueChange(this)" id="fSuspensionForceSlider"
                                         name="fSuspensionForce">
                                     <span>5</span>
                                 </div>
@@ -615,8 +640,8 @@
                                 <p class="text-muted text-center">fSuspensionCompDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
-                                        oninput="applyValueChange(this)" id="fSuspensionCompDampSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="3" oninput="applyValueChange(this)" id="fSuspensionCompDampSlider"
                                         name="fSuspensionCompDamp">
                                     <span>3</span>
                                 </div>
@@ -627,8 +652,8 @@
                                 <p class="text-muted text-center">fSuspensionReboundDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="3"
-                                        oninput="applyValueChange(this)" id="fSuspensionReboundDampSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="3" oninput="applyValueChange(this)" id="fSuspensionReboundDampSlider"
                                         name="fSuspensionReboundDamp">
                                     <span>3</span>
                                 </div>
@@ -644,8 +669,8 @@
                                 <p class="text-muted text-center">fSuspensionUpperLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fSuspensionUpperLimitSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fSuspensionUpperLimitSlider"
                                         name="fSuspensionUpperLimit">
                                     <span>1</span>
                                 </div>
@@ -656,8 +681,8 @@
                                 <p class="text-muted text-center">fSuspensionLowerLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>-1</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1" max="0"
-                                        oninput="applyValueChange(this)" id="fSuspensionLowerLimitSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1"
+                                        max="0" oninput="applyValueChange(this)" id="fSuspensionLowerLimitSlider"
                                         name="fSuspensionLowerLimit">
                                     <span>0</span>
                                 </div>
@@ -675,8 +700,8 @@
                                 <p class="text-muted text-center">fSuspensionRaise</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1" max="1"
-                                        oninput="applyValueChange(this)" id="fSuspensionRaiseSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1"
+                                        max="1" oninput="applyValueChange(this)" id="fSuspensionRaiseSlider"
                                         name="fSuspensionRaise">
                                     <span>1</span>
                                 </div>
@@ -692,8 +717,8 @@
                                 <p class="text-muted text-center">fSuspensionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fSuspensionBiasFrontSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fSuspensionBiasFrontSlider"
                                         name="fSuspensionBiasFront">
                                     <span>1</span>
                                 </div>
@@ -709,8 +734,10 @@
             <div class="pb-5 tab-pane fade" id="antiroll" role="tabpanel" aria-labelledby="antiroll-tab">
                 <div class="border mt-3">
                     <h3 class="text-center py-1">Anti-roll Bars</h3>
-                    <p class="px-5 text-center">The main goal of the Anti-roll Bars is to prevent the car from leaning too much when taking a corner.<br>
-                    Do keep in mind that the wheels the cars leans into, receive more grip from the pressure, while the wheels on the other side lose traction.</p>
+                    <p class="px-5 text-center">The main goal of the Anti-roll Bars is to prevent the car from leaning
+                        too much when taking a corner.<br>
+                        Do keep in mind that the wheels the cars leans into, receive more grip from the pressure, while
+                        the wheels on the other side lose traction.</p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-6">
@@ -719,8 +746,8 @@
                                 <p class="text-muted text-center">fAntiRollBarForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="2"
-                                        oninput="applyValueChange(this)" id="fAntiRollBarForceSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="2" oninput="applyValueChange(this)" id="fAntiRollBarForceSlider"
                                         name="fAntiRollBarForce">
                                     <span>2</span>
                                 </div>
@@ -736,8 +763,8 @@
                                 <p class="text-muted text-center">fAntiRollBarBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fAntiRollBarBiasFrontSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fAntiRollBarBiasFrontSlider"
                                         name="fAntiRollBarBiasFront">
                                     <span>1</span>
                                 </div>
@@ -756,8 +783,8 @@
                                 <p class="text-muted text-center">fRollCentreHeightFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fRollCentreHeightFrontSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fRollCentreHeightFrontSlider"
                                         name="fRollCentreHeightFront">
                                     <span>1</span>
                                 </div>
@@ -775,8 +802,8 @@
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0" max="1"
-                                        oninput="applyValueChange(this)" id="fRollCentreHeightRearSlider"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                        max="1" oninput="applyValueChange(this)" id="fRollCentreHeightRearSlider"
                                         name="fRollCentreHeightRear">
                                     <span>1</span>
                                 </div>
@@ -804,7 +831,8 @@
                     <div class="custom-file">
 
                         <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
-                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta file...</label>
+                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
+                            file...</label>
                     </div>
                 </div>
 
@@ -827,7 +855,8 @@
             </div>
             <pre id="handlingArray" class="bg-info border d-none"></pre>
             <footer class="my-5">
-                <p class="text-center bg-light border py-3">Stitched up together using from <strong>Bootstrap</strong>, <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
+                <p class="text-center bg-light border py-3">Stitched up together using from <strong>Bootstrap</strong>,
+                    <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
             </footer>
         </div>
     </div>
@@ -960,7 +989,7 @@
         }
     });
 
-    //Comparison file load    
+    //Comparison file load   . 
     var input = document.getElementById("compparisonHandlingFileLoader");
     input.addEventListener("change", function () {
         if (this.files && this.files[0]) {
@@ -1032,15 +1061,21 @@
         UpdateExplanations(e);
     }
     function UpdateExplanations(e) {
-        //Shifting
+
+        //console.log(e);
+
         var expl = document.getElementById(e.name + "Expl");
         if (expl != null) {
             if (e.name == "fClutchChangeRateScaleUpShift") {
                 expl.innerHTML = Math.round((1 / e.value) * 1000) / 1000;
             }
+            if (e.name == "fDownforceModifier") {
+                expl.innerHTML = Math.round((((Math.sqrt(27)) * e.value * 9.8) * 0.01) * 100) / 100;
+            }
+            if (e.name == "fInitialDragCoeff") {
+                expl.innerHTML = Math.round((((Math.sqrt(53/5))/100) * e.value) * 100) / 100;
+            }
         }
-
-
     }
 
     function updateArrayPre() {
@@ -1089,8 +1124,8 @@
         type: 'line',
 
         data: {
+            //labels: ["0 MPH", "60 MPH"],
             labels: null,
-
             datasets: [{
                 label: 'Your vehicle',
                 data: [0, 1.5, 3],
