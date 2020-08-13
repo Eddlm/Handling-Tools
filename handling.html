@@ -19,7 +19,7 @@
 
 <body>
     <div>
-        <small class="float-right px-1  text-muted">0.2.5 - Working on descriptions and intuitivity</small><br>
+        <small class="float-right px-1  text-muted">0.2.7 - Working adding better numbers</small><br>
         <div class="text-center">
 
             <span class="display-4">Handling Editor</span><br>
@@ -1132,7 +1132,12 @@
             }
         }
     }
-
+function GetDragCoeffGs(ms, mod){
+    return Math.round((((Math.sqrt(ms / 5)) / 100) * mod) * 100) / 100
+}
+function GetDownforceGs(ms, mod){
+    return  Math.round((((Math.sqrt(ms)) * mod * 9.8) * 0.01) * 100) / 100;
+}
     function map( x,  in_min,  in_max,  out_min,  out_max)
         {
 
@@ -1155,8 +1160,7 @@
 
         //Drag Chart
         chartAirDrag.data.datasets[0].data[0] = 0;
-        chartAirDrag.data.datasets[0].data[1] = handlingArray.handling.fInitialDragCoeff;
-        chartAirDrag.data.datasets[0].data[2] = handlingArray.handling.fInitialDragCoeff * 2;
+        chartAirDrag.data.datasets[0].data[1] = GetDragCoeffGs(67, handlingArray.handling.fInitialDragCoeff);
 
 
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
@@ -1168,12 +1172,11 @@
 
         //Drag Chart
         chartAirDrag.data.datasets[1].data[0] = 0;
-        chartAirDrag.data.datasets[1].data[1] = comparisonHandlingArray.handling.fInitialDragCoeff;
-        chartAirDrag.data.datasets[1].data[2] = comparisonHandlingArray.handling.fInitialDragCoeff * 2;
+        chartAirDrag.data.datasets[1].data[1] = GetDragCoeffGs(67, comparisonHandlingArray.handling.fInitialDragCoeff);
 
-
-        chartDownforce.data.datasets[0].data[1] = handlingArray.handling.fDownforceModifier;
-        chartDownforce.data.datasets[1].data[1] = comparisonHandlingArray.handling.fDownforceModifier;
+var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
+        chartDownforce.data.datasets[0].data[1] =downGs ;
+        chartDownforce.data.datasets[1].data[1] = GetDownforceGs(67, comparisonHandlingArray.handling.fDownforceModifier );
 
         chartPower.update();
         chartAirDrag.update();
@@ -1185,8 +1188,8 @@
         type: 'line',
 
         data: {
-            //labels: ["0 MPH", "60 MPH"],
-            labels: null,
+            labels: ["0 MPH", "150 MPH"],
+            //labels: null,
             datasets: [{
                 label: 'Your vehicle',
                 data: [0, 1.5, 3],
@@ -1221,11 +1224,23 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true,
-                        max: 5,
+                        beginAtZero: true,                        
                         min: 0
                     },
+                    scaleLabel: {
+							display: true,
+							labelString: 'Extra Gs'
+						}
                 },],
+                xAxes:[
+                    {
+
+                        scaleLabel: {
+							display: true,
+							labelString: 'Speed'
+						}
+                    }
+                ]
             },
         },
     });
@@ -1235,7 +1250,7 @@
         type: 'line',
 
         data: {
-            labels: null,
+            labels: ["0 MPH", "150 MPH"],
 
             datasets: [{
                 label: 'Your vehicle',
@@ -1272,10 +1287,24 @@
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        max: 20,
+                        
                         min: 0
                     },
+                    
+                    scaleLabel: {
+							display: true,
+							labelString: 'Resistance (Gs)'
+						}
                 },],
+                xAxes:[
+                    {
+
+                        scaleLabel: {
+							display: true,
+							labelString: 'Speed'
+						}
+                    }
+                ]
             },
         },
     });
