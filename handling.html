@@ -1294,12 +1294,12 @@
         //Drag Chart
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[0].data[i] = round(GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff), 4);
+            chartAirDrag.data.datasets[0].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
             i++;
         }
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[1].data[i] = round(GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff), 4);
+            chartAirDrag.data.datasets[1].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
             i++;
         }
 
