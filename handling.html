@@ -19,12 +19,10 @@
 
 <body>
     <div>
-        <small class="float-right px-1  text-muted">0.2.8 - Working adding better numbers</small><br>
+        <small class="float-right px-1 text-muted">0.3 - Added #Metrics tab</small><br>
         <div class="text-center">
-
             <span class="display-4">Handling Editor</span><br>
             <span class="mt-2">Edit handling files easily, and quickly.</span>
-
         </div>
     </div>
 
@@ -67,7 +65,11 @@
 
     <div class="container-fluid border py-2 px-5 mb-5" style="max-width:1500px">
         <!-- Tab links -->
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs justify-content-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" id="measurements-tab" href="#measurements">Metrics</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link active show" data-toggle="tab" id="chassis-tab" href="#chassis">Chassis</a>
             </li>
@@ -94,9 +96,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" id="raw-tab" href="#raw">Raw data</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" id="measurements-tab" href="#measurements">Metrics</a>
             </li>
         </ul>
         <!-- Tabs Holder -->
@@ -878,15 +877,22 @@
                     <div class="border mt-3">
 
                         <h3 class="text-center py-1">Measurements</h3>
-                        <p class="px-5">
-                            This editor makes an effort of translating some handling items to real world measurements, depicted in <span class="text-danger">red</span> on them.
-                            For transparency and ease of fact-checking, this section details how the calculations are done. <span class="text-primary"><i>Speed</i></span> is measured in meters per second, m/s.
+                        <div class="px-5 mx-5">
+                            <p>
+                                This editor makes an effort of translating some handling items to real world
+                                measurements, depicted in <span class="text-danger">red</span> on them.
+                                For transparency and ease of fact-checking, this section details how the calculations
+                                are done.
+                            </p>
+
+                            <p><span class="text-primary"><i>Speed</i></span> is measured in meters per second, m/s.</p>
+                        </div>
                         <div class="mx-5">
-                            
-                            <table class="table">
+
+                            <table class="table border">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Item</th>
+                                        <th scope="col">Handling item</th>
                                         <th scope="col">Measure in data</th>
                                         <th scope="col">Measure in editor</th>
                                         <th scope="col">Calc</th>
@@ -935,17 +941,15 @@
                                         <td>Seconds</td>
                                         <td class="text-primary">Speed / (fBrakeForce * 4)</td>
                                         <!-- expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100; -->
-                                    </tr>
                                 </tbody>
                             </table>
+                            <div class="alert alert-info w-50 mx-auto" role="alert">
+                                Most of the new math has been figured out by myself using SHVDN to script the math ingame, drawing helpful data like torque per wheel from the game memory itself. All has been
+                                confirmed ingame, in Singleplayer - feel free to do your own testing.
+                            </div>
                         </div>
-                        </p>
-
-                        <hr>
-
                     </div>
                 </div>
-
             </div>
             <div class="bg-light border">
                 <h3 class="text-center">Summary</h3>
@@ -1377,7 +1381,7 @@
                 yAxes: [{
                     ticks: {
 
-                       beginAtZero:true,
+                        beginAtZero: true,
                         min: 0
                     },
                     scaleLabel: {
@@ -1584,7 +1588,7 @@
                     'rgba(54, 162, 235, 1)',
 
                 ],
-                
+
                 borderWidth: 1,
             }],
 
@@ -1593,7 +1597,7 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0,                        
+                        min: 0,
                     },
                     scaleLabel: {
                         display: false,
