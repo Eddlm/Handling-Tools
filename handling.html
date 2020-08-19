@@ -66,9 +66,12 @@
     <div class="container-fluid border py-2 px-5 mb-5" style="max-width:1500px">
         <!-- Tab links -->
         <ul class="nav nav-tabs justify-content-center">
-            
+
             <li class="nav-item">
-                <a class="nav-link active show" data-toggle="tab" id="chassis-tab" href="#chassis">Chassis</a>
+                <a class="nav-link active show" data-toggle="tab" id="aero-tab" href="#aero">Aero</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" id="chassis-tab" href="#chassis">Chassis</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" id="engine-tab" href="#engine">Engine</a>
@@ -101,7 +104,8 @@
         <!-- Tabs Holder -->
         <div class="container-fluid tab-content " id="myTabContent">
             <!-- Tab items -->
-            <div class="pb-5  tab-pane fade   active show" id="chassis" role="tabpanel" aria-labelledby="chassis-tab">
+            <div class="pb-5  tab-pane fade active show " id="aero" role="tabpanel" aria-labelledby="aero-tab">
+
                 <div class="row pb-4 px-3">
 
                     <div class="border mt-3">
@@ -109,75 +113,6 @@
                         <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play
                             a big role on how the vehicle behaves overall.</p>
                         <hr>
-                        <div class="row px-3">
-                            <div class="col-md-4">
-                                <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Mass </h3>
-                                    <p class="text-muted text-center">fMass</p>
-                                    <div class="d-flex align-content-center">
-                                        <span>0</span>
-                                        <input type="range" min="0" max="15000" value="1000"
-                                            class="form-control-range w-100 mx-2 custom-range" id="fMassSlider"
-                                            oninput="applyValueChange(this)" name="fMass">
-                                        <span>15000</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="text-center" style="min-height:50px">
-                                            <input type="number" oninput="applyValueChange(this)" name="fMass"
-                                                id="fMassInput" class="form-control text-center my-2">
-                                            <small class="d-none">Your car will weight <span
-                                                    class="text-danger">1000</span>kg.</small>
-                                        </div>
-                                    </div>
-                                    <p>Measured in Kg, mass is only responsible for the interaction between entities.
-                                        Let's
-                                        say its the vehicle's pushing force. </p>
-                                    <p>Mass is not at all related to physical
-                                        agility and does not affect the car's physics at all. Only affects how well the
-                                        car fares when colliding
-                                        with other entities. Vehicles, Lamp posts, rocks, etc.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-light border border-rounded p-4">
-
-                                    <h3 class="text-center">Center of Mass</h3>
-                                    <p class="text-muted text-center">vecCentreOfMassOffset</p>
-
-                                    <div class="d-flex align-content-center">
-                                        <span>-2</span>
-                                        <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range"
-                                            id="d_vecCentreOfMassOffsetSlider" oninput="applyValueChange(this)"
-                                            name="vecCentreOfMassOffset" disabled>
-                                        <span>2</span>
-                                    </div>
-                                    <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
-                                        class="form-control text-center my-2" step="0.001"
-                                        id="d_vecCentreOfMassOffsetInput" disabled>
-                                    <p>This editor is not able to edit the Center Of Mass offsets yet.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Rotational Inertia</h3>
-                                    <p class="text-muted text-center">vecInertiaMultiplier</p>
-
-                                    <div class="d-flex align-content-center">
-                                        <span>-2</span>
-                                        <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range"
-                                            id="d_vecInertiaMultiplierSlider" oninput="applyValueChange(this)"
-                                            name="vecInertiaMultiplier" disabled>
-                                        <span>2</span>
-                                    </div>
-                                    <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
-                                        class="form-control text-center my-2" step="0.001"
-                                        id="d_vecInertiaMultiplierInput" disabled>
-                                    <p>This editor is not able to edit the Rotational Inertia offsets yet.</p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="d-flex align-content-around px-3">
                             <div class="w-50 p-5">
                                 <div class="bg-light border border-rounded p-4">
@@ -262,6 +197,157 @@
                                             they even out is the vehicle's top speed.</li>
                                         <li>Unlike Downforce, drag is omnidirectional.</li>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row px-3">
+                            <div class="col-md-4">
+                                <div class="bg-light border border-rounded p-4">
+                                    <h3 class="text-center">Mass </h3>
+                                    <p class="text-muted text-center">fMass</p>
+                                    <div class="d-flex align-content-center">
+                                        <span>0</span>
+                                        <input type="range" min="0" max="15000" value="1000"
+                                            class="form-control-range w-100 mx-2 custom-range" id="fMassSlider"
+                                            oninput="applyValueChange(this)" name="fMass">
+                                        <span>15000</span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="text-center" style="min-height:50px">
+                                            <input type="number" oninput="applyValueChange(this)" name="fMass"
+                                                id="fMassInput" class="form-control text-center my-2">
+                                            <small class="d-none">Your car will weight <span
+                                                    class="text-danger">1000</span>kg.</small>
+                                        </div>
+                                    </div>
+                                    <p>Measured in Kg, mass is only responsible for the interaction between entities.
+                                        Let's
+                                        say its the vehicle's pushing force. </p>
+                                    <p>Mass is not at all related to physical
+                                        agility and does not affect the car's physics at all. Only affects how well the
+                                        car fares when colliding
+                                        with other entities. Vehicles, Lamp posts, rocks, etc.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-light border border-rounded p-4">
+
+                                    <h3 class="text-center">Center of Mass</h3>
+                                    <p class="text-muted text-center">vecCentreOfMassOffset</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-2</span>
+                                        <input type="range" min="-2" max="2" value="0" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="d_vecCentreOfMassOffsetSlider" oninput="applyValueChange(this)"
+                                            name="vecCentreOfMassOffset" disabled>
+                                        <span>2</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
+                                        class="form-control text-center my-2" step="0.001"
+                                        id="d_vecCentreOfMassOffsetInput" disabled>
+                                    <p>This editor is not able to edit the Center Of Mass offsets yet.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-light border border-rounded p-4">
+                                    <h3 class="text-center">Rotational Inertia</h3>
+                                    <p class="text-muted text-center">vecInertiaMultiplier</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-2</span>
+                                        <input type="range" min="-2" max="2" value="0" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="d_vecInertiaMultiplierSlider" oninput="applyValueChange(this)"
+                                            name="vecInertiaMultiplier" disabled>
+                                        <span>2</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
+                                        class="form-control text-center my-2" step="0.001"
+                                        id="d_vecInertiaMultiplierInput" disabled>
+                                    <p>This editor is not able to edit the Rotational Inertia offsets yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-5  tab-pane fade " id="chassis" role="tabpanel" aria-labelledby="chassis-tab">
+                
+                <div class="row pb-4 px-3">
+                    <div class="border mt-3">
+                        <h3 class="text-center py-1">Chassis</h3>
+                        <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play
+                            a big role on how the vehicle behaves overall.</p>
+                        <hr>
+
+                        <div class="row px-3">
+                            <div class="col-md-4">
+                                <div class="bg-light border border-rounded p-4">
+                                    <h3 class="text-center">Mass </h3>
+                                    <p class="text-muted text-center">fMass</p>
+                                    <div class="d-flex align-content-center">
+                                        <span>0</span>
+                                        <input type="range" min="0" max="15000" value="1000"
+                                            class="form-control-range w-100 mx-2 custom-range" id="fMassSlider"
+                                            oninput="applyValueChange(this)" name="fMass">
+                                        <span>15000</span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="text-center" style="min-height:50px">
+                                            <input type="number" oninput="applyValueChange(this)" name="fMass"
+                                                id="fMassInput" class="form-control text-center my-2">
+                                            <small class="d-none">Your car will weight <span
+                                                    class="text-danger">1000</span>kg.</small>
+                                        </div>
+                                    </div>
+                                    <p>Measured in Kg, mass is only responsible for the interaction between entities.
+                                        Let's
+                                        say its the vehicle's pushing force. </p>
+                                    <p>Mass is not at all related to physical
+                                        agility and does not affect the car's physics at all. Only affects how well the
+                                        car fares when colliding
+                                        with other entities. Vehicles, Lamp posts, rocks, etc.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-light border border-rounded p-4">
+
+                                    <h3 class="text-center">Center of Mass</h3>
+                                    <p class="text-muted text-center">vecCentreOfMassOffset</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-2</span>
+                                        <input type="range" min="-2" max="2" value="0" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="d_vecCentreOfMassOffsetSlider" oninput="applyValueChange(this)"
+                                            name="vecCentreOfMassOffset" disabled>
+                                        <span>2</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
+                                        class="form-control text-center my-2" step="0.001"
+                                        id="d_vecCentreOfMassOffsetInput" disabled>
+                                    <p>This editor is not able to edit the Center Of Mass offsets yet.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="bg-light border border-rounded p-4">
+                                    <h3 class="text-center">Rotational Inertia</h3>
+                                    <p class="text-muted text-center">vecInertiaMultiplier</p>
+
+                                    <div class="d-flex align-content-center">
+                                        <span>-2</span>
+                                        <input type="range" min="-2" max="2" value="0" step="0.01"
+                                            class="form-control-range w-100 mx-2 custom-range"
+                                            id="d_vecInertiaMultiplierSlider" oninput="applyValueChange(this)"
+                                            name="vecInertiaMultiplier" disabled>
+                                        <span>2</span>
+                                    </div>
+                                    <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
+                                        class="form-control text-center my-2" step="0.001"
+                                        id="d_vecInertiaMultiplierInput" disabled>
+                                    <p>This editor is not able to edit the Rotational Inertia offsets yet.</p>
                                 </div>
                             </div>
                         </div>
@@ -879,13 +965,15 @@
                             <p>
                                 This editor makes an effort of translating some handling items to real world
                                 measurements, depicted in <span class="text-danger">red</span> on them.
-                                For transparency and ease of fact-checking, this section documents and details the math used to get the Ingame metrics. 
-                                
+                                For transparency and ease of fact-checking, this section documents and details the math
+                                used to get the Ingame metrics.
+
                             </p>
-                            <p>I then just use standard conversions to get the <span class="text-danger">mph</span> equivalents for the editor section.</p>
+                            <p>I then just use standard conversions to get the <span class="text-danger">mph</span>
+                                equivalents for the editor section.</p>
                             <small class="float-right px-1 text-muted">
-                                <span class="text-primary"><i>Speed</i></span> is measured in m/s. 
-                            </small>                            
+                                <span class="text-primary"><i>Speed</i></span> is measured in m/s.
+                            </small>
                         </div>
                         <div class="mx-5">
 
@@ -943,7 +1031,8 @@
                                 </tbody>
                             </table>
                             <div class="alert alert-info w-50 mx-auto" role="alert">
-                                Most of the new math has been figured out using SHVDN to script the math ingame, drawing helpful data like torque per wheel from the game memory itself. All has been
+                                Most of the new math has been figured out using SHVDN to script the math ingame, drawing
+                                helpful data like torque per wheel from the game memory itself. All has been
                                 confirmed ingame, in Singleplayer - feel free to do your own testing.
                             </div>
                         </div>
@@ -1283,13 +1372,13 @@
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * (9.8/ 0.44704)) , 2);
+            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * (9.8 / 0.44704)), 2);
         }
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * (9.8/ 0.44704)) , 2);
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * (9.8 / 0.44704)), 2);
         }
 
         //Drag Chart
@@ -1365,11 +1454,11 @@
                 data: [0, 1, 2],
                 backgroundColor: [
 
-                'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
                 ],
                 borderColor: [
 
-                'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
                 ],
                 borderWidth: 1,
                 lineTension: 0.25,
