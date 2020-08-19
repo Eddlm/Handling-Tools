@@ -109,9 +109,9 @@
                 <div class="row pb-4 px-3">
 
                     <div class="border mt-3">
-                        <h3 class="text-center py-1">Chassis</h3>
-                        <p class="px-5 text-center">This set of values represent the vehicle body itself, and will play
-                            a big role on how the vehicle behaves overall.</p>
+                        <h3 class="text-center py-1">Aero</h3>
+                        <p class="px-5 text-center">This set of values represent the vehicle body shape, and mostly
+                            affect top speed behavior.</p>
                         <hr>
                         <div class="d-flex align-content-around px-3">
                             <div class="w-50 p-5">
@@ -201,80 +201,11 @@
                             </div>
                         </div>
 
-                        <div class="row px-3">
-                            <div class="col-md-4">
-                                <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Mass </h3>
-                                    <p class="text-muted text-center">fMass</p>
-                                    <div class="d-flex align-content-center">
-                                        <span>0</span>
-                                        <input type="range" min="0" max="15000" value="1000"
-                                            class="form-control-range w-100 mx-2 custom-range" id="fMassSlider"
-                                            oninput="applyValueChange(this)" name="fMass">
-                                        <span>15000</span>
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="text-center" style="min-height:50px">
-                                            <input type="number" oninput="applyValueChange(this)" name="fMass"
-                                                id="fMassInput" class="form-control text-center my-2">
-                                            <small class="d-none">Your car will weight <span
-                                                    class="text-danger">1000</span>kg.</small>
-                                        </div>
-                                    </div>
-                                    <p>Measured in Kg, mass is only responsible for the interaction between entities.
-                                        Let's
-                                        say its the vehicle's pushing force. </p>
-                                    <p>Mass is not at all related to physical
-                                        agility and does not affect the car's physics at all. Only affects how well the
-                                        car fares when colliding
-                                        with other entities. Vehicles, Lamp posts, rocks, etc.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-light border border-rounded p-4">
-
-                                    <h3 class="text-center">Center of Mass</h3>
-                                    <p class="text-muted text-center">vecCentreOfMassOffset</p>
-
-                                    <div class="d-flex align-content-center">
-                                        <span>-2</span>
-                                        <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range"
-                                            id="d_vecCentreOfMassOffsetSlider" oninput="applyValueChange(this)"
-                                            name="vecCentreOfMassOffset" disabled>
-                                        <span>2</span>
-                                    </div>
-                                    <input type="number" oninput="applyValueChange(this)" name="vecCentreOfMassOffset"
-                                        class="form-control text-center my-2" step="0.001"
-                                        id="d_vecCentreOfMassOffsetInput" disabled>
-                                    <p>This editor is not able to edit the Center Of Mass offsets yet.</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-light border border-rounded p-4">
-                                    <h3 class="text-center">Rotational Inertia</h3>
-                                    <p class="text-muted text-center">vecInertiaMultiplier</p>
-
-                                    <div class="d-flex align-content-center">
-                                        <span>-2</span>
-                                        <input type="range" min="-2" max="2" value="0" step="0.01"
-                                            class="form-control-range w-100 mx-2 custom-range"
-                                            id="d_vecInertiaMultiplierSlider" oninput="applyValueChange(this)"
-                                            name="vecInertiaMultiplier" disabled>
-                                        <span>2</span>
-                                    </div>
-                                    <input type="number" oninput="applyValueChange(this)" name="vecInertiaMultiplier"
-                                        class="form-control text-center my-2" step="0.001"
-                                        id="d_vecInertiaMultiplierInput" disabled>
-                                    <p>This editor is not able to edit the Rotational Inertia offsets yet.</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="pb-5  tab-pane fade " id="chassis" role="tabpanel" aria-labelledby="chassis-tab">
-                
+
                 <div class="row pb-4 px-3">
                     <div class="border mt-3">
                         <h3 class="text-center py-1">Chassis</h3>
@@ -1040,7 +971,7 @@
                 </div>
             </div>
             <div class="bg-light border">
-                <h3 class="text-center">Summary</h3>
+                <h3 class="text-center">Comparisons</h3>
                 <hr>
                 <div class="w-25 mx-auto mb-5">
                     <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
