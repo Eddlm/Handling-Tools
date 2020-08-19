@@ -286,14 +286,15 @@
                                 <input class="form-control text-center my-2" type="number" value="0.3" step="0.001"
                                     oninput="applyValueChange(this) " id="fInitialDriveForceInput"
                                     name="fInitialDriveForce">
-                                   <!-- <p class=" text-center">Acceleration: <span class="text-danger"
+                                <!-- <p class=" text-center">Acceleration: <span class="text-danger"
                                         id="fInitialDriveForceExpl"></span> mph per second in 1º gear.</p>-->
-                                <p>Also called engine power, it dictates the target acceleration the engine is aiming for, measured in
+                                <p>Also called engine power, it dictates the target acceleration the engine is aiming
+                                    for, measured in
                                     G-Forces. Wheel grip may not be able to cope with it, however.
                                 </p>
                                 <p>Gearing modulates this value in ratios to translate it into torque, which is the
                                     final acceleration the vehicle will experience.</p>
-                                
+
 
                             </div>
                         </div>
@@ -314,9 +315,10 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                    <p class=" text-center">The vehicle will redline in <span class="text-danger"
+                                <p class=" text-center">The vehicle will redline in <span class="text-danger"
                                         id="fDriveInertiaExpl"></span>s of full throttle.</p>
-                                <p>How responsive the engine revs will be to throttle control. It is measured in Higher values will result
+                                <p>How responsive the engine revs will be to throttle control. It is measured in Higher
+                                    values will result
                                     in faster RPM acceleration and deceleration, while lower values will result in more
                                     sluggish RPMs. </p>
                                 <hr>
@@ -369,7 +371,7 @@
                             <div class="bg-light border border-rounded p-4">
 
                                 <h3 class="text-center">Nº of Gears</h3>
-                                <p class="text-muted text-center">nInitialDriveGears</p>                                
+                                <p class="text-muted text-center">nInitialDriveGears</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" type="range" value="6" step="1" min="0"
@@ -382,8 +384,10 @@
                                     name="nInitialDriveGears">
                                 <p>Number of gears at stock.</p>
                                 <hr>
-                                <p>As gears modulate the <i>fInitialDriveForce</i> up until <i>fInitialDriveMaxFlatVel</i>, keepin a reasonably number of gears for your top speed is reccomended.</p>
-                                
+                                <p>As gears modulate the <i>fInitialDriveForce</i> up until
+                                    <i>fInitialDriveMaxFlatVel</i>, keepin a reasonably number of gears for your top
+                                    speed is reccomended.</p>
+
                                 <p>Remember Transmission upgrades add one gear total.</p>
                             </div>
                         </div>
@@ -434,9 +438,10 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fDriveBiasFrontInput" name="fDriveBiasFront">
-                                <p>Defines how the power from <i>fInitialDriveForce</i> is distributed between the axles.</p>
+                                <p>Defines how the power from <i>fInitialDriveForce</i> is distributed between the
+                                    axles.</p>
                                 <p>0.0 implies a fully RWD setup, with will only deliver power to the rear wheels.</p>
-                                
+
 
                             </div>
                         </div>
@@ -467,14 +472,15 @@
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.01"
                                     oninput="applyValueChange(this) " id="fBrakeForceInput" name="fBrakeForce">
-                                    <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-primary"
+                                <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-primary"
                                         id="fBrakeForceExpl"></span>s.</p>
                                 <p>Defines the target deceleration applied to each wheel at full brake.</p>
                                 <hr>
                                 <p>
-                                    <i>fTractionCurveMax</i> and <i>fBrakeForce</i> are closely related. Assuming perfect balance, a fourth of brake is enough to make each wheel lockup.
+                                    <i>fTractionCurveMax</i> and <i>fBrakeForce</i> are closely related. Assuming
+                                    perfect balance, a fourth of brake is enough to make each wheel lockup.
                                 </p>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -867,17 +873,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
-                        <h3 class="text-center">Acceleration</h3>
-                        <canvas id="powerChart" width="100" height="75" class="mx-auto"></canvas>
+                    <div class="col-md-6">
+                        <h3 class="text-center">Stats</h3>
+                        <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
                     </div>
-                    <div class="col-md-3">
-                        <h3 class="text-center">Speeds in gear</h3>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-center">???</h3>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <h3 class="text-center">???</h3>
                     </div>
                 </div>
@@ -1103,11 +1103,11 @@
                 expl.innerHTML = Math.round((1 / e.value) * 100) / 100;
             }
             if (e.name == "fInitialDriveForce") {
-                expl.innerHTML =  Math.round((((e.value*gearRatios[1])*9.8)/0.44704) * 100) / 100;
+                expl.innerHTML = Math.round((((e.value * gearRatios[1]) * 9.8) / 0.44704) * 100) / 100;
             }
             if (e.name == "fBrakeForce") {
-                var decc=(e.value)*9.8; //ms^2
-                expl.innerHTML =  Math.round(((60*0.44704)/(decc*4)) * 100) / 100;
+                var decc = (e.value) * 9.8; //ms^2
+                expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100;
             }
             if (e.name == "fDownforceModifier") {
                 expl.innerHTML = Math.round((((Math.sqrt(27)) * e.value * 9.8) * 0.01) * 100) / 100;
@@ -1175,7 +1175,10 @@
 
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
-
+    function round(number, decimals = 1) {
+        if (decimals < 1) return Math.round(number);
+        else return Math.round(number * (10 * decimals)) / (10 * decimals);
+    }
     function updateArrayPre() {
         document.getElementById("handlingArray").innerHTML = JSON.stringify(handlingArray, undefined, 2);
     }
@@ -1187,24 +1190,24 @@
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = ((power * gearRatios[i + 1])*9.8)/0.44704;
+            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704);
         }
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = ((power * gearRatios[i + 1])*9.8)/0.44704;
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704);
         }
 
         //Drag Chart
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[0].data[i] = GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
+            chartAirDrag.data.datasets[0].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff));
             i++;
         }
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[1].data[i] = GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
+            chartAirDrag.data.datasets[1].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff));
             i++;
         }
 
@@ -1212,19 +1215,34 @@
         //Downforce
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
-            chartDownforce.data.datasets[0].data[i] = GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier);
+            chartDownforce.data.datasets[0].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier));
             i++;
         }
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
-            chartDownforce.data.datasets[1].data[i] = GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier);
+            chartDownforce.data.datasets[1].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier));
             i++;
         }
+
+
+        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0, 1, 0, 100), 1);
+        chartStats.data.datasets[0].data[1] = round(map(handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
+        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
+        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
+        chartStats.data.datasets[0].data[4] = round(map(handlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 1);
+
+        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 1, 0, 100), 1);
+        chartStats.data.datasets[1].data[1] = round(map(comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
+        chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
+        chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
+        chartStats.data.datasets[1].data[4] = round(map(comparisonHandlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 1);
+
 
 
         chartPower.update();
         chartAirDrag.update();
         chartDownforce.update();
+        chartStats.update();
     }
 
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
@@ -1235,7 +1253,7 @@
             datasets: [{
 
                 label: 'Your vehicle',
-
+                fill: false,
                 data: [0, 1.5, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -1250,6 +1268,7 @@
             },
             {
                 label: 'Other',
+                fill: false,
                 data: [0, 1, 2],
                 backgroundColor: [
 
@@ -1297,6 +1316,7 @@
             labels: [0, 50, 100, 150, 200],
             datasets: [{
                 label: 'Your vehicle',
+                fill: false,
                 data: [0, 1.5, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -1310,15 +1330,16 @@
                 lineTension: 0.25,
             },
             {
+                fill: false,
                 label: 'Comparison',
                 data: [0, 1, 2],
                 backgroundColor: [
 
-                    'rgba(0, 0, 0, 0.05)',
+                    'rgba(54, 162, 235, 0.2)',
                 ],
                 borderColor: [
 
-                    'rgba(0, 0, 0, 0.5)',
+                    'rgba(54, 162, 235, 1)',
                 ],
                 borderWidth: 1,
                 lineTension: 0.25,
@@ -1380,6 +1401,7 @@
             datasets: [{
                 steppedLine: true,
                 label: 'This car',
+                fill: false,
                 data: [0.2 * gearRatios[1], 0.2 * gearRatios[2], 0.2 * gearRatios[3], 0.2 * gearRatios[4], 0.2 * gearRatios[5], 0.2 * gearRatios[6],],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -1395,14 +1417,14 @@
             {
                 steppedLine: true,
                 label: 'Comparison',
+                fill: false,
                 data: [0.2 * gearRatios[1], 0.2 * gearRatios[2], 0.2 * gearRatios[3], 0.2 * gearRatios[4], 0.2 * gearRatios[5], 0.2 * gearRatios[6],],
                 backgroundColor: [
-                    'rgba(0, 0, 0, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
 
                 ],
                 borderColor: [
-                    'rgba(0, 0, 0, 1)',
-
+                    'rgba(54, 162, 235, 1)',
                 ],
                 borderWidth: 1,
                 lineTension: 0,
@@ -1421,7 +1443,7 @@
                         labelString: 'MPH / s'
                     }
                 },],
-                xAxes:[{
+                xAxes: [{
                     scaleLabel: {
                         display: true,
                         labelString: 'Gear'
@@ -1431,6 +1453,72 @@
         },
     });
 
+    var ctxStats = document.getElementById('statsChart').getContext('2d');
+    var chartStats = new Chart(ctxStats, {
+        type: 'horizontalBar',
+
+        data: {
+            labels: ["Acceleration", "Top Speed", "Braking", "Grip", "Downforce"],
+
+            datasets: [{
+                label: 'This car',
+                data: [5, 5, 5, 5, 5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+                
+            }, {
+                label: 'Comparison',
+                data: [5, 5, 5, 5, 5],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(54, 162, 235, 1)',
+
+                ],
+                borderWidth: 1,
+            }],
+
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max:100
+                    },
+                    scaleLabel: {
+                        display: false,
+                        labelString: ''
+                    }
+                },],
+                xAxes: [{
+                    scaleLabel: {
+                        display: false,
+                        labelString: ''
+                    }
+                }]
+            },
+        },
+    });
 
     /*
         slider.oninput = function() {
