@@ -876,16 +876,18 @@
 
                     <div class="border mt-3">
 
-                        <h3 class="text-center py-1">Measurements</h3>
+                        <h3 class="text-center py-1">Metrics</h3>
                         <div class="px-5 mx-5">
                             <p>
                                 This editor makes an effort of translating some handling items to real world
                                 measurements, depicted in <span class="text-danger">red</span> on them.
-                                For transparency and ease of fact-checking, this section details how the calculations
-                                are done.
+                                For transparency and ease of fact-checking, this section documents and details the math used to get the Ingame metrics. 
+                                
                             </p>
-
-                            <p><span class="text-primary"><i>Speed</i></span> is measured in meters per second, m/s.</p>
+                            <p>I then just use standard conversions to get the <span class="text-danger">mph</span> equivalents for the editor section.</p>
+                            <small class="float-right px-1 text-muted">
+                                <span class="text-primary"><i>Speed</i></span> is measured in m/s. 
+                            </small>                            
                         </div>
                         <div class="mx-5">
 
@@ -893,28 +895,28 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Handling item</th>
-                                        <th scope="col">Measure in data</th>
-                                        <th scope="col">Measure in editor</th>
-                                        <th scope="col">Calc</th>
+                                        <th scope="col">File metric</th>
+                                        <th scope="col">Ingame metric</th>
+                                        <th scope="col">Math</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>fInitialDriveForce</td>
-                                        <td>G-Forces</td>
-                                        <td>MPH / s</td>
+                                        <td>Acceleration (G-Forces)</td>
+                                        <td>Acceleration (G-Forces)</td>
                                         <td class="text-primary">fInitialDriveForce * 9.8 * currentGear</td>
                                     </tr>
                                     <tr>
                                         <td>fDownforceModifier</td>
                                         <td>Multiplier</td>
-                                        <td>G-Forces</td>
+                                        <td>Grip gain (G-Forces)</td>
                                         <td class="text-primary">fDownforceModifier * ((Speed^2) / 1000)</td>
                                     </tr>
                                     <tr>
                                         <td>fInitialDragCoeff</td>
                                         <td>Multiplier</td>
-                                        <td>G-Forces</td>
+                                        <td>Air Resistance (G-Forces)</td>
                                         <td class="text-primary">fInitialDragCoeff * ((Speed/5)^2 / 100)</td>
                                     </tr>
                                     <tr>
@@ -925,9 +927,9 @@
                                     </tr>
                                     <tr>
                                         <td>fInitialDriveMaxFlatVel</td>
-                                        <td>Multiplier</td>
-                                        <td>Miles per hour</td>
-                                        <td class="text-primary">fInitialDriveMaxFlatVel / 0.75 * 0.6213712</td>
+                                        <td>Speed</td>
+                                        <td>Kilometers per hour</td>
+                                        <td class="text-primary">fInitialDriveMaxFlatVel / 0.75</td>
                                     </tr>
                                     <tr>
                                         <td>fClutchChangeRateScaleUpShift</td>
@@ -937,10 +939,9 @@
                                     </tr>
                                     <tr>
                                         <td>fBrakeForce</td>
-                                        <td>G-Forces</td>
-                                        <td>Seconds</td>
-                                        <td class="text-primary">Speed / (fBrakeForce * 4)</td>
-                                        <!-- expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100; -->
+                                        <td>Decceleration (G-Forces)</td>
+                                        <td>Decceleration (G-Forces)</td>
+                                                                                <td class="text-primary">Speed / (fBrakeForce * Number of wheels)</td>
                                 </tbody>
                             </table>
                             <div class="alert alert-info w-50 mx-auto" role="alert">
@@ -1283,13 +1284,13 @@
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704, 2);
+            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * (9.8/ 0.44704)) , 2);
         }
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704, 2);
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * (9.8/ 0.44704)) , 2);
         }
 
         //Drag Chart
