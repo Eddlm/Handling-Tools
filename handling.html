@@ -19,7 +19,7 @@
 
 <body>
     <div>
-        <small class="float-right px-1  text-muted">0.2.7 - Working adding better numbers</small><br>
+        <small class="float-right px-1  text-muted">0.2.8 - Working adding better numbers</small><br>
         <div class="text-center">
 
             <span class="display-4">Handling Editor</span><br>
@@ -185,7 +185,7 @@
                                 <div class="bg-light border border-rounded p-4">
                                     <h3 class="text-center">Downforce</h3>
                                     <p class="text-muted text-center">fDownforceModifier</p>
-                                    <canvas id="downforceChart" width="100" height="100"></canvas>
+                                    <canvas id="downforceChart" width="100" height="50"></canvas>
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
                                         <input type="range" min="0" max="5" value="1" step="0.01"
@@ -202,7 +202,7 @@
                                     </div>
                                     <p class="text-center">This car will generate <span id="fDownforceModifierExpl"
                                             class="text-danger">d</span>Gs of additional grip at 60mph.</p>
-                                            <hr>
+                                    <hr>
 
                                     <p>Downforce is a physical force applied down on your car that increases effective
                                         grip.</p>
@@ -222,7 +222,7 @@
                                 <div class="bg-light border border-rounded p-4">
                                     <h3 class="text-center">Air Resistance</h3>
                                     <p class="text-muted text-center">fInitialDragCoeff</p>
-                                    <canvas id="airdragChart" width="100" height="100"></canvas>
+                                    <canvas id="airdragChart" width="100" height="50"></canvas>
 
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
@@ -235,12 +235,15 @@
                                         class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
                                     <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
                                             class="text-danger">2.25</span>.</small>
-                                    <p class="text-center">The drag will motivate a top speed of about <span  class="text-primary" id="TopSpeedExpl"></span> mph given the current power and gearing.</p>
-                                            
-    <hr>
+                                    <p class="text-center">The drag will motivate a top speed of about <span
+                                            class="text-primary" id="TopSpeedExpl"></span> mph given the current power
+                                        and gearing.</p>
+
+                                    <hr>
                                     <p>Air Resistance, also called Air Drag, represents the resistive force that the air
                                         applies on the vehicle. Higher resistance means an eariler perceived loss of
-                                        power at higher speed, resulting in a lower top speed, as the engine cannot overpower this force. Lower
+                                        power at higher speed, resulting in a lower top speed, as the engine cannot
+                                        overpower this force. Lower
                                         air resistance allows the vehicle to travel faster on the same power.
                                     </p>
 
@@ -248,7 +251,8 @@
                                         speed. The higher the multiplier, the more powerful air resistance will be at
                                         high speeds.</p>
                                     <div class="pl-5 font-italic">
-                                        <li>Drag works against Torque. Both are measured in G-Forces, the speed at which they even out is the vehicle's top speed.</li>
+                                        <li>Drag works against Torque. Both are measured in G-Forces, the speed at which
+                                            they even out is the vehicle's top speed.</li>
                                         <li>Unlike Downforce, drag is omnidirectional.</li>
                                     </div>
                                 </div>
@@ -270,25 +274,28 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Power </h3>
                                 <p class="text-muted text-center">fInitialDriveForce</p>
+                                <canvas id="powerChart" width="100" height="75" class="mx-auto"></canvas>
 
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" name="fInitialDriveForce" type="range"
-                                        value="0.3" step="0.005" min="0" max="5" oninput="applyValueChange(this)"
+                                        value="0.3" step="0.005" min="0" max="0.5" oninput="applyValueChange(this)"
                                         id="fInitialDriveForceSlider">
-                                    <span>5</span>
+                                    <span>0.5</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="0.3" step="0.001"
                                     oninput="applyValueChange(this) " id="fInitialDriveForceInput"
                                     name="fInitialDriveForce">
-
-                                <p>Engine power affects how strongly the engine will be able to rotate the wheels.
-                                    Gearing uses this value as reference and scales it up and down as needed.</p>
+                                    <p class=" text-center">Acceleration: <span class="text-danger"
+                                        id="fInitialDriveForceExpl"></span> mph per second in 1º gear.</p>
+                                <p>Engine power dictates the target acceleration the engine is aiming for, measured in
+                                    G-Forces.
+                                </p>
+                                <p>Gearing modulates this value in ratios to translate it into torque, which is the
+                                    final acceleration the vehicle will experience.</p>
                                 <hr>
                                 <p>
-                                    Higher engine power will cause the vehicle to lose grip more easily and wheelspin
-                                    more, unless you compensate by increasing grip/downforce. A value too low may make
-                                    the vehicle struggle over steep inclines.
+                                    Power is distributed to each axle as defined by <i>fDriveBiasFront</i>, which means RWD or FWD vehicles will get all the power delivered to a single axle. Keep this in mind regarding wheelspin.
                                 </p>
 
                             </div>
@@ -310,7 +317,9 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                <p>How responsive the engine revs will be to throttle control. Higher values will result
+                                    <p class=" text-center">The vehicle will redline in <span class="text-danger"
+                                        id="fDriveInertiaExpl"></span>s of full throttle.</p>
+                                <p>How responsive the engine revs will be to throttle control. It is measured in Higher values will result
                                     in faster RPM acceleration and deceleration, while lower values will result in more
                                     sluggish RPMs. </p>
                                 <hr>
@@ -340,7 +349,8 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
-                                <p class="text-center" >The vehicle's last gear will top at <span class="text-primary" id="fInitialDriveMaxFlatVelExpl">40</span> mph.</p>
+                                <p class="text-center">The vehicle's last gear will top at <span class="text-primary"
+                                        id="fInitialDriveMaxFlatVelExpl">40</span> mph.</p>
                                 <hr>
 
                                 <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
@@ -453,7 +463,14 @@
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.01"
                                     oninput="applyValueChange(this) " id="fBrakeForceInput" name="fBrakeForce">
-                                <p>It defines how much force is applied to the wheels to make them stop.</p>
+                                    <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-primary"
+                                        id="fBrakeForceExpl"></span>s.</p>
+                                <p>Defines the target deceleration applied to each wheel at full brake.</p>
+                                <hr>
+                                <p>
+                                    <i>fTractionCurveMax</i> and <i>fBrakeForce</i> are closely related. Assuming perfect balance, a fourth of brake is enough to make each wheel lockup.
+                                </p>
+                                
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -486,8 +503,7 @@
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fHandBrakeForceInput" name="fHandBrakeForce">
-                                <p>As with Brake Strength, it defines how much force is applied to the wheels to make
-                                    them stop, when using the handbrake.</p>
+                                <p>Similar to <i>fBrakeForce</i>, but is only applied to the rear axle(s). </p>
                             </div>
                         </div>
                     </div>
@@ -848,8 +864,8 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <h3 class="text-center">Torque per gear</h3>
-                        <canvas id="powerChart" width="1" height="1" style="max-width: 400px;" class="mx-auto"></canvas>
+                        <h3 class="text-center">Acceleration</h3>
+                        <canvas id="powerChart" width="100" height="75" class="mx-auto"></canvas>
                     </div>
                     <div class="col-md-3">
                         <h3 class="text-center">Speeds in gear</h3>
@@ -1079,6 +1095,16 @@
             if (e.name == "fClutchChangeRateScaleUpShift") {
                 expl.innerHTML = Math.round((1 / e.value) * 1000) / 1000;
             }
+            if (e.name == "fDriveInertia") {
+                expl.innerHTML = Math.round((1 / e.value) * 100) / 100;
+            }
+            if (e.name == "fInitialDriveForce") {
+                expl.innerHTML =  Math.round((((e.value*gearRatios[1])*9.8)/0.44704) * 100) / 100;
+            }
+            if (e.name == "fBrakeForce") {
+                var decc=(e.value)*9.8; //ms^2
+                expl.innerHTML =  Math.round(((60*0.44704)/(decc*4)) * 100) / 100;
+            }
             if (e.name == "fDownforceModifier") {
                 expl.innerHTML = Math.round((((Math.sqrt(27)) * e.value * 9.8) * 0.01) * 100) / 100;
             }
@@ -1086,7 +1112,7 @@
                 expl.innerHTML = Math.round((((Math.sqrt(53 / 5)) / 100) * e.value) * 100) / 100;
             }
             if (e.name == "fInitialDriveMaxFlatVel") {
-                expl.innerHTML = Math.round( (e.value/0.75/3.6/0.44704) * 100) / 100;
+                expl.innerHTML = Math.round((e.value / 0.75 / 3.6 / 0.44704) * 100) / 100;
             }
 
         }
@@ -1095,14 +1121,14 @@
         if (1 == 1) {
             if (handlingArray.handling.fInitialDriveForce) {
                 var power = handlingArray.handling.fInitialDriveForce;
-                var topspeed =  (handlingArray.handling.fInitialDriveMaxFlatVel/0.75)/3.6; //to m/s halved
+                var topspeed = (handlingArray.handling.fInitialDriveMaxFlatVel / 0.75) / 3.6; //to m/s halved
                 var drag = handlingArray.handling.fInitialDragCoeff;
                 var gearings = gearShiftPoints[handlingArray.handling.nInitialDriveGears];
                 var spd = 0;
 
 
                 //console.log(topspeed +"m/s")
-                while (spd < topspeed * 10) {
+                while (spd < topspeed * 2) {
 
                     spd += 2;
                     var percent = (spd * 100) / topspeed;
@@ -1111,7 +1137,7 @@
                     var gear = 0;
                     while (percent > gearings[gear]) gear++;
 
-                    
+
 
 
                     var torque = Math.round((power * gearRatios[gear]) * 1000) / 1000;
@@ -1119,9 +1145,9 @@
 
 
                     //console.log(spd + " m/s at x" + gear + "º  - torque: " + torque + " drag " + dragNow + "");
-                    if (torque < dragNow+0.05) {
+                    if (torque < dragNow + 0.05) {
                         //var info = "This car peaks at " + spd + "m/s - " + gear + "/" + gearings.length;
-                        var info =  Math.round ((spd/0.44704));
+                        var info = Math.round((spd / 0.44704) * 10) / 10;
 
                         var dragExp = document.getElementById("TopSpeedExpl");
                         dragExp.innerHTML = info;
@@ -1131,21 +1157,20 @@
 
                     //console.log(gearings.findIndex(percent)+"d");
                 }
-            
+
             }
         }
     }
-function GetDragCoeffGs(ms, mod){
-    return Math.round((((Math.sqrt(ms / 5)) / 100) * mod) * 100) / 100
-}
-function GetDownforceGs(ms, mod){
-    return  Math.round((((Math.sqrt(ms)) * mod * 9.8) * 0.01) * 100) / 100;
-}
-    function map( x,  in_min,  in_max,  out_min,  out_max)
-        {
+    function GetDragCoeffGs(ms, mod) {
+        return Math.round((((Math.sqrt(ms / 5)) / 100) * mod) * 1000) / 1000
+    }
+    function GetDownforceGs(ms, mod) {
+        return Math.round((((Math.sqrt(ms)) * mod * 9.8) * 0.01) * 1000) / 1000;
+    }
+    function map(x, in_min, in_max, out_min, out_max) {
 
-            return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-        }
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
 
     function updateArrayPre() {
         document.getElementById("handlingArray").innerHTML = JSON.stringify(handlingArray, undefined, 2);
@@ -1158,28 +1183,40 @@ function GetDownforceGs(ms, mod){
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = power * gearRatios[i + 1];
+            chartPower.data.datasets[0].data[i] = ((power * gearRatios[i + 1])*9.8)/0.44704;
         }
-
-        //Drag Chart
-        chartAirDrag.data.datasets[0].data[0] = 0;
-        chartAirDrag.data.datasets[0].data[1] = GetDragCoeffGs(67, handlingArray.handling.fInitialDragCoeff);
-
-
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = power * gearRatios[i + 1];
+            chartPower.data.datasets[1].data[i] = ((power * gearRatios[i + 1])*9.8)/0.44704;
         }
 
         //Drag Chart
-        chartAirDrag.data.datasets[1].data[0] = 0;
-        chartAirDrag.data.datasets[1].data[1] = GetDragCoeffGs(67, comparisonHandlingArray.handling.fInitialDragCoeff);
+        var i = 0;
+        while (i < chartAirDrag.data.labels.length) {
+            chartAirDrag.data.datasets[0].data[i] = GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
+            i++;
+        }
+        var i = 0;
+        while (i < chartAirDrag.data.labels.length) {
+            chartAirDrag.data.datasets[1].data[i] = GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
+            i++;
+        }
 
-var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
-        chartDownforce.data.datasets[0].data[1] =downGs ;
-        chartDownforce.data.datasets[1].data[1] = GetDownforceGs(67, comparisonHandlingArray.handling.fDownforceModifier );
+
+        //Downforce
+        var i = 0;
+        while (i < chartDownforce.data.labels.length) {
+            chartDownforce.data.datasets[0].data[i] = GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier);
+            i++;
+        }
+        var i = 0;
+        while (i < chartDownforce.data.labels.length) {
+            chartDownforce.data.datasets[1].data[i] = GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier);
+            i++;
+        }
+
 
         chartPower.update();
         chartAirDrag.update();
@@ -1189,12 +1226,12 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
     var chartDownforce = new Chart(ctxDownforce, {
         type: 'line',
-
         data: {
-            labels: ["0 MPH", "150 MPH"],
-            //labels: null,
+            labels: [0, 50, 100, 150, 200],
             datasets: [{
+
                 label: 'Your vehicle',
+
                 data: [0, 1.5, 3],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -1205,10 +1242,10 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
 
                 ],
                 borderWidth: 1,
-                lineTension: 0,
+                lineTension: 0.25,
             },
             {
-                label: 'Average car',
+                label: 'Other',
                 data: [0, 1, 2],
                 backgroundColor: [
 
@@ -1219,7 +1256,7 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
                     'rgba(0, 0, 0, 0.5)',
                 ],
                 borderWidth: 1,
-                lineTension: 0,
+                lineTension: 0.25,
             }],
 
         },
@@ -1227,21 +1264,21 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true,                        
+                        beginAtZero: true,
                         min: 0
                     },
                     scaleLabel: {
-							display: true,
-							labelString: 'Extra Gs'
-						}
+                        display: true,
+                        labelString: 'Extra Gs'
+                    }
                 },],
-                xAxes:[
+                xAxes: [
                     {
 
                         scaleLabel: {
-							display: true,
-							labelString: 'Speed'
-						}
+                            display: true,
+                            labelString: 'Miles Per Hour'
+                        }
                     }
                 ]
             },
@@ -1253,8 +1290,7 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
         type: 'line',
 
         data: {
-            labels: ["0 MPH", "150 MPH"],
-
+            labels: [0, 50, 100, 150, 200],
             datasets: [{
                 label: 'Your vehicle',
                 data: [0, 1.5, 3],
@@ -1267,7 +1303,7 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
 
                 ],
                 borderWidth: 1,
-                lineTension: 0,
+                lineTension: 0.25,
             },
             {
                 label: 'Comparison',
@@ -1281,7 +1317,7 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
                     'rgba(0, 0, 0, 0.5)',
                 ],
                 borderWidth: 1,
-                lineTension: 0,
+                lineTension: 0.25,
             }],
 
         },
@@ -1290,22 +1326,22 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        
+
                         min: 0
                     },
-                    
+
                     scaleLabel: {
-							display: true,
-							labelString: 'Resistance (Gs)'
-						}
+                        display: true,
+                        labelString: 'Resistance (Gs)'
+                    }
                 },],
-                xAxes:[
+                xAxes: [
                     {
 
                         scaleLabel: {
-							display: true,
-							labelString: 'Speed'
-						}
+                            display: true,
+                            labelString: 'Miles Per Hour'
+                        }
                     }
                 ]
             },
@@ -1335,7 +1371,7 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
         type: 'line',
 
         data: {
-            labels: ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"],
+            labels: ["1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º", "10º"],
 
             datasets: [{
                 steppedLine: true,
@@ -1376,7 +1412,17 @@ var downGs=GetDownforceGs(67, handlingArray.handling.fDownforceModifier );
                         beginAtZero: true,
                         min: 0
                     },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'MPH / s'
+                    }
                 },],
+                xAxes:[{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Gear'
+                    }
+                }]
             },
         },
     });
