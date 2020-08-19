@@ -903,7 +903,7 @@
                                         <td>fInitialDriveForce</td>
                                         <td>Acceleration (G-Forces)</td>
                                         <td>Acceleration (G-Forces)</td>
-                                        <td class="text-primary">fInitialDriveForce * 9.8 * currentGear</td>
+                                        <td class="text-primary">fInitialDriveForce * currentGear</td>
                                     </tr>
                                     <tr>
                                         <td>fDownforceModifier</td>
@@ -937,13 +937,13 @@
                                     </tr>
                                     <tr>
                                         <td>fBrakeForce</td>
-                                        <td>Decceleration (G-Forces)</td>
-                                        <td>Decceleration (G-Forces)</td>
-                                                                                <td class="text-primary">Speed / (fBrakeForce * Number of wheels)</td>
+                                        <td>Decceleration (G-Forces) per wheel</td>
+                                        <td>Decceleration (G-Forces) per wheel</td>
+                                        <td class="text-primary">Speed / (fBrakeForce * Number of wheels)</td>
                                 </tbody>
                             </table>
                             <div class="alert alert-info w-50 mx-auto" role="alert">
-                                Most of the new math has been figured out by myself using SHVDN to script the math ingame, drawing helpful data like torque per wheel from the game memory itself. All has been
+                                Most of the new math has been figured out using SHVDN to script the math ingame, drawing helpful data like torque per wheel from the game memory itself. All has been
                                 confirmed ingame, in Singleplayer - feel free to do your own testing.
                             </div>
                         </div>
