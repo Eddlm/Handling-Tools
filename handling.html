@@ -1175,7 +1175,7 @@
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
     function round(number, decimals = 1) {
-        if (decimals < 1) return Math.round(number);
+        if (decimals <= 0) return Math.round(number);
         else return Math.round(number * (10 * decimals)) / (10 * decimals);
     }
     function updateArrayPre() {
@@ -1189,24 +1189,24 @@
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704);
+            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704,2);
         }
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704);
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704,2);
         }
 
         //Drag Chart
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[0].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff));
+            chartAirDrag.data.datasets[0].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff),4);
             i++;
         }
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[1].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff));
+            chartAirDrag.data.datasets[1].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff),4);
             i++;
         }
 
@@ -1214,12 +1214,12 @@
         //Downforce
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
-            chartDownforce.data.datasets[0].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier));
+            chartDownforce.data.datasets[0].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier),4);
             i++;
         }
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
-            chartDownforce.data.datasets[1].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier));
+            chartDownforce.data.datasets[1].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier),4);
             i++;
         }
 
