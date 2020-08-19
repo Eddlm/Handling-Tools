@@ -235,10 +235,9 @@
                                         class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
                                     <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
                                             class="text-danger">2.25</span>.</small>
-                                    <p class="text-center">The drag will motivate a top speed of about <span
-                                            class="text-primary" id="TopSpeedExpl"></span> mph given the current power
+                                    <p class="text-center">The drag will motivate a top speed of about ~<span
+                                            class="text-danger" id="TopSpeedExpl"></span> mph given the current power
                                         and gearing.</p>
-
                                     <hr>
                                     <p>Air Resistance, also called Air Drag, represents the resistive force that the air
                                         applies on the vehicle. Higher resistance means an eariler perceived loss of
@@ -348,7 +347,7 @@
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fInitialDriveMaxFlatVelInput"
                                     name="fInitialDriveMaxFlatVel">
-                                <p class="text-center">The vehicle's last gear will top at <span class="text-primary"
+                                <p class="text-center">The vehicle's last gear will top at <span class="text-danger"
                                         id="fInitialDriveMaxFlatVelExpl">40</span> mph.</p>
                                 <hr>
 
@@ -461,7 +460,7 @@
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Strength</h3>
+                                <h3 class="text-center">Brake Strength</h3>
                                 <p class="text-muted text-center">fBrakeForce</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
@@ -472,7 +471,7 @@
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="0.01"
                                     oninput="applyValueChange(this) " id="fBrakeForceInput" name="fBrakeForce">
-                                <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-primary"
+                                <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-danger"
                                         id="fBrakeForceExpl"></span>s.</p>
                                 <p>Defines the target deceleration applied to each wheel at full brake.</p>
                                 <hr>
@@ -835,7 +834,6 @@
                             <div class="bg-light border border-rounded p-4">
                                 <h3 class="text-center">Rollcentre - Back</h3>
                                 <p class="text-muted text-center">fRollCentreHeightRear</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit..</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
@@ -854,8 +852,9 @@
                 </div>
             </div>
             <div class="pb-5  tab-pane fade" id="raw" role="tabpanel" aria-labelledby="raw-tab">
+                <div class="alert alert-warning mt-3" role="alert">Don't edit the values in there. This area serves only as a preview of the file.</div>
                 <textarea type="textarea" value="" id="handlingFileDisplay" style="min-height:1000px;"
-                    class="mt-5 w-100 bg-light text-success"></textarea>
+                    class="mt-5 w-100 bg-light text-success" disabled></textarea>
 
             </div>
 
@@ -874,7 +873,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="text-center">Stats</h3>
+                        <h3 class="text-center">Simplified Stats</h3>
                         <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
                     </div>
                     <div class="col-md-6">
@@ -897,11 +896,11 @@
     var baseHandlingV = `<?xml version="1.0" encoding="UTF-8"?>
 <CHandlingDataMgr>
   <HandlingData>
-  	<Item type="CHandlingData">
+  <Item type="CHandlingData">
       <handlingName>HANDLINGIDHERE</handlingName>
       <fMass value="1500.000000" />
       <fInitialDragCoeff value="8.000000" />
-	  <fDownforceModifier value="1.000" />
+      <fDownforceModifier value="1.000" />
       <fPercentSubmerged value="85.000000" />
       <vecCentreOfMassOffset x="0.000000" y="0.00000" z="0.000000" />
       <vecInertiaMultiplier x="1.400000" y="1.400000" z="1.600000" />
@@ -950,7 +949,7 @@
       <strDamageFlags>0</strDamageFlags>
       <AIHandling>AVERAGE</AIHandling>
       <SubHandlingData>
-  		<Item type="NULL" />
+        <Item type="NULL" />
         <Item type="NULL" />
         <Item type="NULL" />
       </SubHandlingData>
@@ -1149,7 +1148,7 @@
 
 
                     //console.log(spd + " m/s at x" + gear + "º  - torque: " + torque + " drag " + dragNow + "");
-                    if (torque < dragNow + 0.05) {
+                    if (torque < dragNow + 0.01) {
                         //var info = "This car peaks at " + spd + "m/s - " + gear + "/" + gearings.length;
                         var info = Math.round((spd / 0.44704) * 10) / 10;
 
