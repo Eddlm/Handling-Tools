@@ -95,6 +95,9 @@
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" id="raw-tab" href="#raw">Raw data</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" id="measurements-tab" href="#measurements">Metrics</a>
+            </li>
         </ul>
         <!-- Tabs Holder -->
         <div class="container-fluid tab-content " id="myTabContent">
@@ -127,17 +130,13 @@
                                                     class="text-danger">1000</span>kg.</small>
                                         </div>
                                     </div>
-                                    <p>In GTA V, mass is only responsible for the interaction between entities, let's
-                                        say
-                                        its
-                                        the
-                                        vehicle's pushing force. Mass is not at all related to physical agility and does
-                                        not
-                                        affech
-                                        the car's physics at all. Only affects how well the car fares when colliding
-                                        with
-                                        other
-                                        entities. Vehicles, Lamp posts, rocks, etc.</p>
+                                    <p>Measured in Kg, mass is only responsible for the interaction between entities.
+                                        Let's
+                                        say its the vehicle's pushing force. </p>
+                                    <p>Mass is not at all related to physical
+                                        agility and does not affect the car's physics at all. Only affects how well the
+                                        car fares when colliding
+                                        with other entities. Vehicles, Lamp posts, rocks, etc.</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -237,19 +236,31 @@
                                             class="text-danger">2.25</span>.</small>
                                     <p class="text-center">The drag will motivate a top speed of about ~<span
                                             class="text-danger" id="TopSpeedExpl"></span> mph given the current power
-                                        and gearing.</p>
+                                        and gearing. </p>
+                                    <p>Remember that value is not enforced strongly and can vary in context, ingame.</p>
                                     <hr>
-                                    <p>Air Resistance, also called Air Drag, represents the resistive force that the air
-                                        applies on the vehicle. Higher resistance means an eariler perceived loss of
+
+
+                                    <p>This represents the resistive force that the 'air'
+                                        applies on the vehicle, effectively a force against the vehicle's direction.
+                                    </p>
+                                    <p>
+                                        Higher resistance means an eariler perceived loss of
                                         power at higher speed, resulting in a lower top speed, as the engine cannot
-                                        overpower this force. Lower
-                                        air resistance allows the vehicle to travel faster on the same power.
+                                        overpower this force. Lower air resistance allows the vehicle to travel faster
+                                        on the same power.
                                     </p>
 
                                     <p>Working as a multiplier, this value defines how much will air drag scale with
                                         speed. The higher the multiplier, the more powerful air resistance will be at
                                         high speeds.</p>
+                                    <div class="alert alert-warning mt-3" role="alert">This value does not yet simulate
+                                        torque falloff at the end of the gear, so it is innacurate. It will show a top
+                                        speed lower than the ingame top speed.</div>
                                     <div class="pl-5 font-italic">
+                                        <li>The tug of war between Torque and Drag is not very strong. Your vehicle can
+                                            easily go over this speed on downhill or under performance upgrades, though
+                                            not very far.</li>
                                         <li>Drag works against Torque. Both are measured in G-Forces, the speed at which
                                             they even out is the vehicle's top speed.</li>
                                         <li>Unlike Downforce, drag is omnidirectional.</li>
@@ -314,13 +325,14 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.001" id="fDriveInertiaInput"
                                     name="fDriveInertia">
-                                <p class=" text-center">The vehicle will redline in <span class="text-danger"
-                                        id="fDriveInertiaExpl"></span>s of full throttle.</p>
+                                <p class=" text-center">The vehicle will go from idle to redline in <span
+                                        class="text-danger" id="fDriveInertiaExpl"></span>s assuming full throttle.</p>
+                                <hr>
                                 <p>How responsive the engine revs will be to throttle control. It is measured in Higher
                                     values will result
                                     in faster RPM acceleration and deceleration, while lower values will result in more
                                     sluggish RPMs. </p>
-                                <hr>
+
                                 <p>
                                     Works similar to how a flywheel acts in real-life vehicles, storing drive momentum
                                     from the engine. A lighter flywheel can react faster to engine RPM changes with it's
@@ -852,12 +864,89 @@
                 </div>
             </div>
             <div class="pb-5  tab-pane fade" id="raw" role="tabpanel" aria-labelledby="raw-tab">
-                <div class="alert alert-warning mt-3" role="alert">Don't edit the values in there. This area serves only as a preview of the file.</div>
+                <div class="alert alert-warning mt-3" role="alert">Don't edit the values in there. This area serves only
+                    as a preview of the file.</div>
                 <textarea type="textarea" value="" id="handlingFileDisplay" style="min-height:1000px;"
                     class="mt-5 w-100 bg-light text-success" disabled></textarea>
 
             </div>
 
+            <div class="pb-5  tab-pane fade" id="measurements" role="tabpanel" aria-labelledby="measurements-tab">
+
+                <div class=" pb-4 px-3">
+
+                    <div class="border mt-3">
+
+                        <h3 class="text-center py-1">Measurements</h3>
+                        <p class="px-5">
+                            This editor makes an effort of translating some handling items to real world measurements, depicted in <span class="text-danger">red</span> on them.
+                            For transparency and ease of fact-checking, this section details how the calculations are done. <span class="text-primary"><i>Speed</i></span> is measured in meters per second, m/s.
+                        <div class="mx-5">
+                            
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Measure in data</th>
+                                        <th scope="col">Measure in editor</th>
+                                        <th scope="col">Calc</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>fInitialDriveForce</td>
+                                        <td>G-Forces</td>
+                                        <td>MPH / s</td>
+                                        <td class="text-primary">fInitialDriveForce * 9.8 * currentGear</td>
+                                    </tr>
+                                    <tr>
+                                        <td>fDownforceModifier</td>
+                                        <td>Multiplier</td>
+                                        <td>G-Forces</td>
+                                        <td class="text-primary">fDownforceModifier * ((Speed^2) / 1000)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>fInitialDragCoeff</td>
+                                        <td>Multiplier</td>
+                                        <td>G-Forces</td>
+                                        <td class="text-primary">fInitialDragCoeff * ((Speed/5)^2 / 100)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>fDriveInertia</td>
+                                        <td>Multiplier</td>
+                                        <td>Seconds</td>
+                                        <td class="text-primary"> 1 / fDriveInertia</td>
+                                    </tr>
+                                    <tr>
+                                        <td>fInitialDriveMaxFlatVel</td>
+                                        <td>Multiplier</td>
+                                        <td>Miles per hour</td>
+                                        <td class="text-primary">fInitialDriveMaxFlatVel / 0.75 * 0.6213712</td>
+                                    </tr>
+                                    <tr>
+                                        <td>fClutchChangeRateScaleUpShift</td>
+                                        <td>Multiplier</td>
+                                        <td>Seconds</td>
+                                        <td class="text-primary">1 / fClutchChangeRateScaleUpShift</td>
+                                    </tr>
+                                    <tr>
+                                        <td>fBrakeForce</td>
+                                        <td>G-Forces</td>
+                                        <td>Seconds</td>
+                                        <td class="text-primary">Speed / (fBrakeForce * 4)</td>
+                                        <!-- expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100; -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </p>
+
+                        <hr>
+
+                    </div>
+                </div>
+
+            </div>
             <div class="bg-light border">
                 <h3 class="text-center">Summary</h3>
                 <hr>
@@ -869,6 +958,7 @@
                         <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
                             file...</label>
                     </div>
+                    <p class="mt-2">You can drop handling.meta files from OpenIV directly.</p>
                 </div>
 
                 <div class="row">
@@ -1109,13 +1199,13 @@
                 expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100;
             }
             if (e.name == "fDownforceModifier") {
-                expl.innerHTML = Math.round((((Math.sqrt(27)) * e.value * 9.8) * 0.01) * 100) / 100;
+                expl.innerHTML = Math.round((((Math.sqrt(27)) * e.value) * 0.01) * 100) / 100;
             }
             if (e.name == "fInitialDragCoeff") {
                 expl.innerHTML = Math.round((((Math.sqrt(53 / 5)) / 100) * e.value) * 100) / 100;
             }
             if (e.name == "fInitialDriveMaxFlatVel") {
-                expl.innerHTML = Math.round((e.value / 0.75 / 3.6 / 0.44704) * 100) / 100;
+                expl.innerHTML = Math.round((e.value / 0.75 * 0.6213712) * 100) / 100;
             }
 
         }
@@ -1168,7 +1258,7 @@
         return Math.round((((Math.sqrt(ms / 5)) / 100) * mod) * 1000) / 1000
     }
     function GetDownforceGs(ms, mod) {
-        return Math.round((((Math.sqrt(ms)) * mod * 9.8) * 0.01) * 1000) / 1000;
+        return Math.round((((Math.sqrt(ms)) * mod) * 0.01) * 1000) / 1000;
     }
     function map(x, in_min, in_max, out_min, out_max) {
 
@@ -1189,24 +1279,24 @@
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704,2);
+            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704, 2);
         }
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704,2);
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * 9.8) / 0.44704, 2);
         }
 
         //Drag Chart
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[0].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff),4);
+            chartAirDrag.data.datasets[0].data[i] = round(GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff), 4);
             i++;
         }
         var i = 0;
         while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[1].data[i] = round(GetDownforceGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff),4);
+            chartAirDrag.data.datasets[1].data[i] = round(GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff), 4);
             i++;
         }
 
@@ -1214,12 +1304,12 @@
         //Downforce
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
-            chartDownforce.data.datasets[0].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier),4);
+            chartDownforce.data.datasets[0].data[i] = GetDownforceGs(chartDownforce.data.labels[i] * 0.447, handlingArray.handling.fDownforceModifier);
             i++;
         }
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
-            chartDownforce.data.datasets[1].data[i] = round(GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier),4);
+            chartDownforce.data.datasets[1].data[i] = GetDownforceGs(chartDownforce.data.labels[i] * 0.447, comparisonHandlingArray.handling.fDownforceModifier);
             i++;
         }
 
@@ -1228,13 +1318,13 @@
         chartStats.data.datasets[0].data[1] = round(map(handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
         chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[0].data[4] = round(map(handlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 1);
+        chartStats.data.datasets[0].data[4] = round(map(handlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 2);
 
         chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[1].data[1] = round(map(comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
         chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[1].data[4] = round(map(comparisonHandlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 1);
+        chartStats.data.datasets[1].data[4] = round(map(comparisonHandlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 2);
 
 
 
@@ -1286,7 +1376,8 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true,
+
+                       beginAtZero:true,
                         min: 0
                     },
                     scaleLabel: {
@@ -1473,7 +1564,7 @@
                     'rgba(255, 99, 132, 1)',
                 ],
                 borderWidth: 1,
-                
+
             }, {
                 label: 'Comparison',
                 data: [5, 5, 5, 5, 5],
@@ -1493,6 +1584,7 @@
                     'rgba(54, 162, 235, 1)',
 
                 ],
+                
                 borderWidth: 1,
             }],
 
@@ -1501,8 +1593,7 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        min: 0,
-                        max:100
+                        min: 0,                        
                     },
                     scaleLabel: {
                         display: false,
