@@ -147,13 +147,12 @@
                                             <b>Dynamic</b>: Between 1.0 and 100. The vehicle gains grip at a variable rate from 0 when static to 0.035 * fDownforceModifier <i>near the end of its <b>Fourth</b> gear</i>.
                                         </li>
                                         <li>
-                                            <b>Static (high)</b>: 1.0 or less. The vehicle gains grip at a rate of 0.035, 0.07 if using a tuning Spoiler.
+                                            <b>Static (high)</b>: 1.0 or less. The vehicle gains a flat grip increase of 0.035, 0.07 if using a tuning Spoiler.
                                         </li>
                                         <li>
-                                            <b>Static (low)</b>: 100 or more. The vehicle gains grip at a rate of 0.0105, 0.01313 if using a spoiler.
+                                            <b>Static (low)</b>: 100 or more. The vehicle gains a flat grip increase of 0.0105, 0.01313 if using a spoiler.
                                         </li>
                                     </p>          
-                                    <p>The grip gain seems to use speed in m/s multiplied by the rate mentioned.</p>
 
                                     <div class="alert alert-warning mt-3" role="alert">Dynamic is not accurate yet - it only approximates ramping up to 80mph, while the real value ramps ending near the end of Fourth gear.</div>
                                     <hr>
