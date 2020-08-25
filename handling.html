@@ -158,9 +158,6 @@
                                         </li>
                                     </p>
 
-                                    <div class="alert alert-warning mt-3" role="alert">Dynamic is not accurate yet - it
-                                        only approximates ramping up to 80mph, while the real value ramps ending near
-                                        the end of Fourth gear.</div>
                                     <hr>
                                     <p>There is a fourth ruleset, used on the Open Wheel vehicles, which requires
                                         advanced flags and defines specific rates per Spoiler/Bumper. Investigation is
@@ -182,17 +179,18 @@
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
                                         class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
-                                    <small class="d-none">Your car's air drag is x<span id="airdragDisplay"
-                                            class="text-danger">2.25</span>.</small>
+                                        <!--
+
                                     <p class="text-center">The drag will motivate a top speed of about ~<span
                                             class="text-danger" id="TopSpeedExpl"></span> mph given the current power
                                         and gearing. </p>
                                     <p>Remember that value is not enforced strongly and can vary in context, ingame.</p>
-                                    <hr>
+                                <hr>    
+                                -->
+                                    
 
 
-                                    <p>This represents the resistive force that the 'air'
-                                        applies on the vehicle, effectively a force against the vehicle's direction.
+                                    <p>The vehicle's body air resistance. 
                                     </p>
                                     <p>
                                         Higher resistance means an eariler perceived loss of
@@ -204,9 +202,10 @@
                                     <p>Working as a multiplier, this value defines how much will air drag scale with
                                         speed. The higher the multiplier, the more powerful air resistance will be at
                                         high speeds.</p>
+                                        <!--
                                     <div class="alert alert-warning mt-3" role="alert">This value does not yet simulate
                                         torque falloff at the end of the gear, so it is innacurate. It will show a top
-                                        speed lower than the ingame top speed.</div>
+                                        speed lower than the ingame top speed.</div>-->
                                     <div class="pl-5 font-italic">
                                         <li>The tug of war between Torque and Drag is not very strong. Your vehicle can
                                             easily go over this speed on downhill or under performance upgrades, though
@@ -940,19 +939,19 @@
                                         <td>fInitialDriveForce</td>
                                         <td>Acceleration (G-Forces)</td>
                                         <td>Acceleration (G-Forces)</td>
-                                        <td class="text-primary">fInitialDriveForce * currentGear</td>
+                                        <td class="text-primary">fInitialDriveForce * Ratio of Current Gear</td>
                                     </tr>
                                     <tr>
                                         <td>fDownforceModifier</td>
                                         <td>Multiplier</td>
                                         <td>Grip gain (G-Forces)</td>
-                                        <td class="text-primary">fDownforceModifier * ((Speed^2) / 1000)</td>
+                                        <td class="text-primary">fDownforceModifier * In-wheel modifier</td>
                                     </tr>
                                     <tr>
                                         <td>fInitialDragCoeff</td>
                                         <td>Multiplier</td>
                                         <td>Air Resistance (G-Forces)</td>
-                                        <td class="text-primary">fInitialDragCoeff * ((Speed/5)^2 / 100)</td>
+                                        <td class="text-primary">(Speed * (fInitialDragCoeff * 0.0001))^2</td>
                                     </tr>
                                     <tr>
                                         <td>fDriveInertia</td>
@@ -1223,7 +1222,6 @@
     }
     function UpdateExplanations(e) {
 
-        //console.log(e);
 
         var expl = document.getElementById(e.name + "Expl");
         if (expl != null) {
@@ -1241,10 +1239,10 @@
                 expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100;
             }
             if (e.name == "fDownforceModifier") {
-                expl.innerHTML = GetDownforceGs(60*1.609344, e.value);// Math.round((((Math.sqrt(27)) * e.value) * 0.01) * 100) / 100;
+                expl.innerHTML =  GetDownforceGs(60 * 1.609344, e.value);// Math.round((((Math.sqrt(27)) * e.value) * 0.01) * 100) / 100;
             }
             if (e.name == "fInitialDragCoeff") {
-                expl.innerHTML = Math.round((((Math.sqrt(53 / 5)) / 100) * e.value) * 100) / 100;
+                expl.innerHTML = GetDragCoeffGs(53, e.value);
             }
             if (e.name == "fInitialDriveMaxFlatVel") {
                 expl.innerHTML = Math.round((e.value / 0.75 * 0.6213712) * 100) / 100;
@@ -1285,7 +1283,7 @@
                         var info = Math.round((spd / 0.44704) * 10) / 10;
 
                         var dragExp = document.getElementById("TopSpeedExpl");
-                        dragExp.innerHTML = info;
+                      if(dragExp!=null)  dragExp.innerHTML = info;
                         break;
                     }
 
@@ -1297,7 +1295,7 @@
         }
     }
     function GetDragCoeffGs(ms, mod) {
-        return Math.round((((Math.sqrt(ms / 5)) / 100) * mod) * 1000) / 1000
+        return Math.round(Math.exp(ms *(mod*0.001)) * 1000) / 1000;
     }
     function GetDownforceGs(ms, mod) {
 
@@ -1314,7 +1312,7 @@
         //New Downforce
         if (mod > 100) r = 0.0105;
 
-        return Math.round(r *4 * 1000) / 1000;
+        return Math.round(r * 4 * 1000) / 1000;
     }
     function map(x, in_min, in_max, out_min, out_max) {
 
@@ -1344,19 +1342,20 @@
             chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * (9.8 / 0.44704)), 2);
         }
 
-        //Drag Chart
-        var i = 0;
-        while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[0].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
-            i++;
-        }
-        var i = 0;
-        while (i < chartAirDrag.data.labels.length) {
-            chartAirDrag.data.datasets[1].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
-            i++;
-        }
 
-
+                //Drag Chart
+                var i = 0;
+                while (i < chartAirDrag.data.labels.length) {
+                    chartAirDrag.data.datasets[0].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
+                    i++;
+                }
+                var i = 0;
+                while (i < chartAirDrag.data.labels.length) {
+                    chartAirDrag.data.datasets[1].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
+                    i++;
+                }
+        
+        
         //Downforce
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
@@ -1374,13 +1373,13 @@
         chartStats.data.datasets[0].data[1] = round(map(handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
         chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[0].data[4] = round(map(handlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 2);
+        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs( 60 * 1.609344,handlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
 
         chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[1].data[1] = round(map(comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
         chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[1].data[4] = round(map(comparisonHandlingArray.handling.fDownforceModifier, 0, 10, 0, 100), 2);
+        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344,comparisonHandlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
 
 
 
@@ -1426,7 +1425,6 @@
                 borderWidth: 1,
                 lineTension: 0.25,
             }],
-
         },
         options: {
             scales: {
@@ -1459,11 +1457,12 @@
         type: 'line',
 
         data: {
-            labels: [0, 50, 100, 150, 200],
-            datasets: [{
-                label: 'Your vehicle',
+            labels: [0, 25, 50, 75, 100, 125, 150, 175, 200],
+            datasets: [
+            {
+                label: 'Your Car',
                 fill: false,
-                data: [0, 1.5, 3],
+                data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
 
@@ -1476,9 +1475,9 @@
                 lineTension: 0.25,
             },
             {
-                fill: false,
                 label: 'Comparison',
-                data: [0, 1, 2],
+                fill: false,
+                data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
                 backgroundColor: [
 
                     'rgba(54, 162, 235, 0.2)',
@@ -1489,8 +1488,68 @@
                 ],
                 borderWidth: 1,
                 lineTension: 0.25,
-            }],
+            },
+            /*
+                {
+                label: 'x1',
+                fill: false,
+                data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0)',
 
+                ],
+                borderColor: [
+                    'skyblue',
+                ],
+                borderWidth: 1,
+                lineTension: 0.25,
+            },
+            {
+                label: 'x5',
+                fill: false,
+                data: [0.9, 1.1, 1.2, 1.4, 1.7, 2, 2.26, 2.65, 2.9],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0)',
+
+                ],
+                borderColor: [
+                    'skyblue',
+
+                ],
+                borderWidth: 1,
+                lineTension: 0.25,
+            },
+            {
+                label: 'x10',
+                fill: false,
+                data: [0.9, 1.15, 1.46, 1.78, 2.225, 3.00, 3.7, 4.5, 5.4],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0)',
+
+                ],
+                borderColor: [
+                    'skyblue',
+
+                ],
+                borderWidth: 1,
+                lineTension: 0.25,
+            },
+            {
+                label: 'x50',
+                fill: false,
+                data: [1, 1.1, 1.74, 2.5, 3.4, 4.7, 6.3, 8, 9.9],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0)',
+
+                ],
+                borderColor: [
+                    'skyblue',
+
+                ],
+                borderWidth: 1,
+                lineTension: 0.25,
+            }
+            */],
         },
         options: {
             scales: {
