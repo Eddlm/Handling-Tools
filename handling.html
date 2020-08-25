@@ -20,7 +20,7 @@
 
 <body>
     <div>
-        <small class="float-right px-1 text-muted">0.3 - Added #Metrics tab</small><br>
+        <small class="float-right px-1 text-muted">0.3 - Improved drag, better stepping on inputs</small><br>
         <div class="text-center">
             <span class="display-4">Handling Editor</span><br>
             <span class="mt-2">Edit handling files easily, and quickly.</span>
@@ -122,14 +122,14 @@
                                     <canvas id="downforceChart" width="100" height="50"></canvas>
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
-                                        <input type="range" min="0" max="5" value="1" step="0.01"
+                                        <input type="range" min="0" max="5" value="1" step="0.05"
                                             class="form-control-range w-100 mx-2 custom-range"
                                             id="fDownforceModifierSlider" oninput="applyValueChange(this)"
                                             name="fDownforceModifier">
                                         <span>5</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fDownforceModifier"
-                                        class="form-control text-center my-2" step="0.001" id="fDownforceModifierInput">
+                                        class="form-control text-center my-2" step="0.005" id="fDownforceModifierInput">
 
 
                                     <p class="text-center">This car will generate <span id="fDownforceModifierExpl"
@@ -172,14 +172,14 @@
 
                                     <div class="d-flex align-content-center">
                                         <span>0</span>
-                                        <input type="range" min="1" max="20" value="7" step="0.01"
+                                        <input type="range" min="1" max="20" value="7" step="0.5"
                                             id="fInitialDragCoeffSlider" oninput="applyValueChange(this)"
                                             class="form-control-range w-100 mx-2 custom-range" name="fInitialDragCoeff">
                                         <span>20</span>
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
-                                        class="form-control text-center my-2" step="0.001" id="fInitialDragCoeffInput">
-                                        <!--
+                                        class="form-control text-center my-2" step="0.05" id="fInitialDragCoeffInput">
+                                    <!--
 
                                     <p class="text-center">The drag will motivate a top speed of about ~<span
                                             class="text-danger" id="TopSpeedExpl"></span> mph given the current power
@@ -187,10 +187,10 @@
                                     <p>Remember that value is not enforced strongly and can vary in context, ingame.</p>
                                 <hr>    
                                 -->
-                                    
 
 
-                                    <p>The vehicle's body air resistance. 
+
+                                    <p>The vehicle's body air resistance.
                                     </p>
                                     <p>
                                         Higher resistance means an eariler perceived loss of
@@ -202,7 +202,7 @@
                                     <p>Working as a multiplier, this value defines how much will air drag scale with
                                         speed. The higher the multiplier, the more powerful air resistance will be at
                                         high speeds.</p>
-                                        <!--
+                                    <!--
                                     <div class="alert alert-warning mt-3" role="alert">This value does not yet simulate
                                         torque falloff at the end of the gear, so it is innacurate. It will show a top
                                         speed lower than the ingame top speed.</div>-->
@@ -439,29 +439,29 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleUpShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001"
-                                        min="0.01" max="10" oninput="applyValueChange(this)"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.25"
+                                        min="0.0" max="10" oninput="applyValueChange(this)"
                                         id="fClutchChangeRateScaleUpShiftSlider" name="fClutchChangeRateScaleUpShift">
                                     <span>10</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number"
-                                    oninput="applyValueChange(this)" step="0.001"
+                                    oninput="applyValueChange(this)" step="0.05"
                                     id="fClutchChangeRateScaleUpShiftInput" name="fClutchChangeRateScaleUpShift">
                                 <p class=" mx-auto text-center">The vehicle will take <span class="text-danger"
-                                        id="fClutchChangeRateScaleUpShiftExpl"></span>s to shift.</p>
-
+                                        id="fClutchChangeRateScaleUpShiftExpl"></span>s to shift from gear to gear.</p>
                                 <hr>
+                                <p></p>
                                 <p class="text-muted text-center">fClutchChangeRateScaleDownShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001"
-                                        min="0.01" max="10" oninput="applyValueChange(this)"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.25"
+                                        min="0.0" max="10" oninput="applyValueChange(this)"
                                         id="fClutchChangeRateScaleDownShiftSlider"
                                         name="fClutchChangeRateScaleDownShift">
                                     <span>3</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number"
-                                    oninput="applyValueChange(this)" step="0.001"
+                                    oninput="applyValueChange(this)" step="0.05"
                                     id="fClutchChangeRateScaleDownShiftInput" name="fClutchChangeRateScaleDownShift">
                             </div>
                         </div>
@@ -470,7 +470,6 @@
                                 <h3 class="text-center">Power Bias</h3>
                                 <p class="text-muted text-center">fDriveBiasFront</p>
 
-                                <p>Power distribution between the axles.</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
@@ -516,8 +515,9 @@
                                     oninput="applyValueChange(this) " id="fBrakeForceInput" name="fBrakeForce">
                                 <p class="text-center">Target deceleration is 60-0 mph in ~<span class="text-danger"
                                         id="fBrakeForceExpl"></span>s.</p>
-                                <p>Defines the target deceleration applied to each wheel at full brake.</p>
+                                <p>How many Gs of deceleration are applied to each wheel.</p>
                                 <hr>
+
                                 <p>
                                     <i>fTractionCurveMax</i> and <i>fBrakeForce</i> are closely related. Assuming
                                     perfect balance, a fourth of brake is enough to make each wheel lockup.
@@ -531,14 +531,21 @@
                                 <p class="text-muted text-center">fBrakeBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.025" min="0"
                                         max="1" oninput="applyValueChange(this)" id="fBrakeBiasFrontSlider"
                                         name="fBrakeBiasFront">
                                     <span>1</span>
                                 </div>
                                 <input class="form-control text-center my-2" step="0.01" type="number"
                                     oninput="applyValueChange(this)" id="fBrakeBiasFrontInput" name="fBrakeBiasFront">
+
+                                <p class="text-center"><span class="" id="fBrakeBiasFrontExpl"></span></p>
                                 <p>Distribution of the brake strength between the axles.</p>
+                                <p>
+                                    Usually, the best balance is between 0.55 and 0.7 for best braking capabilities, as
+                                    it accounts for the weight transfer that ensues when braking.<br><br>Vehicles with
+                                    more body lean typically need more balance to the front.
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -576,44 +583,59 @@
                                 <p class="text-muted text-center">fTractionCurveMax</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.05" min="0"
                                         max="3" oninput="applyValueChange(this)" id="fTractionCurveMaxSlider"
                                         name="fTractionCurveMax">
                                     <span>3</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fTractionCurveMaxInput"
                                     name="fTractionCurveMax">
                                 <hr>
                                 <p class="text-muted text-center">fTractionCurveMin</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.05" min="0"
                                         max="3" oninput="applyValueChange(this)" id="fTractionCurveMinSlider"
                                         name="fTractionCurveMin">
                                     <span>3</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fTractionCurveMinInput"
                                     name="fTractionCurveMin">
                                 <p>Maximum and minimum G's the vehicle's wheels are able to pull.</p>
+                                <hr>
+                                <p>
+                                    In V, grip is represented as how much the vehicle's tires are able to accelerate or decelerate the car's body, as a whole. 
+                                </p>
+                                <p>
+                                    These values are constantly changed around by context, like suspension pressure, surface the tire is driving on, etcetera.
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="bg-light border border-rounded p-4">
-                                <h3 class="text-center">Traction Curve (Lateral)</h3>
+                                <h3 class="text-center">Traction Curve</h3>
                                 <p class="text-muted text-center">fTractionCurveLateral</p>
                                 <div class="d-flex align-content-center">
                                     <span>10</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="10"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.5" min="10"
                                         max="30" oninput="applyValueChange(this)" id="fTractionCurveLateralSlider"
                                         name="fTractionCurveLateral">
                                     <span>30</span>
                                 </div>
-                                <input class="form-control text-center my-2" step="0.01" type="number"
+                                <input class="form-control text-center my-2" step="0.25" type="number"
                                     oninput="applyValueChange(this)" id="fTractionCurveLateralInput"
                                     name="fTractionCurveLateral">
-                                <p>Relative direction/aim angle at which the car has the best grip when turning.</p>
+                                <p>Slide angle at which the car will enjoy the best grip available.</p>
+                                <hr>
+                                <p>
+                                    The vehicle will tend to stay below half of this value. 
+
+                                </p>
+                                <p>
+                                    It is reccomended to keep it at default 22.5 on most vehicles, though Sports and Supercars can have it as low as 18º if you so desire, making them stay more straight. Over 24º is not reccomended save for the slidiest cars, like old muscles.
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -622,15 +644,19 @@
                                 <p class="text-muted text-center">fTractionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.05" min="0"
+                                    <input class="w-100 mx-2 custom-range " type="range" value="0" step="0.005" min="0"
                                         max="1" oninput="applyValueChange(this)" id="fTractionBiasFrontSlider"
                                         name="fTractionBiasFront">
                                     <span>1</span>
                                 </div>
-                                <input class="form-control text-center my-2" step="0.01" type="number"
+                                <input class="form-control text-center my-2" step="0.005" type="number"
                                     oninput="applyValueChange(this)" id="fTractionBiasFrontInput"
                                     name="fTractionBiasFront">
-                                <p>Grip distribution between the axles.</p>
+                                <p class="text-center">Grip balance:<br> <span class="text-primary" id="fTractionBiasFrontExpl"></span></p>
+                                <hr>
+                                <p>
+                                    This value perfectly describes situations where the front and rear axles have different kinds of wheels, be it the compounds are different, or the tire width is different.<br><br> Very useful for dragsters and high performance cars who come with changes like these.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -650,6 +676,10 @@
                                     oninput="applyValueChange(this) " id="fTractionLossMultInput"
                                     name="fTractionLossMult">
                                 <p>How exaggerated the traction loss is for this vehicle.</p>
+                                <p>
+                                    A value of 1.0 makes the car lose grip on each surface as expected by the game. Below 1.0 you lose less grip than normal, over 1.0 you lose more grip than normal.
+                                    <br><br>High end cars can have up to 1.5 or so before the traction loss of certain surfaces ends up making the car have negative grip.
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -718,24 +748,24 @@
                                 <p class="text-muted text-center">fSuspensionCompDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.05" min="0"
                                         max="3" oninput="applyValueChange(this)" id="fSuspensionCompDampSlider"
                                         name="fSuspensionCompDamp">
                                     <span>3</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fSuspensionCompDampInput"
                                     name="fSuspensionCompDamp">
                                 <hr>
                                 <p class="text-muted text-center">fSuspensionReboundDamp</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.05" min="0"
                                         max="3" oninput="applyValueChange(this)" id="fSuspensionReboundDampSlider"
                                         name="fSuspensionReboundDamp">
                                     <span>3</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fSuspensionReboundDampInput"
                                     name="fSuspensionReboundDamp">
                                 <p>How strongly the spring strength is dampened when compressing or decompressing.</p>
@@ -747,24 +777,24 @@
                                 <p class="text-muted text-center">fSuspensionUpperLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.005" min="0"
                                         max="1" oninput="applyValueChange(this)" id="fSuspensionUpperLimitSlider"
                                         name="fSuspensionUpperLimit">
                                     <span>1</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.0025"
                                     oninput="applyValueChange(this) " id="fSuspensionUpperLimitInput"
                                     name="fSuspensionUpperLimit">
                                 <hr>
                                 <p class="text-muted text-center">fSuspensionLowerLimit</p>
                                 <div class="d-flex align-content-center">
                                     <span>-1</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.005" min="-1"
                                         max="0" oninput="applyValueChange(this)" id="fSuspensionLowerLimitSlider"
                                         name="fSuspensionLowerLimit">
                                     <span>0</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.0025"
                                     oninput="applyValueChange(this) " id="fSuspensionLowerLimitInput"
                                     name="fSuspensionLowerLimit">
                                 <p>Compression upper and lower limits, in meters. Yeah, use centimeters.</p>
@@ -778,15 +808,15 @@
                                 <p class="text-muted text-center">fSuspensionRaise</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.001" min="-1"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.05" min="-1"
                                         max="1" oninput="applyValueChange(this)" id="fSuspensionRaiseSlider"
                                         name="fSuspensionRaise">
                                     <span>1</span>
                                 </div>
-                                <input class="form-control text-center my-2" type="number" value="6" step="1"
+                                <input class="form-control text-center my-2" type="number" value="6" step="0.025"
                                     oninput="applyValueChange(this) " id="fSuspensionRaiseInput"
                                     name="fSuspensionRaise">
-                                <p>In centimeters, this raises or lowers the natural stance of the vehicle.</p>
+                                <p>In meters, this raises or lowers the natural stance of the vehicle.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -795,12 +825,12 @@
                                 <p class="text-muted text-center">fSuspensionBiasFront</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.05" min="0"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="0" step="0.005" min="0"
                                         max="1" oninput="applyValueChange(this)" id="fSuspensionBiasFrontSlider"
                                         name="fSuspensionBiasFront">
                                     <span>1</span>
                                 </div>
-                                <input class="form-control text-center my-2" step="0.01" type="number"
+                                <input class="form-control text-center my-2" step="0.0025" type="number"
                                     oninput="applyValueChange(this)" id="fSuspensionBiasFrontInput"
                                     name="fSuspensionBiasFront">
                                 <p>Spring strength distribution between the axles of the vehicle.</p>
@@ -1004,7 +1034,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="text-center">Simplified Stats</h3>
-                        <p class="text-center">The main measures, translated to a 0-100 score.</p>
+                        <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
                         <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
                     </div>
                     <div class="col-md-6">
@@ -1238,8 +1268,24 @@
                 var decc = (e.value) * 9.8; //ms^2
                 expl.innerHTML = Math.round(((60 * 0.44704) / (decc * 4)) * 100) / 100;
             }
+            if (e.name == "fBrakeBiasFront") {
+                var balance = (e.value);
+                var result = Math.round((e.value) * 100) + "% Front - " + Math.round((1 - e.value) * 100) + "% Rear";
+
+                expl.innerHTML = result;
+            }
+            if (e.name == "fTractionBiasFront") {
+                var balance = (e.value);
+                var grip = handlingArray.handling.fTractionCurveMax;
+                var gripFront = Math.round((grip * e.value) * 100) / 100;
+                var gripRear = Math.round((grip * (1 - e.value)) * 100) / 100;
+                var result = gripFront + " Gs Front <br> " + gripRear + " Gs Rear";
+
+                expl.innerHTML = result;
+            }
+
             if (e.name == "fDownforceModifier") {
-                expl.innerHTML =  GetDownforceGs(60 * 1.609344, e.value);// Math.round((((Math.sqrt(27)) * e.value) * 0.01) * 100) / 100;
+                expl.innerHTML = GetDownforceGs(60 * 1.609344, e.value);// Math.round((((Math.sqrt(27)) * e.value) * 0.01) * 100) / 100;
             }
             if (e.name == "fInitialDragCoeff") {
                 expl.innerHTML = GetDragCoeffGs(53, e.value);
@@ -1247,6 +1293,7 @@
             if (e.name == "fInitialDriveMaxFlatVel") {
                 expl.innerHTML = Math.round((e.value / 0.75 * 0.6213712) * 100) / 100;
             }
+
 
         }
 
@@ -1283,7 +1330,7 @@
                         var info = Math.round((spd / 0.44704) * 10) / 10;
 
                         var dragExp = document.getElementById("TopSpeedExpl");
-                      if(dragExp!=null)  dragExp.innerHTML = info;
+                        if (dragExp != null) dragExp.innerHTML = info;
                         break;
                     }
 
@@ -1295,7 +1342,7 @@
         }
     }
     function GetDragCoeffGs(ms, mod) {
-        return Math.round(Math.exp(ms *(mod*0.001)) * 1000) / 1000;
+        return Math.round(Math.exp(ms * (mod * 0.001)) * 1000) / 1000;
     }
     function GetDownforceGs(ms, mod) {
 
@@ -1328,7 +1375,6 @@
     function UpdateCharts() {
 
         //Torque Chart
-
         var power = handlingArray.handling.fInitialDriveForce;
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
@@ -1343,19 +1389,19 @@
         }
 
 
-                //Drag Chart
-                var i = 0;
-                while (i < chartAirDrag.data.labels.length) {
-                    chartAirDrag.data.datasets[0].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
-                    i++;
-                }
-                var i = 0;
-                while (i < chartAirDrag.data.labels.length) {
-                    chartAirDrag.data.datasets[1].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
-                    i++;
-                }
-        
-        
+        //Drag Chart
+        var i = 0;
+        while (i < chartAirDrag.data.labels.length) {
+            chartAirDrag.data.datasets[0].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, handlingArray.handling.fInitialDragCoeff);
+            i++;
+        }
+        var i = 0;
+        while (i < chartAirDrag.data.labels.length) {
+            chartAirDrag.data.datasets[1].data[i] = GetDragCoeffGs(chartAirDrag.data.labels[i] * 0.447, comparisonHandlingArray.handling.fInitialDragCoeff);
+            i++;
+        }
+
+
         //Downforce
         var i = 0;
         while (i < chartDownforce.data.labels.length) {
@@ -1369,21 +1415,22 @@
         }
 
 
-        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0, 1, 0, 100), 1);
+        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0, 0.5, 0, 100), 1);
         chartStats.data.datasets[0].data[1] = round(map(handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
         chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs( 60 * 1.609344,handlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
+        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
 
-        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 1, 0, 100), 1);
+        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 0.5, 0, 100), 1);
         chartStats.data.datasets[1].data[1] = round(map(comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
         chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
         chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344,comparisonHandlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
+        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344, comparisonHandlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
 
 
 
         chartPower.update();
+
         chartAirDrag.update();
         chartDownforce.update();
         chartStats.update();
@@ -1459,36 +1506,36 @@
         data: {
             labels: [0, 25, 50, 75, 100, 125, 150, 175, 200],
             datasets: [
-            {
-                label: 'Your Car',
-                fill: false,
-                data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
+                {
+                    label: 'Your Car',
+                    fill: false,
+                    data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
 
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
 
-                ],
-                borderWidth: 1,
-                lineTension: 0.25,
-            },
-            {
-                label: 'Comparison',
-                fill: false,
-                data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
-                backgroundColor: [
+                    ],
+                    borderWidth: 1,
+                    lineTension: 0.25,
+                },
+                {
+                    label: 'Comparison',
+                    fill: false,
+                    data: [0.9, 1, 1.2, 1.3, 1.4, 1.6, 1.8, 2, 2.2],
+                    backgroundColor: [
 
-                    'rgba(54, 162, 235, 0.2)',
-                ],
-                borderColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
 
-                    'rgba(54, 162, 235, 1)',
-                ],
-                borderWidth: 1,
-                lineTension: 0.25,
-            },
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1,
+                    lineTension: 0.25,
+                },
             /*
                 {
                 label: 'x1',
@@ -1707,9 +1754,7 @@
         options: {
             scales: {
                 yAxes: [{
-                    ticks: {
-                        min: 0,
-                    },
+
                     scaleLabel: {
                         display: false,
                         labelString: ''
@@ -1719,7 +1764,13 @@
                     scaleLabel: {
                         display: false,
                         labelString: ''
-                    }
+                    },
+                    ticks: {
+                        max: 100,
+                        min: 0,
+                        stepSize: 10
+
+                    },
                 }]
             },
         },
