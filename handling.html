@@ -20,7 +20,7 @@
 
 <body>
     <div>
-        <small class="float-right px-1 text-muted">0.3 - Improved drag, better stepping on inputs</small><br>
+        <small class="float-right px-1 text-muted">0.3.5 - Better downforce calc, tweaked metrics</small><br>
         <div class="text-center">
             <span class="display-4">Handling Editor</span><br>
             <span class="mt-2">Edit handling files easily, and quickly.</span>
@@ -139,14 +139,15 @@
                                     <p>Downforce is a way to gain grip at speed, and can be increased by Spoilers.</p>
                                     <p>In V, downforce is represented as two behaviors - an actual down force pressing
                                         the car down, and a separate grip gain based on fDownforceModifier and a
-                                        ruleset. <br><br>The resulting value is added to the wheel grip.</p>
+                                        ruleset. <br><br>The resulting value is added to the wheel grip, multiply by the
+                                        four wheels you'd usually have.</p>
                                     <hr>
                                     <p>The value of fDownforceModifier can define one of three rulesets for the
                                         Downforce calculations:
                                         <li>
                                             <b>Dynamic</b>: Between 1.0 and 100. The vehicle gains grip at a variable
-                                            rate from 0 when static to 0.035 * fDownforceModifier <i>near the end of its
-                                                <b>Fourth</b> gear</i>.
+                                            rate from 0 when static to 0.035 * fDownforceModifier at 90% of its top
+                                            speed.
                                         </li>
                                         <li>
                                             <b>Static (high)</b>: 1.0 or less. The vehicle gains a flat grip increase of
@@ -157,11 +158,13 @@
                                             0.0105, 0.01313 if using a spoiler.
                                         </li>
                                     </p>
-
+                                    <p>Active Aero vehicles ignore this value, setting a 0.035 gain when the spoiler is
+                                        raised, up to 0.07 when it pitches down to aid cornering or braking.</p>
                                     <hr>
                                     <p>There is a fourth ruleset, used on the Open Wheel vehicles, which requires
                                         advanced flags and defines specific rates per Spoiler/Bumper. Investigation is
                                         still ongoing.</p>
+
                                 </div>
                             </div>
                             <div class="w-50 p-5">
@@ -335,7 +338,8 @@
                                 </p>
                                 <p>Gearing modulates this value in ratios to translate it into torque, which is the
                                     final acceleration the vehicle will experience.</p>
-
+<hr>
+<p>Electric vehicles bypass this entirely, starting with x5 torque whith drains to x1 at the top speed.</p>
 
                             </div>
                         </div>
@@ -417,9 +421,9 @@
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
                                     <input class="w-100 mx-2 custom-range" type="range" value="6" step="1" min="0"
-                                        max="7" oninput="applyValueChange(this)" id="nInitialDriveGearsSlider"
+                                        max="6" oninput="applyValueChange(this)" id="nInitialDriveGearsSlider"
                                         name="nInitialDriveGears">
-                                    <span>7</span>
+                                    <span>6</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number" value="6" step="1"
                                     oninput="applyValueChange(this) " id="nInitialDriveGearsInput"
@@ -439,14 +443,14 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleUpShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.25"
-                                        min="0.0" max="10" oninput="applyValueChange(this)"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.25" min="0.0"
+                                        max="10" oninput="applyValueChange(this)"
                                         id="fClutchChangeRateScaleUpShiftSlider" name="fClutchChangeRateScaleUpShift">
                                     <span>10</span>
                                 </div>
                                 <input class="form-control text-center my-2" type="number"
-                                    oninput="applyValueChange(this)" step="0.05"
-                                    id="fClutchChangeRateScaleUpShiftInput" name="fClutchChangeRateScaleUpShift">
+                                    oninput="applyValueChange(this)" step="0.05" id="fClutchChangeRateScaleUpShiftInput"
+                                    name="fClutchChangeRateScaleUpShift">
                                 <p class=" mx-auto text-center">The vehicle will take <span class="text-danger"
                                         id="fClutchChangeRateScaleUpShiftExpl"></span>s to shift from gear to gear.</p>
                                 <hr>
@@ -454,8 +458,8 @@
                                 <p class="text-muted text-center">fClutchChangeRateScaleDownShift</p>
                                 <div class="d-flex align-content-center">
                                     <span>0</span>
-                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.25"
-                                        min="0.0" max="10" oninput="applyValueChange(this)"
+                                    <input class="w-100 mx-2 custom-range" type="range" value="1" step="0.25" min="0.0"
+                                        max="10" oninput="applyValueChange(this)"
                                         id="fClutchChangeRateScaleDownShiftSlider"
                                         name="fClutchChangeRateScaleDownShift">
                                     <span>3</span>
@@ -606,10 +610,12 @@
                                 <p>Maximum and minimum G's the vehicle's wheels are able to pull.</p>
                                 <hr>
                                 <p>
-                                    In V, grip is represented as how much the vehicle's tires are able to accelerate or decelerate the car's body, as a whole. 
+                                    In V, grip is represented as how much the vehicle's tires are able to accelerate or
+                                    decelerate the car's body, as a whole.
                                 </p>
                                 <p>
-                                    These values are constantly changed around by context, like suspension pressure, surface the tire is driving on, etcetera.
+                                    These values are constantly changed around by context, like suspension pressure,
+                                    surface the tire is driving on, etcetera.
                                 </p>
                             </div>
                         </div>
@@ -630,11 +636,13 @@
                                 <p>Slide angle at which the car will enjoy the best grip available.</p>
                                 <hr>
                                 <p>
-                                    The vehicle will tend to stay below half of this value. 
+                                    The vehicle will tend to stay below half of this value.
 
                                 </p>
                                 <p>
-                                    It is reccomended to keep it at default 22.5 on most vehicles, though Sports and Supercars can have it as low as 18º if you so desire, making them stay more straight. Over 24º is not reccomended save for the slidiest cars, like old muscles.
+                                    It is reccomended to keep it at default 22.5 on most vehicles, though Sports and
+                                    Supercars can have it as low as 18º if you so desire, making them stay more
+                                    straight. Over 24º is not reccomended save for the slidiest cars, like old muscles.
                                 </p>
                             </div>
                         </div>
@@ -652,10 +660,14 @@
                                 <input class="form-control text-center my-2" step="0.005" type="number"
                                     oninput="applyValueChange(this)" id="fTractionBiasFrontInput"
                                     name="fTractionBiasFront">
-                                <p class="text-center">Grip balance:<br> <span class="text-primary" id="fTractionBiasFrontExpl"></span></p>
+                                <p class="text-center">Grip balance:<br> <span class="text-primary"
+                                        id="fTractionBiasFrontExpl"></span></p>
                                 <hr>
                                 <p>
-                                    This value perfectly describes situations where the front and rear axles have different kinds of wheels, be it the compounds are different, or the tire width is different.<br><br> Very useful for dragsters and high performance cars who come with changes like these.
+                                    This value perfectly describes situations where the front and rear axles have
+                                    different kinds of wheels, be it the compounds are different, or the tire width is
+                                    different.<br><br> Very useful for dragsters and high performance cars who come with
+                                    changes like these.
                                 </p>
                             </div>
                         </div>
@@ -677,8 +689,10 @@
                                     name="fTractionLossMult">
                                 <p>How exaggerated the traction loss is for this vehicle.</p>
                                 <p>
-                                    A value of 1.0 makes the car lose grip on each surface as expected by the game. Below 1.0 you lose less grip than normal, over 1.0 you lose more grip than normal.
-                                    <br><br>High end cars can have up to 1.5 or so before the traction loss of certain surfaces ends up making the car have negative grip.
+                                    A value of 1.0 makes the car lose grip on each surface as expected by the game.
+                                    Below 1.0 you lose less grip than normal, over 1.0 you lose more grip than normal.
+                                    <br><br>High end cars can have up to 1.5 or so before the traction loss of certain
+                                    surfaces ends up making the car have negative grip.
                                 </p>
                             </div>
                         </div>
@@ -975,7 +989,8 @@
                                         <td>fDownforceModifier</td>
                                         <td>Multiplier</td>
                                         <td>Grip gain (G-Forces)</td>
-                                        <td class="text-primary">fDownforceModifier * In-wheel modifier</td>
+                                        <td class="text-primary">(0 - 0.035) > (0 - 90% of fInitialDriveMaxFlatVel)<br>*
+                                            fDownforceModifier * Nº of Wheels</td>
                                     </tr>
                                     <tr>
                                         <td>fInitialDragCoeff</td>
@@ -1037,8 +1052,11 @@
                         <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
                         <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
                     </div>
+
                     <div class="col-md-6">
-                        <h3 class="text-center">???</h3>
+                        <h3 class="text-center">Performance Index</h3>
+                        <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
+                        <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
                     </div>
                 </div>
 
@@ -1320,7 +1338,7 @@
 
 
 
-                    var torque = Math.round((power * gearRatios[gear]) * 1000) / 1000;
+                    var torque = Math.round((power * gearRatios[handlingArray.handling.nInitialDriveGears][gear]) * 1000) / 1000;
                     var dragNow = Math.round(((Math.sqrt(spd / 5) / 100) * drag) * 1000) / 1000;
 
 
@@ -1379,13 +1397,13 @@
         var gears = handlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[0].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[i + 1]) * (9.8 / 0.44704)), 2);
+            chartPower.data.datasets[0].data[i] = round(((power * gearRatios[handlingArray.handling.nInitialDriveGears][i])), 2);
         }
         var power = comparisonHandlingArray.handling.fInitialDriveForce;
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[i + 1]) * (9.8 / 0.44704)), 2);
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[comparisonHandlingArray.handling.nInitialDriveGears][i]) ), 2);
         }
 
 
@@ -1415,25 +1433,34 @@
         }
 
 
-        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0, 0.5, 0, 100), 1);
-        chartStats.data.datasets[0].data[1] = round(map(handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
-        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
-        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
+        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0.2, 0.45, 0, 250), 1);
+        chartStats.data.datasets[0].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75) / 3.6, 36, 80, 0, 250), 1);
+        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 1.6, 2.5, 0, 250), 1);
+        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0.4, 0.6, 0, 150), 1);
+        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
 
-        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 0.5, 0, 100), 1);
-        chartStats.data.datasets[1].data[1] = round(map(comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75 / 3.6, 0, 100, 0, 100), 1);
-        chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1);
-        chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 0, 3, 0, 100), 1);
-        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344, comparisonHandlingArray.handling.fDownforceModifier), 0, 0.5, 0, 100), 2);
 
+        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0.2, 0.45, 0, 250), 1);
+        chartStats.data.datasets[1].data[1] = round(map((comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75) / 3.6, 36, 80, 0, 250), 1);
+        chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 1.6, 2.5, 0, 250), 1);
+        chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0.4, 0.6, 0, 150), 1);
+        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344, comparisonHandlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
+
+        var sum = 0;
+        chartStats.data.datasets[0].data.forEach(e => sum += e)
+        //sum=chartStats.data.datasets[0].data[1]+chartStats.data.datasets[0].data[0];
+        chartPerformanceIndex.data.datasets[0].data[0] = round(sum);
+
+        sum = 0;
+        chartStats.data.datasets[1].data.forEach(e => sum += e)
+        chartPerformanceIndex.data.datasets[1].data[0] = round(sum);
 
 
         chartPower.update();
-
         chartAirDrag.update();
         chartDownforce.update();
         chartStats.update();
+        chartPerformanceIndex.update();
     }
 
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
@@ -1455,7 +1482,7 @@
 
                 ],
                 borderWidth: 1,
-                lineTension: 0.25,
+                lineTension: 0.15,
             },
             {
                 label: 'Comparison',
@@ -1627,18 +1654,9 @@
 
     var gearRatios =
     {
-        0: 0,
-        1: 3.33,
-        2: 1.848,
-        3: 1.253,
-        4: 0.934,
-        5: 0.766,
-        6: 0.691,
-        7: 0.686,
-        8: 0.749,
-        9: 0.899,
-        10: 0.9,
+        1: [0.9], 2: [3.33, 0.9], 3: [3.33, 1.565, 0.9], 4: [3.33, 1.826, 1.222, 0.9], 5: [3.33, 1.934, 1.358, 1.054, 0.9], 6: [3.333, 1.949, 1.392, 1.095, 0.946, 0.9]        
     }
+
     var gearShiftPoints =
     {
         0: [0], 1: [100], 2: [100], 3: [100], 4: [0, 22, 47, 69], 5: [0, 22, 45, 62, 79], 6: [0, 22, 45, 60, 76, 88], 7: [0, 22, 45, 60, 78, 91, 96], 8: [0, 22, 45, 64, 83, 98, 105, 105]
@@ -1692,7 +1710,7 @@
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'MPH / s'
+                        labelString: 'Gs'
                     }
                 },],
                 xAxes: [{
@@ -1710,7 +1728,7 @@
         type: 'horizontalBar',
 
         data: {
-            labels: ["Acceleration", "Top Speed", "Braking", "Grip", "Downforce"],
+            labels: ["Power", "Speed", "Braking", "Grip", "Aero"],
 
             datasets: [{
                 label: 'This car',
@@ -1766,9 +1784,9 @@
                         labelString: ''
                     },
                     ticks: {
-                        max: 100,
+                        max: 200,
                         min: 0,
-                        stepSize: 10
+                        stepSize: 25
 
                     },
                 }]
@@ -1776,6 +1794,61 @@
         },
     });
 
+
+    var ctxPerformanceIndex = document.getElementById('piChart').getContext('2d');
+    var chartPerformanceIndex = new Chart(ctxPerformanceIndex, {
+        type: 'horizontalBar',
+        data: {
+            labels: ["PI"],
+
+            datasets: [{
+                label: 'This car',
+                data: [5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+
+            }, {
+                label: 'Comparison',
+                data: [5],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                ],
+                borderWidth: 1,
+            }],
+
+        },
+        options: {
+            scales: {
+                yAxes: [{
+
+                    scaleLabel: {
+                        display: false,
+                        labelString: ''
+                    }
+                },],
+                xAxes: [{
+                    scaleLabel: {
+                        display: false,
+                        labelString: ''
+                    },
+                    ticks: {
+                        max: 1000,
+                        min: 0,
+                        stepSize: 200
+
+                    },
+                }]
+            },
+        },
+    });
     /*
         slider.oninput = function() {
             var shiftTime = this.value / 100;
