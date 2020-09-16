@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="notify.js"></script>
+    <title>Handling</title>
+</head>
+
+<body class="bg-secondary">
+    <div class="bg-light w-75 mx-auto">
+        <div>
+            <small class="float-right px-1 text-muted">0.3.5</small><br>
+            <div class="text-center">
+                <span class="display-4">Handling.meta</span><br>
+                <span class="mt-2">Understand how it all works.</span>
+            </div>
+        </div>
+
+        <div class="container px-5" style="max-width:1500px">
+            <div class="py-5 w-50 mx-auto">
+                <p>In this guide I am going to separate the items into the concepts they tackle and explain how they
+                    work and interact with each other.</p>
+                <p>If you're only interested in fixing something in your handling, go to the <a
+                        href="https://eddlm.github.io/Handling-Tools/handling">handling editor</a>.</a></h>
+                </p>
+            </div>
+
+            <section class="container-fluid w-75">
+                <article>
+                    <p>
+                        <span class="h2">Center of Mass</span> <br>
+                        <small class="text-muted">vecCentreOfMassOffset</small>
+                    </p>
+                    <hr>
+
+                    <p>Also known as, the point around the vehicle will pivot when tumbling mid-air.</p>
+                    <p>This is initially defined as the model's world center, which you can check in OpenIV's model
+                        viewer.
+                        Handling.meta's vecCentreOfMassOffset offsets it to put it wherever we need it to actually be. Y
+                        means ahead/behind, Z means up/down. You don't need to edit X (left/right) most of the time.</p>
+                    <p>CoM is directly tied to fRollCentreHeight(Front/Rear), and both together define how bodyroll on
+                        the
+                        vehicle behaves, because the CoM pivots around and over them.</p>
+                </article>
+
+                <article>
+                    <p>
+                        <span class="h2">Moment of Inertia</span> <br>
+                        <small class="text-muted">vecInertiaMultiplier</small>
+                    </p>
+                    <hr>
+                    <p>To be written.</p>
+
+                </article>
+                <article>
+                    <p>
+                        <span class="h2">Grip & Traction</span> <br>
+                        <small class="text-muted">fTractionCurveMax, fTractionCurveMin, fTractionCurveLateral,
+                            fTractionLossMult</small>
+                    </p>
+                    <hr>
+                    <p>
+                        One of the most important aspects of Handling.</p>
+                    <p>Interestingly, Grip is measured in G-Forces, which translate to how fast the wheels can
+                        accelerate-decelerate the car before starting to skid. This ties in directly with braking and
+                        torque, which also are measured in G-Forces. If there's not enough grip to accomodate torque or
+                        braking, the wheels are overwhelmed and will lose traction.
+                    </p>
+
+                    <ul>
+                        <li>fTractionCurveMax: Defines the original maximum ammount of Gs the vehicle is able to work
+                            with.
+                        </li>
+                        <li>fTractionCurveMin: Defines the original minimum ammount of Gs the vehicle has when skidding
+                            or
+                            losing traction.</li>
+                        <li>fTractionCurveLateral: Seems to define the tire slip angle. This helps define the optimal
+                            slide
+                            angle at which the car has the maximum grip.</li>
+                        <li>fTractionLossMult: Defines how griploss scales on troublesome surfaces like grass, dirt or
+                            snow.
+                            Check materials.meta to know how much grip each surface detracts.</li>
+                    </ul>
+                </article>
+
+                <article>
+                    <p>
+                        <span class="h5">Bodyroll & Suspension Pressure effects on Grip</span>
+                    </p>
+                    <p>Surprisingly, V simulates grip gains (and loses) from suspension pressure. This means that on
+                        whichever tires the car is leaning to, get a significant ammount of traction, while tires on the
+                        other side lose traction.
+                    </p>
+                    <p>This is best seen on FWD vehicles, which have a real hard time getting traction on launch. If you
+                        reduce bodyroll or move the center of gravity forward, the issue is greatly reduced.</p>
+                </article>
+                <article>
+                    <p>
+                        <span class="h5">Surfaces and <i>fTractionLossMult</i></span>
+
+                    </p>
+                    <p>Only roads make the most of the vehicles' grip, and other surfaces like grass, dirt,plastic,
+                        concrete
+                        and snow reduce the overall grip. fTractionLossMult scales how important the effect is.</p>
+                </article>
+                <article>
+                    <p>
+                        <span class="h2">Aero</span> <br>
+                        <small class="text-muted">fInitialDragCoeff, fDownforceModifier</small>
+                    </p>
+                    <hr>
+
+                    <span class="h5">Air Drag</span>
+
+                    <p>Air Drag is presented as a force that acts against the car's velocity, and tries to slow it down.
+                    </p>
+                    <p>In V, air drag scales with the square of speed, but fInitialDragCoeff modifies the scaling so air
+                        drag actually scales the way you need it to.</p>
+                    <p>Air Drag can be measured in Gs, which presents how fast you are decelerated at certain speed.</p>
+
+                    <p>Due to V's vehicle engines outputting "torque" in Gs, both values can be compared easily, which
+                        gives
+                        us more information about the vehicles' performance.
+                        For example, as both the Gs from torque and the Gs from air drag even out, the vehicle stops
+                        accelerating - at that speed, the vehicle can't push through the air anymore. You got your real
+                        top
+                        speed.</p>
+
+                    <span class="h5">Downforce</span>
+
+                    <p>This is one of the most arcade systems in V. Downforce translates directly to grip gain on the
+                        wheel,
+                        and can abide to wildly different rulesets depending on your needs.</p>
+                    <p>
+                        The base math goes as follows:<br>
+
+                    <ul>
+
+                        <span class="h5">Base</span>
+                        <small class="text-muted">fDownforceModifier set to 1 or less</small>
+
+                        <li>0.035Gs, double (0.07Gs) if a Spoiler is installed.</li><br>
+                        <span class="h5">Dynamic</span>
+                        <small class="text-muted"> fDownforceModifier between 1.01 and 99.99</small>
+
+                        <li>0Gs as the car is stopped, which ramps up to 0.035Gs as the car reaches its top speed.
+                            Double
+                            that if a Spoiler is installed.</li>
+                        <li>The value is multiplied by fDownforceModifier, so a modifier of x10 would net you 0.35Gs
+                            gain
+                            per wheel, double that with a Spoiler.</li>
+                    </ul>
+                    <span class="h5">Active Spoilers</span>
+
+                    <p>Vehicles with active Spoilers ignore fDownforceModifier entirely.</p>
+                    There are two types of active spoilers in V:
+                    <br>Raising type (Like the T20):
+                    <p>
+                    <ul>
+                        <li>No gain when the spoiler is down. As the spoiler raises, you get 0.035Gs. When braking,
+                            the
+                            spoiler pitches, and you get 0.07Gs.</li>
+                        Dynamic type (Like the X8 Proto):
+                        <li>0.035Gs when the spoiler is down. Over certain speed (60mph or so)it raises up to
+                            0.042Gs.
+                        </li>
+                        <li>When cornering or braking, it gets to 0.07Gs.</li>
+
+                        </p>
+                    </ul>
+                    </p>
+                </article>
+
+                <article>
+                    <p>
+                        <span class="h2">Power</span> <br>
+                        <small class="text-muted">fInitialDriveForce, nInitialDriveGears,
+                            fInitialDriveMaxFlatVel,fClutchChangeRateScaleX</small>
+                    </p>
+                    <hr>
+                    <p>The base power is just a base value on top of which everything else works. Then, gearing
+                        modulates that power simply multiplying it up and down (the ratio), which results in the torque
+                        (also measured in Gs) sent to the wheels.</p>
+                    <p>While the first and last gear's ratios are always the same (3.33 and 0.9) the gears in between
+                        have different ratios depending on how many gears the engine has at its disposal. The more gears
+                        it has, the smoother the torque drops from gear to gear - very few gears will result in an
+                        incredibly high torque drop on the next gear.</p>
+                    <p>Keep in mind the ratios always have to go from 3.33 to 0.9, so the more steps you give them, the
+                        smaller the jump between each gear.</p>
+                    <p>Those gears stretch over the engine's top speed, naturally.</p>
+                    <p>Lastly, while the car is busy switching gears, you have no power. How quick this happens is
+                        defined by fClutchChangeRateScaleX.</p>
+                </article>
+                <article>
+                    <p>
+                        <span class="h2">Suspension & Bodyroll</span> <br>
+                        <small class="text-muted">fSuspensionX, fAntiRollBarX</small>
+                    </p>
+                    <hr>
+
+                    <p>
+To be written.
+                    </p>
+                </article>
+
+                <article>
+                    <p>
+                        <span class="h2">Deformation</span> <br>
+                        <small class="text-muted">damageMapScale, damageOffsetScale, fDeformationDamageMult</small>
+                    </p>
+                    <hr>
+
+                    <p>There are three main players on deformation. </p>
+                    <p>In vehicles.meta:
+                        <li>damageMapScale: How precise the deformation is. Higher - smaller dent radius.</li>
+                        <li>damageOffsetScale: How deep the deformation is. Higher - deeper deformation dents.</li>
+                    </p>
+                    <p>In Handling.meta
+                        <li>fDeformationDamageMult: Scales how much speed affects deformation damage. Higher - higher
+                            deformation damage at the same speed.</li>
+                    </p>
+                </article>
+
+                <article>
+                    <p>
+                        <span class="h2">My Philosophy</span> <br>
+                    </p>
+                    <hr>
+                    <span class="h5">Center of Mass</span>
+                    <p>
+                        Often times, you only need to take care so it sits between the front and rear axles, so the
+                        suspension doesn't lean back or ahead. Then adjust rollcentres until you get the desired base
+                        bodyroll.
+                    </p>
+                    <p>
+
+                        I personally prefer to get it somewhat right and move it up as much as it makes sense for the
+                        car. This is a bit harder, but pays off when the car ends up tumbling around (This is GTA) and
+                        actually rolls downhill properly. Helps with the personality too.
+                    </p>
+                    <span class="h5">Stability</span>
+                    <p>As hard to work with as it is, vecInertiaMultiplier is very important to make cars heavier or
+                        nimbler, and is responsible for the overall stability of the car. Do try to get it right.</p>
+                    <span class="h5">Grip</span>
+
+
+                    <p>Grip numbers are a good base, but vehicle stability is absolutely key to be able to make the
+                        vehicle be able to use that grip. Just adjusting bodyroll and rebound you can completely change
+                        how much grip the car can actually use. </p>
+                        <p>
+                            Dynamic Downforce (>1.0) is great to make cars specialize on high speed cornering.
+                        </p>
+                        <p>Traction loss is more complex than numbers. You can make cars horrible offroading just by making the suspension stiff or have little travel. fTractionLossMult is not that important.</p>
+                </article>
+        </div>
+    </div>
+    </section>
+</body>
