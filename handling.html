@@ -338,8 +338,9 @@
                                 </p>
                                 <p>Gearing modulates this value in ratios to translate it into torque, which is the
                                     final acceleration the vehicle will experience.</p>
-<hr>
-<p>Electric vehicles bypass this entirely, starting with x5 torque whith drains to x1 at the top speed.</p>
+                                <hr>
+                                <p>Electric vehicles bypass this entirely, starting with x5 torque whith drains to x1 at
+                                    the top speed.</p>
 
                             </div>
                         </div>
@@ -1055,7 +1056,11 @@
 
                     <div class="col-md-6">
                         <h3 class="text-center">Performance Index</h3>
-                        <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
+                        <p class="text-center">
+                            Current vehicle: $<span class="text-danger" id="currentPrice"></span> - Comparison vehicle:
+                            $<span class="text-primary" id="compPrice"></span>
+                        </p>
+
                         <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
                     </div>
                 </div>
@@ -1403,7 +1408,7 @@
         var gears = comparisonHandlingArray.handling.nInitialDriveGears;
         for (var i = 1; i < 10; i++) chartPower.data.datasets[1].data[i] = 0;
         for (var i = 0; i < gears; i++) {
-            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[comparisonHandlingArray.handling.nInitialDriveGears][i]) ), 2);
+            chartPower.data.datasets[1].data[i] = round(((power * gearRatios[comparisonHandlingArray.handling.nInitialDriveGears][i])), 2);
         }
 
 
@@ -1450,17 +1455,28 @@
         chartStats.data.datasets[0].data.forEach(e => sum += e)
         //sum=chartStats.data.datasets[0].data[1]+chartStats.data.datasets[0].data[0];
         chartPerformanceIndex.data.datasets[0].data[0] = round(sum);
+        document.getElementById("currentPrice").innerHTML = round(GetPrice(sum));
+
 
         sum = 0;
         chartStats.data.datasets[1].data.forEach(e => sum += e)
         chartPerformanceIndex.data.datasets[1].data[0] = round(sum);
-
+        document.getElementById("compPrice").innerHTML = round(GetPrice(sum));
 
         chartPower.update();
         chartAirDrag.update();
         chartDownforce.update();
         chartStats.update();
         chartPerformanceIndex.update();
+    }
+    function GetPrice(s) {
+
+        if (s > 800) return map(s, 800, 1000, 500000, 1000000);
+        if (s > 600) return map(s, 600, 800, 200000, 500000);
+        if (s > 400) return map(s, 400, 600, 50000, 200000);
+        if (s > 200) return map(s, 200, 400, 10000, 50000);
+        if (s > 0) return map(s, 0, 200, 1000, 10000);
+
     }
 
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
@@ -1654,7 +1670,7 @@
 
     var gearRatios =
     {
-        1: [0.9], 2: [3.33, 0.9], 3: [3.33, 1.565, 0.9], 4: [3.33, 1.826, 1.222, 0.9], 5: [3.33, 1.934, 1.358, 1.054, 0.9], 6: [3.333, 1.949, 1.392, 1.095, 0.946, 0.9]        
+        1: [0.9], 2: [3.33, 0.9], 3: [3.33, 1.565, 0.9], 4: [3.33, 1.826, 1.222, 0.9], 5: [3.33, 1.934, 1.358, 1.054, 0.9], 6: [3.333, 1.949, 1.392, 1.095, 0.946, 0.9]
     }
 
     var gearShiftPoints =
@@ -1859,7 +1875,7 @@
         function map(x, in_min, in_max, out_min, out_max) {
             return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
         }
-    	*/
+        */
 
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(rawInput.value, "text/xml");
@@ -1892,6 +1908,7 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
 
 </script>
 
