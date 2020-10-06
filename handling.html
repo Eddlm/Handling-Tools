@@ -20,7 +20,7 @@
 
 <body>
     <div>
-        <small class="float-right px-1 text-muted">0.3.5 - Better downforce calc, tweaked metrics</small><br>
+        <small class="float-right px-1 text-muted">0.3.5 - Added mass comparer</small><br>
         <div class="text-center">
             <span class="display-4">Handling Editor</span><br>
             <span class="mt-2">Edit handling files easily, and quickly.</span>
@@ -100,6 +100,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" id="measurements-tab" href="#measurements">Metrics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" id="comparer-tab" href="#comparer">Mass Comparer</a>
             </li>
         </ul>
         <!-- Tabs Holder -->
@@ -182,17 +185,6 @@
                                     </div>
                                     <input type="number" oninput="applyValueChange(this)" name="fInitialDragCoeff"
                                         class="form-control text-center my-2" step="0.05" id="fInitialDragCoeffInput">
-                                    <!--
-
-                                    <p class="text-center">The drag will motivate a top speed of about ~<span
-                                            class="text-danger" id="TopSpeedExpl"></span> mph given the current power
-                                        and gearing. </p>
-                                    <p>Remember that value is not enforced strongly and can vary in context, ingame.</p>
-                                <hr>    
-                                -->
-
-
-
                                     <p>The vehicle's body air resistance.
                                     </p>
                                     <p>
@@ -1033,46 +1025,116 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-light border">
-                <h3 class="text-center">Comparisons</h3>
-                <hr>
-                <div class="w-25 mx-auto mb-5">
-                    <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
-                    <div class="custom-file">
 
-                        <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
-                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
-                            file...</label>
+            <div class="pb-5  tab-pane fade" id="comparer" role="tabpanel" aria-labelledby="comparer-tab">
+
+                <div class=" pb-4 px-3">
+
+                    <div class="border mt-3">
+
+                        <h3 class="text-center py-1">Mass comparer</h3>
+                        <div class="w-50 mx-auto">
+                            <p>
+                                This simple tool displays the main performance values of any given handlings you feed
+                                it, for ease of comparison. It is not related to the rest of the webpage and will not
+                                edit the original loaded file.
+
+                            </p>
+                            <div class="mx-5 mb-1">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="masscomparerloader">Drop the files to compare here.</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input " id="masscomparerloader"
+                                                multiple>
+                                            <label class="custom-file-label" for="masscomparerloader">Select the
+                                                files</label><small id="searchHelp" class="form-text text-muted">You can also drop multiple files from OpenIV.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <form class="mx-auto">
+                                            <div class="form-group">
+                                                <label for="search">Enter filters here. </label>
+                                                <input type="text" oninput="filterComparerTable(this)" id="searchInput"
+                                                    class="form-control">
+                                                    <small id="searchHelp" class="form-text text-muted">Example:
+                                                        coquette,comet,blista</small>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mx-5">
+                            <table id="tablecompare" class="table w-75 mx-auto border" >
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">fInitialDriveForce</th>
+                                        <th scope="col">nInitialDriveGears</th>
+                                        <th scope="col">fInitialDriveMaxFlatVel</th>
+                                        <th scope="col">fInitialDragCoeff</th>
+                                        <th scope="col">fBrakeForce</th>
+                                        <th scope="col">fTractionCurveMax</th>
+                                        <th scope="col">fDownforceModifier</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodycompare" style="min-height: 500px;">
+                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <p class="mt-2">You can drop handling.meta files from OpenIV directly.</p>
                 </div>
+                <div class="bg-light border">
+                    <h3 class="text-center">Comparisons</h3>
+                    <hr>
+                    <div class="w-25 mx-auto mb-5">
+                        <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
+                        <div class="custom-file">
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3 class="text-center">Simplified Stats</h3>
-                        <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
-                        <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
+                            <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
+                            <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
+                                file...</label>
+                        </div>
+                        <p class="mt-2">You can drop handling.meta files from OpenIV directly.</p>
                     </div>
 
-                    <div class="col-md-6">
-                        <h3 class="text-center">Performance Index</h3>
-                        <p class="text-center">
-                            Current vehicle: $<span class="text-danger" id="currentPrice"></span> - Comparison vehicle:
-                            $<span class="text-primary" id="compPrice"></span>
-                        </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="text-center">Simplified Stats</h3>
+                            <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
+                            <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
+                        </div>
 
-                        <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
+                        <div class="col-md-6">
+                            <h3 class="text-center">Performance Index</h3>
+                            <p class="text-center">
+                                Current vehicle: $<span class="text-danger" id="currentPrice"></span> - Comparison
+                                vehicle:
+                                $<span class="text-primary" id="compPrice"></span>
+                            </p>
+
+                            <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
+                        </div>
                     </div>
+
                 </div>
-
+                <pre id="handlingArray" class="bg-info border d-none"></pre>
+                <footer class="my-5">
+                    <p class="text-center bg-light border py-3">Stitched up together using from
+                        <strong>Bootstrap</strong>,
+                        <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
+                </footer>
             </div>
-            <pre id="handlingArray" class="bg-info border d-none"></pre>
-            <footer class="my-5">
-                <p class="text-center bg-light border py-3">Stitched up together using from <strong>Bootstrap</strong>,
-                    <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
-            </footer>
         </div>
-    </div>
 </body>
 <script>
 
@@ -1216,9 +1278,7 @@
                     if (element.attributes) {
                         var d = element.attributes[0];
                         if (d != null) {
-
                             comparisonHandlingArray.handling[element.nodeName] = d.value;
-
                             UpdateCharts();
                             $("#wEmptyFile").toggleClass("d-none", true);
                         }
@@ -1450,7 +1510,6 @@
         chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 1.6, 2.5, 0, 250), 1);
         chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0.4, 0.6, 0, 150), 1);
         chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344, comparisonHandlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
-
         var sum = 0;
         chartStats.data.datasets[0].data.forEach(e => sum += e)
         //sum=chartStats.data.datasets[0].data[1]+chartStats.data.datasets[0].data[0];
@@ -1463,20 +1522,21 @@
         chartPerformanceIndex.data.datasets[1].data[0] = round(sum);
         document.getElementById("compPrice").innerHTML = round(GetPrice(sum));
 
+        chartStats.data.datasets[2] = chartStats.data.datasets[1];
+
         chartPower.update();
         chartAirDrag.update();
         chartDownforce.update();
         chartStats.update();
         chartPerformanceIndex.update();
     }
-    function GetPrice(s) {
 
+    function GetPrice(s) {
         if (s > 800) return map(s, 800, 1000, 500000, 1000000);
         if (s > 600) return map(s, 600, 800, 200000, 500000);
         if (s > 400) return map(s, 400, 600, 50000, 200000);
         if (s > 200) return map(s, 200, 400, 10000, 50000);
         if (s > 0) return map(s, 0, 200, 1000, 10000);
-
     }
 
     var ctxDownforce = document.getElementById('downforceChart').getContext('2d');
@@ -1910,6 +1970,109 @@
     });
 
 
+
+    //Mass Comparer
+
+    var allowedHandlingValues = ["handlingName", "fInitialDriveForce", "nInitialDriveGears", "fInitialDriveMaxFlatVel", "fInitialDragCoeff", "fBrakeForce", "fTractionCurveMax", "fDownforceModifier"]
+
+    //Comparison file load,
+    var input = document.getElementById("masscomparerloader");
+    input.addEventListener("change", function () {
+        if (this.files && this.files[0]) {
+
+            //Empty original
+            let table = document.getElementById("tbodycompare");
+            table.innerHTML = null;
+            var tableArr = []
+
+            for (var i = 0; i < this.files.length; i++) {
+
+
+                var myFile = this.files[i];
+                var reader = new FileReader();
+
+
+
+                reader.addEventListener('load', function (e) {
+
+
+
+                    //Parse the document. Copy all values in the document on to the sliders/inputs in the page
+                    parser = new DOMParser();
+                    xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+
+                    console.log(xmlDoc.getElementsByTagName("Item").length)
+                    var doc = xmlDoc.getElementsByTagName("Item")[0];
+
+                    var line = 0;
+                    for (let index = 0; index < xmlDoc.getElementsByTagName("Item").length; index++) {
+                        var item = xmlDoc.getElementsByTagName("Item")[index];
+                        //if (item.innerHTML.length > 0) {
+                        if (item.getElementsByTagName("handlingName").length > 0) {
+                            var row = 0;
+                            tableArr[line] = [];
+
+                            for (i = 0; i < allowedHandlingValues.length; i++) {
+                                tableArr[line][i] = "-";
+                            }
+                            console.log(tableArr[line]);
+
+                            item.childNodes.forEach(element => {
+                                if (allowedHandlingValues.includes(element.tagName)) {
+                                    if (element.attributes && element.attributes[0]) {
+                                        tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = element.attributes[0].value;
+                                    }
+                                    else {
+                                        tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = element.innerHTML;
+                                    }
+                                }
+                            });
+                            line++;
+                        }
+                    }
+
+
+
+
+                    //Pass from array to table
+                    for (let row of tableArr) {
+                        table.insertRow();
+                        for (let cell of row) {
+                            let newCell = table.rows[table.rows.length - 1].insertCell();
+                            newCell.textContent = cell;
+                        }
+                    }
+                });
+                reader.readAsText(myFile);
+                $.notify("File loaded.", "success");
+            }
+        }
+    });
+
+
+    function filterComparerTable(item) {
+
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase().split(',');
+        table = document.getElementById("tbodycompare");
+        tr = table.getElementsByTagName("tr");
+
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (filter.includes(txtValue.toUpperCase()) || input.value.length == 0) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
 
 </html>
