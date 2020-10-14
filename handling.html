@@ -1048,7 +1048,8 @@
                                             <input type="file" class="custom-file-input " id="masscomparerloader"
                                                 multiple>
                                             <label class="custom-file-label" for="masscomparerloader">Select the
-                                                files</label><small id="searchHelp" class="form-text text-muted">You can also drop multiple files from OpenIV.</small>
+                                                files</label><small id="searchHelp" class="form-text text-muted">You can
+                                                also drop multiple files from OpenIV.</small>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -1057,8 +1058,8 @@
                                                 <label for="search">Enter filters here. </label>
                                                 <input type="text" oninput="filterComparerTable(this)" id="searchInput"
                                                     class="form-control">
-                                                    <small id="searchHelp" class="form-text text-muted">Example:
-                                                        coquette,comet,blista</small>
+                                                <small id="searchHelp" class="form-text text-muted">Example:
+                                                    coquette,comet,blista</small>
                                             </div>
                                         </form>
                                     </div>
@@ -1068,72 +1069,130 @@
                         </div>
 
                         <div class="mx-5">
-                            <table id="tablecompare" class="table w-75 mx-auto border" >
+                            <small class="float-right px-1 text-muted">
+                                <i>Click on the table headers to sort by that row.</i>
+                            </small>
+                            <table id="tablecompare" class="table w-75 mx-auto border">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">fInitialDriveForce</th>
-                                        <th scope="col">nInitialDriveGears</th>
-                                        <th scope="col">fInitialDriveMaxFlatVel</th>
-                                        <th scope="col">fInitialDragCoeff</th>
-                                        <th scope="col">fBrakeForce</th>
-                                        <th scope="col">fTractionCurveMax</th>
-                                        <th scope="col">fDownforceModifier</th>
+                                    <tr class="bg-light">
+                                        <th scope="col" onclick="sortTable(0)">ID</th>
+                                        <th scope="col" onclick="sortTable(1)">fInitialDriveForce</th>
+                                        <th scope="col" onclick="sortTable(2)">nInitialDriveGears</th>
+                                        <th scope="col" onclick="sortTable(3)">fInitialDriveMaxFlatVel</th>
+                                        <th scope="col" onclick="sortTable(4)">fInitialDragCoeff</th>
+                                        <th scope="col" onclick="sortTable(5)">fBrakeForce</th>
+                                        <th scope="col" onclick="sortTable(6)">fTractionCurveMax</th>
+                                        <th scope="col" onclick="sortTable(7)">fDownforceModifier</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodycompare" style="min-height: 500px;">
-                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
-                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
-                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
-                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
-                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
-                                    <tr><td>EXAMPLE</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td><td>0.0</td></tr>
+                                    <tr>
+                                        <td>EXAMPLE</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EXAMPLE</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EXAMPLE</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EXAMPLE</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EXAMPLE</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EXAMPLE</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                        <td>0.0</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="bg-light border">
-                    <h3 class="text-center">Comparisons</h3>
-                    <hr>
-                    <div class="w-25 mx-auto mb-5">
-                        <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
-                        <div class="custom-file">
-
-                            <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
-                            <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
-                                file...</label>
-                        </div>
-                        <p class="mt-2">You can drop handling.meta files from OpenIV directly.</p>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3 class="text-center">Simplified Stats</h3>
-                            <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
-                            <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
-                        </div>
-
-                        <div class="col-md-6">
-                            <h3 class="text-center">Performance Index</h3>
-                            <p class="text-center">
-                                Current vehicle: $<span class="text-danger" id="currentPrice"></span> - Comparison
-                                vehicle:
-                                $<span class="text-primary" id="compPrice"></span>
-                            </p>
-
-                            <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
-                        </div>
-                    </div>
-
-                </div>
-                <pre id="handlingArray" class="bg-info border d-none"></pre>
-                <footer class="my-5">
-                    <p class="text-center bg-light border py-3">Stitched up together using from
-                        <strong>Bootstrap</strong>,
-                        <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
-                </footer>
             </div>
+
+            <div class="bg-light border">
+                <h3 class="text-center">Comparisons</h3>
+                <hr>
+                <div class="w-25 mx-auto mb-5">
+                    <p>You can add a comparison item for in the graphs by uploading another handling file here.</p>
+                    <div class="custom-file">
+
+                        <input type="file" class="custom-file-input" id="compparisonHandlingFileLoader">
+                        <label class="custom-file-label" for="compparisonHandlingFileLoader">Select a handling.meta
+                            file...</label>
+                    </div>
+                    <p class="mt-2">You can drop handling.meta files from OpenIV directly.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 class="text-center">Simplified Stats</h3>
+                        <p class="text-center">The main measures, translated to a 0 - 100 score.</p>
+                        <canvas id="statsChart" width="100" height="50" class="mx-auto"></canvas>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h3 class="text-center">Performance Index</h3>
+                        <p class="text-center">
+                            Current vehicle: $<span class="text-danger" id="currentPrice"></span> - Comparison
+                            vehicle:
+                            $<span class="text-primary" id="compPrice"></span>
+                        </p>
+
+                        <canvas id="piChart" width="100" height="50" class="mx-auto px-2"></canvas>
+                    </div>
+                </div>
+
+            </div>
+            <pre id="handlingArray" class="bg-info border d-none"></pre>
+            <footer class="my-5">
+                <p class="text-center bg-light border py-3">Stitched up together using from
+                    <strong>Bootstrap</strong>,
+                    <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
+            </footer>
         </div>
 </body>
 <script>
@@ -1977,13 +2036,20 @@
 
     //Comparison file load,
     var input = document.getElementById("masscomparerloader");
+    var tableArr = [];
+
+    var filesLoaded = 0;
+    var filesToLoad
     input.addEventListener("change", function () {
         if (this.files && this.files[0]) {
 
-            //Empty original
-            let table = document.getElementById("tbodycompare");
-            table.innerHTML = null;
-            var tableArr = []
+
+            setTimeout(function () { refillTable(); }, 1000);
+
+            var line = 0;
+            tableArr = []
+
+            console.log("Starting process");
 
             for (var i = 0; i < this.files.length; i++) {
 
@@ -1995,19 +2061,16 @@
 
                 reader.addEventListener('load', function (e) {
 
-
+                    console.log("Loading file");
 
                     //Parse the document. Copy all values in the document on to the sliders/inputs in the page
                     parser = new DOMParser();
                     xmlDoc = parser.parseFromString(e.target.result, "text/xml");
-
-                    console.log(xmlDoc.getElementsByTagName("Item").length)
                     var doc = xmlDoc.getElementsByTagName("Item")[0];
 
-                    var line = 0;
+
                     for (let index = 0; index < xmlDoc.getElementsByTagName("Item").length; index++) {
                         var item = xmlDoc.getElementsByTagName("Item")[index];
-                        //if (item.innerHTML.length > 0) {
                         if (item.getElementsByTagName("handlingName").length > 0) {
                             var row = 0;
                             tableArr[line] = [];
@@ -2015,43 +2078,53 @@
                             for (i = 0; i < allowedHandlingValues.length; i++) {
                                 tableArr[line][i] = "-";
                             }
-                            console.log(tableArr[line]);
 
                             item.childNodes.forEach(element => {
                                 if (allowedHandlingValues.includes(element.tagName)) {
                                     if (element.attributes && element.attributes[0]) {
-                                        tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = element.attributes[0].value;
+                                        tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value).toFixed(3);
                                     }
                                     else {
                                         tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = element.innerHTML;
                                     }
                                 }
                             });
+                            console.log("Line nº" + line)
                             line++;
                         }
                     }
 
 
+                    $.notify("File loaded.", "success");
+                    console.log("Loaded file");
+                    console.log(tableArr)
 
-
-                    //Pass from array to table
-                    for (let row of tableArr) {
-                        table.insertRow();
-                        for (let cell of row) {
-                            let newCell = table.rows[table.rows.length - 1].insertCell();
-                            newCell.textContent = cell;
-                        }
-                    }
                 });
                 reader.readAsText(myFile);
-                $.notify("File loaded.", "success");
             }
         }
+
     });
 
+    function refillTable() {
 
+
+
+        //Empty original
+        let table = document.getElementById("tbodycompare");
+        table.innerHTML = null;
+        //Pass from array to table
+        for (let row of tableArr) {
+            table.insertRow();
+            for (let cell of row) {
+                let newCell = table.rows[table.rows.length - 1].insertCell();
+                newCell.textContent = cell;
+            }
+        }
+    }
     function filterComparerTable(item) {
 
+        refillTable();
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchInput");
@@ -2072,6 +2145,93 @@
                 }
             }
         }
+
+        var moreToDelete = true;
+        while (moreToDelete) {
+            moreToDelete = false;
+            for (i = 0; i < tr.length; i++) {
+                if (tr[i].style.display == 'none') {
+                    table.deleteRow(i);
+                    moreToDelete = true;
+                    break;
+                }
+
+            }
+        }
+    }
+
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("tbodycompare");
+        switching = true;
+
+        $("#tablecompare").toggleClass("text-muted", true);
+
+        //Set the sorting direction to ascending:
+        dir = "asc";
+
+        /*Make a loop that will continue until
+        no switching has been done:*/
+
+        while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+
+            rows = table.rows;
+
+
+            /*Loop through all table rows (except the
+            first, which contains table headers):*/
+            for (i = 0; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+
+                /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                /*check if the two rows should switch place,
+                based on the direction, asc or desc:*/
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        //if so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /*If a switch has been marked, make the switch
+                and mark that a switch has been done:*/
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                //Each time a switch is done, increase this count by 1:
+                switchcount++;
+
+                if (switchcount>100) {
+                    setTimeout(function () { sortTable(n); }, 0);
+                    return;
+
+                }
+                //console.log(switchcount + " switches done")
+            } else {
+                /*If no switching has been done AND the direction is "asc",
+                set the direction to "desc" and run the while loop again.*/
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+        $("#tablecompare").toggleClass("text-muted", false);
+
     }
 </script>
 
