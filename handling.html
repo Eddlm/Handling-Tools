@@ -2161,19 +2161,27 @@
     }
 
     function sortTable(n) {
+        
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("tbodycompare");
         switching = true;
 
-        $("#tablecompare").toggleClass("text-muted", true);
+        var d = new Date();
+       var sStarted=d.getMilliseconds();
+
 
         //Set the sorting direction to ascending:
         dir = "asc";
+
+
+        $("#tablecompare").toggleClass("text-muted", true);
 
         /*Make a loop that will continue until
         no switching has been done:*/
 
         while (switching) {
+
+
             //start by saying: no switching is done:
             switching = false;
 
@@ -2211,16 +2219,18 @@
                 /*If a switch has been marked, make the switch
                 and mark that a switch has been done:*/
                 rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
                 switching = true;
+
                 //Each time a switch is done, increase this count by 1:
                 switchcount++;
 
-                if (switchcount>100) {
+                var td = new Date();
+                if (td.getMilliseconds() > sStarted+2500 ||td.getMilliseconds()<sStarted) {
+                    
                     setTimeout(function () { sortTable(n); }, 0);
                     return;
-
                 }
-                //console.log(switchcount + " switches done")
             } else {
                 /*If no switching has been done AND the direction is "asc",
                 set the direction to "desc" and run the while loop again.*/
@@ -2231,7 +2241,6 @@
             }
         }
         $("#tablecompare").toggleClass("text-muted", false);
-
     }
 </script>
 
