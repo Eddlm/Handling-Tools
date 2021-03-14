@@ -34,20 +34,95 @@
 
             <section class="container-fluid w-75">
                 <article>
+                    <p class=" text-center">
+                        <span class="h2">Introduction to GTA V's handling physics</span><br>
+
+                    </p>
+                    <hr>
+                    <p>Thankfully, Grand Theft Auto V features a surprisingly comprehensive and detailed handling
+                        physics system. While the engine simplifies very complex matters into only sets of two or three
+                        variables, it does allow to make vehicles behave in a sufficiently complex manner that can
+                        mimick IRL to a sufficient degree, allowing for concepts like weight transfer,
+                        understeer/oversteer, wheelspin and per-wheel brake luckup to exist within the car's behavior on
+                        the road.</p>
+
+                    <p>V accomplishes this by implementing systems in an appropiate but simplified manner. For example
+                        gearing actually modulates the car's acceleration depending on the gear, but torque isn't
+                        actually a thing, as its just power scaled up and down by the gears. Wheels actually push (or
+                        pull) the car forward, but the rim size on the model does not affect acceleration or speed given
+                        the same power.</p>
+
+                    <p>This guide is appropiate for both vanilla, lore-friendly and real vehicles, because the source of
+                        the vehicle model is irrelevant. What's important is the style of handling you want it to have.
+                    </p>
+                </article>
+
+                <article>
+                    <p class="text-center">
+                        <span class="h2">Keystones of handling</span> <br>
+                    </p>
+                    <p>It is important to understand a few things before embarking on creating/editing handling files to
+                        your liking.</p>
+                    <ul>
+                        <li>No section works isolated. Every thing you edit will partially affect other characteristics
+                            of the car. Think of it as each item being a physical characteristic contributing to the
+                            complete physical behavior of the car.</li>
+                        <li>A good chunk of items do not work the same way their IRL counterparts do, they only
+                            approximate.</li>
+                    </ul>
+                </article>
+                <article>
                     <p>
                         <span class="h2">Center of Mass</span> <br>
                         <small class="text-muted">vecCentreOfMassOffset</small>
                     </p>
                     <hr>
+                    <p>Starts as the model's center, visible with OpenIV's model viewer. <i>vecCentreOfMassOffset</i>
+                        offsets it around so you can put the CoM wherever you want.</p>
 
-                    <p>Also known as, the point around the vehicle will pivot when tumbling mid-air.</p>
-                    <p>This is initially defined as the model's world center, which you can check in OpenIV's model
-                        viewer.
-                        Handling.meta's vecCentreOfMassOffset offsets it to put it wherever we need it to actually be. Y
-                        means ahead/behind, Z means up/down. You don't need to edit X (left/right) most of the time.</p>
-                    <p>CoM is directly tied to fRollCentreHeight(Front/Rear), and both together define how bodyroll on
-                        the
-                        vehicle behaves, because the CoM pivots around and over them.</p>
+                    <h4>Must-knows</h4>
+                    <ul>
+                        <li>
+                            Y means ahead/behind, Z means up/down. You don't need to edit X (left/right) most
+                            of the time.
+                        </li>
+
+                        <li>The car will pivot around the CoM while mid-air, but pivot around fRollCentreHeight while on
+                            the ground.</li>
+                        <li>The most balanced car will have a CoM sitting exactly between the axles.</li>
+                        <li>
+                            CoM is directly tied to fRollCentreHeight(Front/Rear) - together they control weight
+                            transfer. Think of it as a line drawn from the CoM Z down to the fRollCentre. The longer it
+                            is, the more weight transfer. Lowering CoM Z or raising fRollcentre reduces weight transfer,
+                            overdo it and the car will never lean.
+                        </li>
+                    </ul>
+                    <h4>Where to put it</h4>
+                    <p>Usually the CoM can go on the vehicle's center, Y sitting bewteen the axles and Z sitting right
+                        below the engine's height.</p>
+
+                    <p>Do keep in mind the Center of Mass is a great way to define the vehicle's intrinsic stability, as
+                        you define how
+                        well balanced it is. Think of it as a basic tendency you can put onto the car's chassis. </p>
+
+                    <p class="text-center">
+                        <img src="https://via.placeholder.com/500x250?text=Low, Centered COM" class="h-75">
+                    </p>
+
+                    <p>A vehicle with a raised CoM (Z component) will tend to move around more, specially in landings
+                        and mid-air. Here's how it looks:</p>
+                    <p class="text-center">
+                        <img src="https://via.placeholder.com/500x250?text=High, Centered COM" class="h-75">
+                    </p>
+
+                    <p>You can move the CoM forward or back to destabilize the vehicle in a different way, a bit more
+                        complex than high-low. Front or Rear biased vehicles can react to this fact in a multitude of
+                        ways, in general being more or less prone to understeer or oversteer. A bias front or back bias
+                        can also enhance turn-in ability, and take-off and landing behavior.</p>
+                    <p class="text-center d-flex align-content-center">
+                        <img src="https://via.placeholder.com/500x250?text=Low, front COM" class="px-1">
+                        <img src="https://via.placeholder.com/500x250?text=Low, back COM" class="px-1">
+                    </p>
                 </article>
 
                 <article>
@@ -66,8 +141,16 @@
                             fTractionLossMult</small>
                     </p>
                     <hr>
-                    <p>
-                        One of the most important aspects of Handling.</p>
+                    <p>One of the most important aspects of Handling, grip defines how quickly the wheels can make the
+                        car accelerate, decelerate, or change direction.</p>
+
+                    <h4>Must-knows</h4>
+                    <ul>
+                        <li>Grip is measured in G-Forces, remember 1G is <b>9.8m/s</b> of acceleration.</li>
+
+                        <li>The car will pivot around the CoM while mid-air, but pivot around fRollCentreHeight while on
+                            the ground.</li>
+                    </ul>
                     <p>Interestingly, Grip is measured in G-Forces, which translate to how fast the wheels can
                         accelerate-decelerate the car before starting to skid. This ties in directly with braking and
                         torque, which also are measured in G-Forces. If there's not enough grip to accomodate torque or
@@ -75,21 +158,16 @@
                     </p>
 
                     <ul>
-                        <li>fTractionCurveMax: Defines the original maximum ammount of Gs the vehicle is able to work
-                            with.
+                        <li><i>fTractionCurveMax</i>: Defines the base maximum ammount of Gs the vehicle is able to work with.
                         </li>
-                        <li>fTractionCurveMin: Defines the original minimum ammount of Gs the vehicle has when skidding
-                            or
+                        <li><i>fTractionCurveMin</i>: Defines the base minimum ammount of Gs the vehicle has when skidding or
                             losing traction.</li>
-                        <li>fTractionCurveLateral: Seems to define the tire slip angle. This helps define the optimal
-                            slide
-                            angle at which the car has the maximum grip.</li>
-                        <li>fTractionLossMult: Defines how griploss scales on troublesome surfaces like grass, dirt or
-                            snow.
-                            Check materials.meta to know how much grip each surface detracts.</li>
+                        <li><i>fTractionCurveLateral</i>: In degrees, acts as the tire slip angle. The tires will get the best
+                            grip at the top half of this value</li>
+                        <li><i>fTractionLossMult</i>: Defines how griploss scales on troublesome surfaces like grass, dirt or
+                            snow. Check materials.meta to know how much grip each surface detracts.</li>
                     </ul>
                 </article>
-
                 <article>
                     <p>
                         <span class="h5">Bodyroll & Suspension Pressure effects on Grip</span>
@@ -109,6 +187,23 @@
                     <p>Only roads make the most of the vehicles' grip, and other surfaces like grass, dirt,plastic,
                         concrete
                         and snow reduce the overall grip. fTractionLossMult scales how important the effect is.</p>
+                </article>
+                
+                <article>
+                    <p>
+
+                        <span class="h2">Braking</span> <br>
+                        <small class="text-muted">fBrakeForce, fBrakeBiasFront, fHandBrakeForce</small>
+
+                    </p>
+                    <hr>
+                    <h4>Must-knows</h4>
+                    <ul>
+                        <li><i>fBrakeForce</i> applies <b>per wheel.</b> So don't put it equal to <i>fTractionCurveMax</i>, use about a 1/4 of it. Or 1/X where X is the nº of wheels on your thing.</li>
+                        <li><i>fBrakeBiasFront</i> at 0.5 delivers the same brake pressureto all axles. 1.0 only delivers to the front axles, 0.0 only delivers to the rear.</li>
+                        <li>A well balanced <i>fBrakeBiasFront</i> allows full control of the car under heavy braking, this balance usually is between 0.55 and 0.7. You can produce oversteer by using a lower value, and understeer if using a higher value.</li>
+                    </ul>
+
                 </article>
                 <article>
                     <p>
@@ -159,16 +254,17 @@
                     </ul>
                     <span class="h5">Active Spoilers</span>
 
-                    <p>Vehicles with active Spoilers ignore fDownforceModifier entirely.<br>There are two types of active spoilers in V:</p>
-                                        
+                    <p>Vehicles with active Spoilers ignore fDownforceModifier entirely.<br>There are two types of
+                        active spoilers in V:</p>
+
                     <p>Raising type (Like the T20):
                     <ul>
                         <li>No gain when the spoiler is down. As the spoiler raises, you get 0.035Gs. When braking,
                             the
                             spoiler pitches, and you get 0.07Gs.</li>
-                            </ul>
-                        Dynamic type (Like the X8 Proto):
-                        <ul>
+                    </ul>
+                    Dynamic type (Like the X8 Proto):
+                    <ul>
                         <li>0.035Gs when the spoiler is down. Over certain speed (60mph or so)it raises up to
                             0.042Gs.
                         </li>
@@ -207,7 +303,7 @@
                     <hr>
 
                     <p>
-To be written.
+                        To be written.
                     </p>
                 </article>
 
@@ -234,6 +330,17 @@ To be written.
                         <span class="h2">My Philosophy</span> <br>
                     </p>
                     <hr>
+                    <span class="h5">Fun</span>
+                    <p>
+                        If you're not just following IRL stats, specs and quirks (which are fun on their own right if
+                        you achieve them)...
+                    </p>
+
+                    <p>
+                        To me, a fun handling is a reactive handling. A fun vehicle reacts to the driver and the
+                        terrain. This means vehicles should never fully ignore bumps, slides, jumps, overall rough
+                        driving. Half
+                        the fun in driving is wrestling with the car when pushing it to its limit, or even past it.</p>
                     <span class="h5">Center of Mass</span>
                     <p>
                         Often times, you only need to take care so it sits between the front and rear axles, so the
@@ -241,7 +348,6 @@ To be written.
                         bodyroll.
                     </p>
                     <p>
-
                         I personally prefer to get it somewhat right and move it up as much as it makes sense for the
                         car. This is a bit harder, but pays off when the car ends up tumbling around (This is GTA) and
                         actually rolls downhill properly. Helps with the personality too.
@@ -250,15 +356,19 @@ To be written.
                     <p>As hard to work with as it is, vecInertiaMultiplier is very important to make cars heavier or
                         nimbler, and is responsible for the overall stability of the car. Do try to get it right.</p>
                     <span class="h5">Grip</span>
-
-
                     <p>Grip numbers are a good base, but vehicle stability is absolutely key to be able to make the
-                        vehicle be able to use that grip. Just adjusting bodyroll and rebound you can completely change
+                        vehicle be able to use that grip. Just adjusting bodyroll, suspension strength and rebound you
+                        can completely change
                         how much grip the car can actually use. </p>
-                        <p>
-                            Dynamic Downforce (>1.0) is great to make cars specialize on high speed cornering.
-                        </p>
-                        <p>Traction loss is more complex than numbers. You can make cars horrible offroading just by making the suspension stiff or have little travel. fTractionLossMult is not that important.</p>
+                    <span class="h5">Downforce</span>
+                    <p>Downforce is mandatory on almost every vehicle, doesn't matter the type or shape. I would only
+                        avoid downforce in things like a semi</p>
+                    <p>This is because, even at very low levels, downforce can be used</p>
+                    <p>
+                        Dynamic Downforce (>1.0) is great to make cars specialize on high speed cornering.
+                    </p>
+                    <p>Traction loss is more complex than numbers. You can make cars horrible offroading just by making
+                        the suspension stiff or have little travel. fTractionLossMult is not that important.</p>
                 </article>
         </div>
     </div>
