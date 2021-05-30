@@ -391,7 +391,8 @@
                                         id="fInitialDriveMaxFlatVelExpl">40</span> mph.</p>
                                 <hr>
 
-                                <p>Maximum engine top speed. Over this speed, the engine power will degrade greatly.</p>
+                                <p>Maximum engine top speed. Over this speed, the RPM in top gear will exceed 1.0.
+                                    As a result, engine power will degrade greatly.</p>
                                 <p>Keep in mind that gearing will stretch over this 'length'.</p>
                             </div>
 
@@ -425,9 +426,12 @@
                                 <hr>
                                 <p>As gears modulate the <i>fInitialDriveForce</i> up until
                                     <i>fInitialDriveMaxFlatVel</i>, keepin a reasonably number of gears for your top
-                                    speed is reccomended.</p>
+                                    speed is recommended.</p>
 
                                 <p>Remember Transmission upgrades add one gear total.</p>
+                                
+                                <p>Note that the game uses faulty ratios for gears 7 and up, resulting in lower
+                                    theoretical top speeds, if a limiter was present.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -460,6 +464,10 @@
                                 <input class="form-control text-center my-2" type="number"
                                     oninput="applyValueChange(this)" step="0.05"
                                     id="fClutchChangeRateScaleDownShiftInput" name="fClutchChangeRateScaleDownShift">
+                                
+                                <p>When a shift is initiated, the clutch drops to 0.1 and then rises at
+                                    <i>fClutchChangeRateScale(Up/Down)Shift</i> per second until it's 1.0 again.
+                                    This means a shift takes <i>0.9/fClutchChangeRateScale(Up/Down)Shift</i> seconds.</p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -610,6 +618,10 @@
                                     These values are constantly changed around by context, like suspension pressure,
                                     surface the tire is driving on, etcetera.
                                 </p>
+                                <p>
+                                    The <i>_HF_INCREASED_GRAVITY</i> flag increases the gravity value from 9.81 to 10.76,
+                                    so keep in mind that this makes the tires grippier than specified here.
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -633,9 +645,9 @@
 
                                 </p>
                                 <p>
-                                    It is reccomended to keep it at default 22.5 on most vehicles, though Sports and
+                                    It is recommended to keep it at default 22.5 on most vehicles, though Sports and
                                     Supercars can have it as low as 18º if you so desire, making them stay more
-                                    straight. Over 24º is not reccomended save for the slidiest cars, like old muscles.
+                                    straight. Over 24º is not recommended save for the slidiest cars, like old muscles.
                                 </p>
                             </div>
                         </div>
