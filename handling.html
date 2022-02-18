@@ -302,7 +302,8 @@
                     <h3 class="text-center py-1">Engine</h3>
                     <p class="px-5 text-center">The moving force of your vehicle, this set of values govern details
                         about how different bits of the engine will behave.
-                        <br>Works in close relationswhip with Transmission.</p>
+                        <br>Works in close relationswhip with Transmission.
+                    </p>
 
                     <hr>
                     <div class="row pb-4 px-3">
@@ -425,7 +426,8 @@
                                 <hr>
                                 <p>As gears modulate the <i>fInitialDriveForce</i> up until
                                     <i>fInitialDriveMaxFlatVel</i>, keepin a reasonably number of gears for your top
-                                    speed is reccomended.</p>
+                                    speed is reccomended.
+                                </p>
 
                                 <p>Remember Transmission upgrades add one gear total.</p>
                             </div>
@@ -493,7 +495,8 @@
                     <p class="px-5 text-center">Brakes are one of the main defining factors of the performance of your
                         vehicle. <br>This value should complement both the vehicle's power and traction, so as to keep a
                         coherent balance.
-                        <br>Unless you have reasons for it not to.</p>
+                        <br>Unless you have reasons for it not to.
+                    </p>
 
                     <hr>
                     <div class="row pb-4 px-3">
@@ -571,7 +574,8 @@
                     <p class="px-5 text-center">Traction is the main limiter of power and braking ability, and has to be
                         able to handle both; otherwise your vehicle may suffer wheelspin/wheel lock.
                         <br>However, these can also be treated as features and not defects, being part of the vehicle's
-                        personality.</p>
+                        personality.
+                    </p>
                     <hr>
                     <div class="row pb-4 px-3">
                         <div class="col-md-4">
@@ -1191,7 +1195,8 @@
             <footer class="my-5">
                 <p class="text-center bg-light border py-3">Stitched up together using from
                     <strong>Bootstrap</strong>,
-                    <strong>Charts.js</strong> and <strong>Notify.js</strong>.</p>
+                    <strong>Charts.js</strong> and <strong>Notify.js</strong>.
+                </p>
             </footer>
         </div>
 </body>
@@ -1557,21 +1562,23 @@
         }
 
 
-        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0.2, 0.45, 0, 250), 1);
-        chartStats.data.datasets[0].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75) / 3.6, 36, 80, 0, 250), 1);
-        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 1.6, 2.5, 0, 250), 1);
-        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0.4, 0.6, 0, 150), 1);
-        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
+        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0.15, 0.5, 0, 200), 1);
+        chartStats.data.datasets[0].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 * 0.6213712) * 0.9, 80, 180, 0, 600), 1);
+        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 1.5, 2.5, 0, 150, 1));
+        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0.4, 1, 0, 50), 1);
+        chartStats.data.datasets[0].data[4] = 0;// round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
 
 
-        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0.2, 0.45, 0, 250), 1);
-        chartStats.data.datasets[1].data[1] = round(map((comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75) / 3.6, 36, 80, 0, 250), 1);
-        chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 1.6, 2.5, 0, 250), 1);
-        chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0.4, 0.6, 0, 150), 1);
-        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(60 * 1.609344, comparisonHandlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
+        chartStats.data.datasets[1].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0.15, 0.5, 0, 200), 1);
+        chartStats.data.datasets[1].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 * 0.6213712) * 0.9, 80, 180, 0, 600), 1);
+        chartStats.data.datasets[1].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 1.5, 2.5, 0, 150, 1));
+        chartStats.data.datasets[1].data[2] = round(map(handlingArray.handling.fBrakeForce, 0.4, 1, 0, 50), 1);
+        chartStats.data.datasets[1].data[4] = 0;//round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
+
+
         var sum = 0;
         chartStats.data.datasets[0].data.forEach(e => sum += e)
-        //sum=chartStats.data.datasets[0].data[1]+chartStats.data.datasets[0].data[0];
+
         chartPerformanceIndex.data.datasets[0].data[0] = round(sum);
         document.getElementById("currentPrice").innerHTML = round(GetPrice(sum));
 
@@ -1581,7 +1588,7 @@
         chartPerformanceIndex.data.datasets[1].data[0] = round(sum);
         document.getElementById("compPrice").innerHTML = round(GetPrice(sum));
 
-        chartStats.data.datasets[2] = chartStats.data.datasets[1];
+        //chartStats.data.datasets[2] = chartStats.data.datasets[1];
 
         chartPower.update();
         chartAirDrag.update();
@@ -2161,13 +2168,13 @@
     }
 
     function sortTable(n) {
-        
+
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("tbodycompare");
         switching = true;
 
         var d = new Date();
-       var sStarted=d.getMilliseconds();
+        var sStarted = d.getMilliseconds();
 
 
         //Set the sorting direction to ascending:
@@ -2202,17 +2209,38 @@
                 /*check if the two rows should switch place,
                 based on the direction, asc or desc:*/
                 if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        //if so, mark as a switch and break the loop:
-                        shouldSwitch = true;
-                        break;
+                    if (isNaN(x.innerHTML)) {
+
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
+                    else {
+                        if (round(x.innerHTML,5)  > round(y.innerHTML,5)) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+
                 } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        //if so, mark as a switch and break the loop:
-                        shouldSwitch = true;
-                        break;
+                    if (isNaN(x.innerHTML)) {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
                     }
+                    else {
+                        if (round(x.innerHTML,5)  < round(y.innerHTML,5)) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+
                 }
             }
             if (shouldSwitch) {
@@ -2226,8 +2254,7 @@
                 switchcount++;
 
                 var td = new Date();
-                if (td.getMilliseconds() > sStarted+2500 ||td.getMilliseconds()<sStarted) {
-                    
+                if (switchcount > 4000) {
                     setTimeout(function () { sortTable(n); }, 0);
                     return;
                 }
