@@ -5,9 +5,12 @@
 <head>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 
@@ -966,7 +969,7 @@
                         </div>
                         <div class="mx-5">
 
-                            <table class="table border">
+                            <table class="table border ">
                                 <thead>
                                     <tr>
                                         <th scope="col">Handling item</th>
@@ -1076,17 +1079,17 @@
                             <small class="float-right px-1 text-muted">
                                 <i>Click on the table headers to sort by that row.</i>
                             </small>
-                            <table id="tablecompare" class="table w-75 mx-auto border">
+                            <table id="tablecompare" class="table mx-auto border">
                                 <thead>
                                     <tr class="bg-light">
                                         <th scope="col" onclick="sortTable(0)">ID</th>
-                                        <th scope="col" onclick="sortTable(1)">fInitialDriveForce</th>
-                                        <th scope="col" onclick="sortTable(2)">nInitialDriveGears</th>
-                                        <th scope="col" onclick="sortTable(3)">fInitialDriveMaxFlatVel</th>
-                                        <th scope="col" onclick="sortTable(4)">fInitialDragCoeff</th>
-                                        <th scope="col" onclick="sortTable(5)">fBrakeForce</th>
-                                        <th scope="col" onclick="sortTable(6)">fTractionCurveMax</th>
-                                        <th scope="col" onclick="sortTable(7)">fDownforceModifier</th>
+                                        <th scope="col" onclick="sortTable(1)">Tyre Grip</th>
+                                        <th scope="col" onclick="sortTable(2)">Acceleration</th>
+                                        <th scope="col" onclick="sortTable(3)">Top Speed</th>
+                                        <th scope="col" onclick="sortTable(4)">Gears</th>
+                                        <th scope="col" onclick="sortTable(5)">Air Drag</th>
+                                        <th scope="col" onclick="sortTable(6)">Downforce</th>
+                                        <th scope="col" onclick="sortTable(7)">Brakes</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodycompare" style="min-height: 500px;">
@@ -1562,18 +1565,19 @@
         }
 
 
-        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0.15, 0.5, 0, 200), 1);
-        chartStats.data.datasets[0].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 * 0.6213712) * 0.9, 80, 180, 0, 600), 1);
-        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 1.5, 2.5, 0, 150, 1));
-        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0.4, 1, 0, 50), 1);
-        chartStats.data.datasets[0].data[4] = 0;// round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
+
+        chartStats.data.datasets[0].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0, 0.5, 0, 500), 1)/2;
+        chartStats.data.datasets[0].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 * 0.6213712), 0, 200, 0, 200), 1);
+        chartStats.data.datasets[0].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 0, 3, 0, 300, 1));
+        chartStats.data.datasets[0].data[2] = round(map(handlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1)*2;
+        chartStats.data.datasets[0].data[4] = round(map(GetDownforceGs(chartStats.data.datasets[0].data[1] * 1.609344, handlingArray.handling.fDownforceModifier), 0, 0.5, 0, 50), 2)*4;
 
 
-        chartStats.data.datasets[1].data[0] = round(map(handlingArray.handling.fInitialDriveForce, 0.15, 0.5, 0, 200), 1);
-        chartStats.data.datasets[1].data[1] = round(map((handlingArray.handling.fInitialDriveMaxFlatVel / 0.75 * 0.6213712) * 0.9, 80, 180, 0, 600), 1);
-        chartStats.data.datasets[1].data[3] = round(map(handlingArray.handling.fTractionCurveMax, 1.5, 2.5, 0, 150, 1));
-        chartStats.data.datasets[1].data[2] = round(map(handlingArray.handling.fBrakeForce, 0.4, 1, 0, 50), 1);
-        chartStats.data.datasets[1].data[4] = 0;//round(map(GetDownforceGs(60 * 1.609344, handlingArray.handling.fDownforceModifier), 0.1, 0.28, 0, 150), 2);
+        chartStats.data.datasets[1].data[0] = round(map(comparisonHandlingArray.handling.fInitialDriveForce, 0, 0.5, 0, 500), 1)/2;
+        chartStats.data.datasets[1].data[1] = round(map((comparisonHandlingArray.handling.fInitialDriveMaxFlatVel / 0.75 * 0.6213712), 0, 200, 0, 200), 1);
+        chartStats.data.datasets[1].data[3] = round(map(comparisonHandlingArray.handling.fTractionCurveMax, 0, 3, 0, 300, 1));
+        chartStats.data.datasets[1].data[2] = round(map(comparisonHandlingArray.handling.fBrakeForce, 0, 1, 0, 100), 1)*2;
+        chartStats.data.datasets[1].data[4] = round(map(GetDownforceGs(chartStats.data.datasets[1].data[1] * 1.609344, comparisonHandlingArray.handling.fDownforceModifier), 0, 0.5, 0, 50), 2)*4;
 
 
         var sum = 0;
@@ -1926,7 +1930,7 @@
                         labelString: ''
                     },
                     ticks: {
-                        max: 200,
+                        max: 250,
                         min: 0,
                         stepSize: 25
 
@@ -1984,7 +1988,7 @@
                     ticks: {
                         max: 1000,
                         min: 0,
-                        stepSize: 200
+                        stepSize: 50
 
                     },
                 }]
@@ -2039,7 +2043,7 @@
 
     //Mass Comparer
 
-    var allowedHandlingValues = ["handlingName", "fInitialDriveForce", "nInitialDriveGears", "fInitialDriveMaxFlatVel", "fInitialDragCoeff", "fBrakeForce", "fTractionCurveMax", "fDownforceModifier"]
+    var allowedHandlingValues = ["handlingName", "fTractionCurveMax", "fInitialDriveForce", "fInitialDriveMaxFlatVel", "nInitialDriveGears", "fInitialDragCoeff", "fDownforceModifier", "fBrakeForce"]
 
     //Comparison file load,
     var input = document.getElementById("masscomparerloader");
@@ -2051,7 +2055,6 @@
         if (this.files && this.files[0]) {
 
 
-            setTimeout(function () { refillTable(); }, 1000);
 
             var line = 0;
             tableArr = []
@@ -2078,6 +2081,7 @@
 
                     for (let index = 0; index < xmlDoc.getElementsByTagName("Item").length; index++) {
                         var item = xmlDoc.getElementsByTagName("Item")[index];
+
                         if (item.getElementsByTagName("handlingName").length > 0) {
                             var row = 0;
                             tableArr[line] = [];
@@ -2089,7 +2093,33 @@
                             item.childNodes.forEach(element => {
                                 if (allowedHandlingValues.includes(element.tagName)) {
                                     if (element.attributes && element.attributes[0]) {
-                                        tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value).toFixed(3);
+
+                                        switch (element.tagName) {
+
+                                            case "fInitialDriveMaxFlatVel": {
+                                                tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value / 0.75 * 0.6213).toFixed(1);
+                                                break;
+                                            } case "fInitialDriveForce": {
+                                                tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value*3.33).toFixed(3);
+
+                                                break;
+                                            } case "fTractionCurveMax": {
+                                                tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value).toFixed(3);
+
+                                                break;
+                                            } case "fInitialDriveMaxFlatVel": {
+                                                tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value / 0.75 * 0.6213).toFixed(0);
+
+                                                break;
+                                            }
+                                            default: {
+                                                tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = parseFloat(element.attributes[0].value).toFixed(3);
+
+                                                break;
+                                            }
+                                        }
+
+
                                     }
                                     else {
                                         tableArr[line][allowedHandlingValues.indexOf(element.tagName)] = element.innerHTML;
@@ -2109,6 +2139,8 @@
                 });
                 reader.readAsText(myFile);
             }
+            setTimeout(function () { refillTable(); }, 2000);
+
         }
 
     });
@@ -2120,35 +2152,74 @@
         //Empty original
         let table = document.getElementById("tbodycompare");
         table.innerHTML = null;
+
         //Pass from array to table
+
         for (let row of tableArr) {
-            table.insertRow();
+
+
+            var newRow = table.insertRow();
+
+            var i = 0;
             for (let cell of row) {
                 let newCell = table.rows[table.rows.length - 1].insertCell();
                 newCell.textContent = cell;
+
+                newCell.setAttribute("value", cell);
+                if (i == 1) { newCell.textContent += " Gs" };
+                if (i == 2) { newCell.textContent += " Gs" };
+                if (i == 3) { newCell.textContent += " MPH" };
+                if (i == 4) { newCell.textContent = round(newCell.textContent) };
+                if (i == 5) { newCell.textContent += " Gs" };
+                if (i == 6) { newCell.textContent += " Gs" };
+                i++;
+
+
+                newCell.classList.toggle("p-1");
             }
         }
     }
     function filterComparerTable(item) {
 
-        refillTable();
+
+        //refillTable();
+
         // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
+        var input, filter, table, tr, td, i, txtValue, inputValue;
         input = document.getElementById("searchInput");
         filter = input.value.toUpperCase().split(',');
+        inputValue = input.value.toUpperCase();
         table = document.getElementById("tbodycompare");
         tr = table.getElementsByTagName("tr");
+
+
 
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[0];
             if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (filter.includes(txtValue.toUpperCase()) || input.value.length == 0) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+                txtValue = td.textContent.toUpperCase();
+
+                tr[i].classList.remove("d-none")
+
+                var done = false;
+                filter.forEach(e => {
+                    if ((e.startsWith('*') && txtValue.includes(e.substr(1)) || txtValue == e)) {
+
+                        tr[i].classList.remove("d-none")
+
+                        done = true;
+                    }
+                    else if (done == false) {
+                        tr[i].classList.add("d-none")
+
+                    }
+                });
+
+                if (inputValue.length == 0) {
+                    tr[i].classList.remove("d-none")
+
                 }
             }
         }
@@ -2201,47 +2272,43 @@
                 //start by saying there should be no switching:
                 shouldSwitch = false;
 
-                /*Get the two elements you want to compare,
-                one from current row and one from the next:*/
-                x = rows[i].getElementsByTagName("TD")[n];
-                y = rows[i + 1].getElementsByTagName("TD")[n];
-
-                /*check if the two rows should switch place,
-                based on the direction, asc or desc:*/
-                if (dir == "asc") {
-                    if (isNaN(x.innerHTML)) {
-
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                    else {
-                        if (round(x.innerHTML,5)  > round(y.innerHTML,5)) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-
-                } else if (dir == "desc") {
-                    if (isNaN(x.innerHTML)) {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                    else {
-                        if (round(x.innerHTML,5)  < round(y.innerHTML,5)) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
+                if (1 == 2 && rows[i].classList.contains("d-none")) {
+                    //console.log("Skipping row " + i)
 
                 }
+
+                else {
+                    //console.log("Doing row " + i)
+
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                    var xValue = x.getAttribute("value");
+                    var yValue = y.getAttribute("value");
+                    /*check if the two rows should switch place,
+                    based on the direction, asc or desc:*/
+                    if (dir == "asc") {
+
+                        if (round(xValue, 3) > round(yValue, 3)) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+
+                    } else if (dir == "desc") {
+
+
+                        if (round(xValue, 3) < round(yValue, 3)) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+
+                    }
+                }
+
             }
             if (shouldSwitch) {
                 /*If a switch has been marked, make the switch
@@ -2253,12 +2320,12 @@
                 //Each time a switch is done, increase this count by 1:
                 switchcount++;
 
-                var td = new Date();
-                if (switchcount > 4000) {
+
+                if (switchcount > 2500) {
                     setTimeout(function () { sortTable(n); }, 0);
                     return;
                 }
-            } else {
+            } else if (1 == 2) {
                 /*If no switching has been done AND the direction is "asc",
                 set the direction to "desc" and run the while loop again.*/
                 if (switchcount == 0 && dir == "asc") {
